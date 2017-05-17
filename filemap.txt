@@ -1,0 +1,13 @@
+[ResourceMetadata]
+"ResourceDimensions"                    "language-en-us"
+"ResourceId"                            "English"
+
+[Files]
+"images\icon.png" "images\icon.png"
+"images\icon.ico" "images\icon.ico"
+
+"x64\Release\mydistro.exe" "mydistro.exe"
+"x64\Release\mydistro.pdb" "mydistro.pdb"
+
+"install.tar.gz" "install.tar.gz"
+
