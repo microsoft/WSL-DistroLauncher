@@ -268,8 +268,6 @@ HRESULT MyLinuxDistroLauncher::_QueryUserInfo(const wstring& userName,
                                               unsigned long* uid)
 {
     // Create an unnamed pipe to read the output of the launched commands.
-    HANDLE dummyReadPipe;
-    HANDLE dummyWritePipe;
     HANDLE readPipe;
     HANDLE writePipe;
     SECURITY_ATTRIBUTES sa = {0};
@@ -278,14 +276,13 @@ HRESULT MyLinuxDistroLauncher::_QueryUserInfo(const wstring& userName,
 
     unsigned long uidLocal = 0;
     HRESULT hr = E_FAIL;
-    if (CreatePipe(&readPipe, &writePipe, &sa, 0) && 
-        CreatePipe(&dummyReadPipe, &dummyWritePipe, &sa, 0))
+    if (CreatePipe(&readPipe, &writePipe, &sa, 0))
     {
         // Query the UID.
         wstring bashCommand = L"/usr/bin/id -u " + userName;
         int returnValue = 0;
         HANDLE child;
-        hr = wslApi.WslLaunch(_myName, bashCommand.c_str(), true, dummyWritePipe, writePipe, writePipe, &child);
+        hr = wslApi.WslLaunch(_myName, bashCommand.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
         if (SUCCEEDED(hr))
         {
             // Wait for the child to return
@@ -313,8 +310,6 @@ HRESULT MyLinuxDistroLauncher::_QueryUserInfo(const wstring& userName,
             }
         }
 
-        CloseHandle(dummyReadPipe);
-        CloseHandle(dummyWritePipe);
         CloseHandle(readPipe);
         CloseHandle(writePipe);
     }

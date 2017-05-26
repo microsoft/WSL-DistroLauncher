@@ -286,3 +286,12 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+
+
+DistroInstaller/MSG00409.bin
+DistroInstaller/messages.rc
+DistroInstaller/messages.h
+*.lib
+*.dll
+*.exe
