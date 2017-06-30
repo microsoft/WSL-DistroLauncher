@@ -74,7 +74,7 @@
 ## Build and Test
   To help building and testing the DistroLauncher project, we've included the following scripts to automate some tasks:
 
-### Building:
+### Building Project:
   To compile the project, you can simply type `build` in the root of the project
   to use MSBuild to build the solution. This is useful for verifying that your application compiles, though to test it you will need to create and sideload the packaged .appx on your test machine (see Packaging).
   
@@ -84,6 +84,31 @@
   `%ProgramFiles*%\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe`.
 
   If that's not the case, then you will need to modify that script.
+
+### Building Resources:
+  To show icons and images correctly for your appx, we'll need to prepare resource descriptors. You will only need to run these steps when your resource asset files change. These directions are a simplified version of [https://msdn.microsoft.com/en-us/library/windows/apps/dn393983.aspx](https://msdn.microsoft.com/en-us/library/windows/apps/dn393983.aspx). We have already created `MyDistroResourcesConfig.xml` for you using `makepri.exe` and will be using the `Resources` subdirectory of this project to hold the asset files for your package.
+
+  The first step here is to make a small change to the `buildpri` script file. You will need to change the `_IDENTITY` variable at the top of the script to match the `Identity Name` value in the appxmanifest.
+
+  So if your appxmanifest has 
+
+  ``` xml
+  <Identity Name="DistroName.1.0"
+            Version="1.0"
+            Publisher="CN=MyCompany"
+            ProcessorArchitecture="x64" />
+  ```
+
+  Then you'd need to change the `pkg.bat` script to the following:
+
+  ``` cmd
+  set _IDENTITY=DistroName.1.0
+  ```
+ 
+  Next, you will need to ensure that you create appropriately scaled icons/images for display with your package at assorted resolutions and scaling factors within the `Resources\Assets` subdirectory of this project.
+  A tool to help you create the assortment of images is available as a Plugin for Visual Studio and detailed here: [https://blogs.msdn.microsoft.com/uk_faculty_connection/2016/01/26/generating-the-correct-logos-for-your-windows-10-uwp-application-package-manifest/](https://blogs.msdn.microsoft.com/uk_faculty_connection/2016/01/26/generating-the-correct-logos-for-your-windows-10-uwp-application-package-manifest/)
+
+  Once all the asset files are created, you can run the `buildpri` script to generate the `Resources.pri` files that will describe the assets within your package. All of the individual asset files as well as the `Resources.pri` files will be included in the package with the final packaging step via `filemap.txt`. 
 
 ### Packaging
   To create an appx to test installing and running your launcher, you can use the included `pkg` script.
