@@ -1,7 +1,5 @@
 @echo off
 
-set _IDENTITY=DistroName.1.0
-
 rem Add path to MakePri
 set MAKEPRIEXE=()
 if exist "%ProgramFiles(x86)%\Windows Kits\10\bin\x86\makepri.exe" (
@@ -27,6 +25,6 @@ if %MAKEPRIEXE%==() (
 ) 
 :FOUND_MAKEPRIEXE
 
-%MAKEPRIEXE% new /pr %~dp0\Resources /cf MyDistroResourcesConfig.xml /in %_IDENTITY% /of Resources.pri
+%MAKEPRIEXE% new /pr %~dp0\Resources /cf MyDistroResourcesConfig.xml /mn MyDistro.appxmanifest /of Resources.pri /o
 
 :EXIT
