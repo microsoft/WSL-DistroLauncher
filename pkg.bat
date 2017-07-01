@@ -44,7 +44,7 @@ if not exist %_OWNER%.pfx (
     echo %_KITS%\CertMgr /add %_OWNER%.cer /s /r localMachine root 
 )
 
-%_KITS%\makeappx.exe pack /m %_AppxName%.appxmanifest /f %_FilemapName% /p %_AppxName%.appx
+%_KITS%\makeappx.exe pack /m %_AppxName%.appxmanifest /f %_FilemapName% /p %_AppxName%.appx /l
 %_KITS%\signtool sign /v /f %_OWNER%.pfx /fd SHA256 %_AppxName%.appx
 
 

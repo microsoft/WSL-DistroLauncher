@@ -8,7 +8,7 @@
 	<index root="\" startIndexAt="\">
 		<default>
 			<qualifier name="Language" value="en-US"/>
-			<qualifier name="contrast" value="high"/>
+			<qualifier name="contrast" value="standard"/>
 			<qualifier name="scale" value="100"/>
 			<qualifier name="HomeRegion" value="001"/>
 			<qualifier name="TargetSize" value="256"/>
