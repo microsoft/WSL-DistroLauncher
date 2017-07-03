@@ -13,7 +13,7 @@
   <Properties>
     <DisplayName>My Linux Distro</DisplayName>
     <PublisherDisplayName>DistroOwner</PublisherDisplayName>
-    <Logo>images/icon.png</Logo>
+    <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Resources>
     <Resource Language="en-us" />
@@ -29,10 +29,10 @@
     <Application Id="mydistro" Executable="mydistro.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements DisplayName="My Linux Distro"
                           Description="My Own Distro Launcher"
-                          BackgroundColor="#464646"
-                          Square150x150Logo="images/icon.png"
-                          Square44x44Logo="images/icon.png"
-      />
+                          BackgroundColor="transparent"
+                          Square150x150Logo="Assets/Square150x150Logo.png"
+                          Square44x44Logo="Assets/Square44x44Logo.png"
+                          />
       <Extensions>
         <uap3:Extension Category="windows.appExecutionAlias" Executable="mydistro.exe" EntryPoint="Windows.FullTrustApplication">
           <uap3:AppExecutionAlias>
