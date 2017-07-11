@@ -44,7 +44,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DistroInstaller.cpp">
+    <ClCompile Include="DistroLauncher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BaseLinuxDistroLauncher.cpp">
@@ -61,12 +61,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DistroInstaller.rc">
+    <ResourceCompile Include="DistroLauncher.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\images\myDistroIcon.ico">
+    <Image Include=".\images\icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -13,9 +13,9 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{BA627106-E5F7-46EE-B8D7-2D5A760F2FB2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DistroInstaller</RootNamespace>
+    <RootNamespace>DistroLauncher</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16190.0</WindowsTargetPlatformVersion>
-    <ProjectName>mydistro</ProjectName>
+    <ProjectName>launcher</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -93,17 +93,17 @@
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="BaseLinuxDistroLauncher.cpp" />
     <ClCompile Include="MyLinuxDistroLauncher.cpp" />
-    <ClCompile Include="DistroInstaller.cpp" />
+    <ClCompile Include="DistroLauncher.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="WslApiLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DistroInstaller.rc" />
+    <ResourceCompile Include="DistroLauncher.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\images\myDistroIcon.ico" />
+    <Image Include=".\images\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messages.mc">

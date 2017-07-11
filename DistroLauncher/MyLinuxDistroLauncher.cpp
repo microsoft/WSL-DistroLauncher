@@ -37,7 +37,6 @@ HRESULT MyLinuxDistroLauncher::Initialize()
     //  ex C:\Program Files\WindowsApps\my.linuxdistro_1.0.0.0_x64__8b0vtwsf57ycy\DistroInstaller.exe
     // (bash will usually overwrite this when it starts)
     SetConsoleTitleW(L"My Distro Name");
-
     return S_OK;
 }
 
