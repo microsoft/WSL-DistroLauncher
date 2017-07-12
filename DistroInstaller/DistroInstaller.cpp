@@ -45,7 +45,12 @@ int wmain(int argc, wchar_t const *argv[])
     if (!SUCCEEDED(hr) && hr != E_INVALIDARG)
     {
         Helpers::PrintMessage(MSG_ERROR_CODE, hr);
-        
+
+		// 0x80070003 is the HR corresponding to the optional component not being installed.
+        if (hr == 0x80070003)
+        {
+            Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
+        }   
         Helpers::PrintMessage(MSG_PRESS_A_KEY);
         _getwch();
     }
