@@ -7,7 +7,9 @@
 
 int wmain(int argc, wchar_t const *argv[])
 {
+    // NOTE: This call is load-bearing. Without it, you won't be able to call any WSL API's
     HRESULT hr = wslApi.EnsureWslApiDll();
+    
     if (SUCCEEDED(hr))
     {
         MyLinuxDistroLauncher myDistro = MyLinuxDistroLauncher();
