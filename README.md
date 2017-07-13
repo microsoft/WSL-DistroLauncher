@@ -65,7 +65,7 @@
   </PropertyGroup>
   ```
 
-  **DO NOT** change the ProjectName of the `DistroLauncher/DistroLauncher.vcxproj` from the value `launcher`. Doing so will break the build. 
+  **DO NOT** change the ProjectName of the `DistroLauncher/DistroLauncher.vcxproj` from the value `launcher`. Doing so will break the build, as the DistroLauncher-Appx project is looking for the output of this project as `launcher.exe`.
 
   7.  Update `MyDistro.appxmanifest`. There are a number of properties that are in the manifest that will need to be updated with your specific values.
       - Make sure to note the `Identity Publisher` value (by default, `"CN=DistroOwner"`). We'll need that for testing the application.
@@ -98,7 +98,7 @@
 
 ### Building Project (Visual Studio):
 
-  You can also easily build and deploy the distro launcher from visual studio. To sideload your appx on your machine for testing, all you need to do is right-click on the "Solution (DistroLauncher)" in the Solution Explorer and click "Deploy Solution". This should build the project and sideload it automatically for testing.
+  You can also easily build and deploy the distro launcher from Visual Studio. To sideload your appx on your machine for testing, all you need to do is right-click on the "Solution (DistroLauncher)" in the Solution Explorer and click "Deploy Solution". This should build the project and sideload it automatically for testing.
 
   Note that the "Big Green Button" for running your project will likely not work. If you've previously registered your distro with WSL once, you might be able to use that to rebuild and launch your exe, but in most cases it won't work.
 
@@ -110,7 +110,7 @@
   You can then begin the distro registration by launching the app from the Start Menu, or executing `mydistro` from the commandline. 
 
 ### Publishing
-  Once you are ready to upload your appx to the store, you will need to change a few small things to prepare the appx for the store.
+  Once you are ready to upload your appx to the store, you will need to change a few small things to prepare the appx for the store.  
 
   1. In the appxmanifest, you will need to change the values of the Identity to match the value given to you by the store. This should look like the following:
 
@@ -120,6 +120,8 @@
           Publisher="CN=12345678-045C-ABCD-1234-ABCDEF987654"
           ProcessorArchitecture="x64" />
   ```
+
+  **NOTE**: Visual Studio can update this for you. You can do that by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer, and clicking on "Store... Associate App with the Store..." and following the wizard. 
 
   2. You will either need to run `build rel` from the commandline to generate the Release version of your appx, or use Visual Studio directly to upload your package to the store. You can do this by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer, and clicking on "Store... Create App Packages..." and following the wizard. 
 

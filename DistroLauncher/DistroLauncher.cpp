@@ -8,7 +8,7 @@
 int wmain(int argc, wchar_t const *argv[])
 {
     HRESULT hr = S_OK;
-	Sleep(1000);
+
     MyLinuxDistroLauncher myDistro = MyLinuxDistroLauncher();
     hr = myDistro.Initialize();
 

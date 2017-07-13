@@ -289,7 +289,7 @@ __pycache__/
 
 
 
-DistroLauncher/MSG00409.bin
+DistroLauncher/MSG*.bin
 DistroLauncher/messages.rc
 DistroLauncher/messages.h
 *.lib

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" 
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
@@ -9,12 +9,12 @@
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" 
          IgnorableNamespaces="uap mp uap2 uap3 rescap desktop">
 
-  <Identity Name="2677c750-3a81-4908-bb66-7883a0ac77e6"
+  <Identity Name="DistroName.1.0"
             Version="1.0.0.0"
             Publisher="CN=DistroOwner"
             ProcessorArchitecture="x64" />
 
-  <mp:PhoneIdentity PhoneProductId="2677c750-3a81-4908-bb66-7883a0ac77e6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>My Linux Distro</DisplayName>
