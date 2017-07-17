@@ -140,3 +140,9 @@ Language=English
 The WSL optional component is not enabled. Please enable it and try again.
 See https://aka.ms/wslinstall for details.
 .
+
+MessageId=1025 SymbolicName=INSTALL_ALREADY_EXISTS
+Language=English
+It appears this distro's installation has become corrupted.
+Please try uninstalling and reinstalling the app.
+.
