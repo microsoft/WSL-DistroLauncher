@@ -21,7 +21,7 @@ WslApiLoader::~WslApiLoader()
 }
 
 // If wslapi.dll hasn't been loaded, load it.
-HRESULT WslApiLoader::_EnsureWslApiDll()
+HRESULT WslApiLoader::EnsureWslApiDll()
 {
     HRESULT hr = S_OK;
     if (_hWslApiDll == nullptr)
@@ -32,6 +32,10 @@ HRESULT WslApiLoader::_EnsureWslApiDll()
             hr = HRESULT_FROM_WIN32(GetLastError());
         }
     }
+    if (hr == HRESULT_FROM_WIN32(ERROR_MOD_NOT_FOUND))
+    {
+        Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
+    }
 
     return hr;
 }
@@ -39,15 +43,12 @@ HRESULT WslApiLoader::_EnsureWslApiDll()
 typedef BOOL (STDAPICALLTYPE* PFNWSLISDISTRIBUTIONREGISTERED)(PCWSTR); // typedef for WslIsDistributionRegistered
 BOOL WslApiLoader::WslIsDistributionRegistered(PCWSTR distributionName)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLISDISTRIBUTIONREGISTERED pfn = (PFNWSLISDISTRIBUTIONREGISTERED)GetProcAddress(_hWslApiDll, "WslIsDistributionRegistered");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLISDISTRIBUTIONREGISTERED pfn = (PFNWSLISDISTRIBUTIONREGISTERED)GetProcAddress(_hWslApiDll, "WslIsDistributionRegistered");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName);
-        }
+        // call function
+        return pfn(distributionName);
     }
 
     return FALSE;
@@ -56,15 +57,12 @@ BOOL WslApiLoader::WslIsDistributionRegistered(PCWSTR distributionName)
 typedef HRESULT (STDAPICALLTYPE* PFNWSLREGISTERDISTRIBUTION)(PCWSTR, PCWSTR); // typedef for WslRegisterDistribution
 HRESULT WslApiLoader::WslRegisterDistribution(PCWSTR distributionName, PCWSTR tarGzFilename)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLREGISTERDISTRIBUTION pfn = (PFNWSLREGISTERDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslRegisterDistribution");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLREGISTERDISTRIBUTION pfn = (PFNWSLREGISTERDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslRegisterDistribution");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName, tarGzFilename);
-        }
+        // call function
+        return pfn(distributionName, tarGzFilename);
     }
 
     return HRESULT_FROM_WIN32(GetLastError());
@@ -73,15 +71,12 @@ HRESULT WslApiLoader::WslRegisterDistribution(PCWSTR distributionName, PCWSTR ta
 typedef HRESULT (STDAPICALLTYPE* PFNWSLUNREGISTERDISTRIBUTION)(PCWSTR); // typedef for WslUnregisterDistribution
 HRESULT WslApiLoader::WslUnregisterDistribution(PCWSTR distributionName)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLUNREGISTERDISTRIBUTION pfn = (PFNWSLUNREGISTERDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslUnregisterDistribution");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLUNREGISTERDISTRIBUTION pfn = (PFNWSLUNREGISTERDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslUnregisterDistribution");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName);
-        }
+        // call function
+        return pfn(distributionName);
     }
 
     return HRESULT_FROM_WIN32(GetLastError());
@@ -90,15 +85,12 @@ HRESULT WslApiLoader::WslUnregisterDistribution(PCWSTR distributionName)
 typedef HRESULT (STDAPICALLTYPE* PFNWSLCONFIGUREDISTRIBUTION)(PCWSTR, ULONG, WSL_DISTRIBUTION_FLAGS); // typedef for WslConfigureDistribution
 HRESULT WslApiLoader::WslConfigureDistribution(PCWSTR distributionName, ULONG defaultUID, WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLCONFIGUREDISTRIBUTION pfn = (PFNWSLCONFIGUREDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslConfigureDistribution");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLCONFIGUREDISTRIBUTION pfn = (PFNWSLCONFIGUREDISTRIBUTION)GetProcAddress(_hWslApiDll, "WslConfigureDistribution");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName, defaultUID, wslDistributionFlags);
-        }
+        // call function
+        return pfn(distributionName, defaultUID, wslDistributionFlags);
     }
 
     return HRESULT_FROM_WIN32(GetLastError());
@@ -113,20 +105,17 @@ HRESULT WslApiLoader::WslGetDistributionConfiguration(PCWSTR distributionName,
                                                       PSTR **defaultEnvironmentVariables,
                                                       ULONG *defaultEnvironmentVariableCount)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLGETDISTRIBUTIONCONFIGURATION pfn = (PFNWSLGETDISTRIBUTIONCONFIGURATION)GetProcAddress(_hWslApiDll, "WslGetDistributionConfiguration");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLGETDISTRIBUTIONCONFIGURATION pfn = (PFNWSLGETDISTRIBUTIONCONFIGURATION)GetProcAddress(_hWslApiDll, "WslGetDistributionConfiguration");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName,
-                       distributionVersion,
-                       defaultUID,
-                       wslDistributionFlags,
-                       defaultEnvironmentVariables,
-                       defaultEnvironmentVariableCount);
-        }
+        // call function
+        return pfn(distributionName,
+                   distributionVersion,
+                   defaultUID,
+                   wslDistributionFlags,
+                   defaultEnvironmentVariables,
+                   defaultEnvironmentVariableCount);
     }
 
     return HRESULT_FROM_WIN32(GetLastError());
@@ -135,15 +124,12 @@ HRESULT WslApiLoader::WslGetDistributionConfiguration(PCWSTR distributionName,
 typedef HRESULT (STDAPICALLTYPE* PFNWSLLAUNCHINTERACTIVE)(PCWSTR, PCWSTR, BOOL, DWORD *); // typedef for WslLaunchInteractive
 HRESULT WslApiLoader::WslLaunchInteractive(PCWSTR distributionName, PCWSTR command, BOOL useCurrentWorkingDirectory, DWORD *exitCode)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLLAUNCHINTERACTIVE pfn = (PFNWSLLAUNCHINTERACTIVE)GetProcAddress(_hWslApiDll, "WslLaunchInteractive");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLLAUNCHINTERACTIVE pfn = (PFNWSLLAUNCHINTERACTIVE)GetProcAddress(_hWslApiDll, "WslLaunchInteractive");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName, command, useCurrentWorkingDirectory, exitCode);
-        }
+        // call function
+        return pfn(distributionName, command, useCurrentWorkingDirectory, exitCode);
     }
 
     return HRESULT_FROM_WIN32(GetLastError());
@@ -158,15 +144,12 @@ HRESULT WslApiLoader::WslLaunch(PCWSTR distributionName,
                                 HANDLE stdErr,
                                 HANDLE *process)
 {
-    if (SUCCEEDED(_EnsureWslApiDll()))
+    // load function
+    static PFNWSLLAUNCH pfn = (PFNWSLLAUNCH)GetProcAddress(_hWslApiDll, "WslLaunch");
+    if (pfn != nullptr)
     {
-        // load function
-        static PFNWSLLAUNCH pfn = (PFNWSLLAUNCH)GetProcAddress(_hWslApiDll, "WslLaunch");
-        if (pfn != nullptr)
-        {
-            // call function
-            return pfn(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process);
-        }
+        // call function
+        return pfn(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process);
     }
     return HRESULT_FROM_WIN32(GetLastError());
 }

@@ -41,8 +41,8 @@ class WslApiLoader
                       HANDLE stdErr,
                       HANDLE *process);
 
+    HRESULT EnsureWslApiDll();
   private:
-    HRESULT _EnsureWslApiDll();
     HMODULE _hWslApiDll;
 };
 
