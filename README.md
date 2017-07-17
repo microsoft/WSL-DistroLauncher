@@ -145,6 +145,8 @@
   ```
 
   from a console window that you have previously run `pkg` in.
+  
+  Also maker sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
 
 # Contributing
 
