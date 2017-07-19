@@ -289,9 +289,10 @@ __pycache__/
 
 
 
-DistroInstaller/MSG00409.bin
-DistroInstaller/messages.rc
-DistroInstaller/messages.h
+DistroLauncher/MSG*.bin
+DistroLauncher/messages.rc
+DistroLauncher/messages.h
 *.lib
 *.dll
 *.exe
+*.tar.gz

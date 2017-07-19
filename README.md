@@ -33,6 +33,9 @@
       - Note: This sample function is Ubuntu specific; change as necessary to match the needs of your distro.
   4.  Once the distro is configured, we parse any other command-line arguments. This calls into `DispatchCommandLine()`, which you extend if necessary. By default, `DispatchCommandLine()` looks for only one verb - `run`. The details of these arguments are described above, in the [Introduction](#Introduction).
 
+## Project Structure
+  The distro launcher is comprised of two Visual Studio projects - `launcher` and `DistroLauncher-Appx`. The first builds the actual launcher .exe that's executed when a user launches your app. The second is the project that actually builds the appx with all of the correctly scaled resources and other dependencies for the Windows Store. All of your code changes will happen in the `launcher` project (under `DistroLauncher/`). Any manifest changes are going to happen in the `DistroLauncher-Appx` project (under `DistroLauncher-Appx/`). 
+
 ## Getting Started
   Creating your own linux distro is simple!
   1. First of all, pick a _Name_ for your distro. WSL will use this as a key to identify this particular version of your distro - so please try to make it unique! **This name should not change from one version of your app to the next.**
@@ -45,7 +48,7 @@
   4.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
       - The icon should be named `icon.ico`. It is currently a bug that it is not loaded by the console window, this should be fixed in the future.
   5. Pick the name you'd like to make this distro callable by from the commandline. For the rest of the README I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
-  6. Make sure to change the name of the project in the `DistroInstaller.vcxproj` file to the name of your executable we picked in step 5. By default the lines should look like:
+  6. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 5. By default the lines should look like:
 
   ``` xml
   <PropertyGroup Label="Globals">
@@ -62,21 +65,22 @@
   </PropertyGroup>
   ```
 
+  **DO NOT** change the ProjectName of the `DistroLauncher/DistroLauncher.vcxproj` from the value `launcher`. Doing so will break the build, as the DistroLauncher-Appx project is looking for the output of this project as `launcher.exe`.
+
   7.  Update `MyDistro.appxmanifest`. There are a number of properties that are in the manifest that will need to be updated with your specific values.
       - Make sure to note the `Identity Publisher` value (by default, `"CN=DistroOwner"`). We'll need that for testing the application.
       - Make sure that `<desktop:ExecutionAlias Alias="mydistro.exe" />` is set to something that ends in ".exe". This is the command that will be used to launch your distro from the commandline, and should match the executable name we picked in step 4.
       - Make sure each of the `Executable` values match the executable name we picked in step 4.
   8. Copy your tar.gz containing your distro into the root of the project, and rename it to `install.tar.gz`.
-  9. Update the values in `filemap.txt` to point at your logo, icon, executable, and the tar.gz containing your distro.
-      - The executable should by default be coming from the `x64/Release` directory in the project.
-      - The tar.gz should be named `install.tar.gz`.
 
 ## Build and Test
-  To help building and testing the DistroLauncher project, we've included the following scripts to automate some tasks:
+  To help building and testing the DistroLauncher project, we've included the following scripts to automate some tasks. You can either choose to use these scripts from the commandline, or work directly in Visual Studio, whatever your preference is. 
 
-### Building Project:
+  **Please Note** some sideloading/deployment steps don't work if you mix and match Visual Studio and the commandline for development. If you run into errors while trying to deploy your app after already deploying it once, the easiest step is usually just to uninstall the previously sideloaded version and try again. 
+
+### Building Project (Commandline):
   To compile the project, you can simply type `build` in the root of the project
-  to use MSBuild to build the solution. This is useful for verifying that your application compiles, though to test it you will need to create and sideload the packaged .appx on your test machine (see Packaging).
+  to use MSBuild to build the solution. This is useful for verifying that your application compiles. It will also build an appx for you to sideload on your dev machine for testing.
   
   `build.bat` assumes that MSBuild is installed at one of the following paths:
   `%ProgramFiles*%\MSBuild\14.0\bin\msbuild.exe` or
@@ -85,49 +89,28 @@
 
   If that's not the case, then you will need to modify that script.
 
-### Building Resources:
-  To show icons and images correctly for your appx, we'll need to prepare resource descriptors. You will only need to run these steps when your resource asset files change. These directions are a simplified version of [https://msdn.microsoft.com/en-us/library/windows/apps/dn393983.aspx](https://msdn.microsoft.com/en-us/library/windows/apps/dn393983.aspx). We have already created `MyDistroResourcesConfig.xml` for you using `makepri.exe` and will be using the `Resources` subdirectory of this project to hold the asset files for your package.
+  Once you've completed the build, the packaged appx should be placed in a directory like `...WSL-DistroLauncher\x64\Release\DistroLauncher-Appx` and should be named something like `DistroLauncher-Appx_1.0.0.0_x64.appx`. Simply double click that appx file to open the sideloading dialog. 
 
-  The script will use your manifest file to determine the package identity when generating the `resource.pri` files. You may have to update the `buildpri` script prior to running the script with the name/path of your `.appxmanifest` file if it has changed from our sample of `MyDistro.appxmanifest`.
- 
-  Next, you will need to ensure that you create appropriately scaled icons/images for display with your package at assorted resolutions and scaling factors within the `Resources\Assets` subdirectory of this project.
-  A tool to help you create the assortment of images is available as a Plugin for Visual Studio and detailed here: [https://blogs.msdn.microsoft.com/uk_faculty_connection/2016/01/26/generating-the-correct-logos-for-your-windows-10-uwp-application-package-manifest/](https://blogs.msdn.microsoft.com/uk_faculty_connection/2016/01/26/generating-the-correct-logos-for-your-windows-10-uwp-application-package-manifest/)
-
-  Once all the asset files are created, you can run the `buildpri` script to generate the `Resources.pri` files that will describe the assets within your package. All of the individual asset files as well as the `Resources.pri` files will be included in the package with the final packaging step via `filemap.txt`. 
-
-### Packaging
-  To create an appx to test installing and running your launcher, you can use the included `pkg` script.
-  However, you'll need to make some small changes to it first. You'll need to change the value of the `_OWNER` variable to be the same as the `Identity Publisher` value in the appxmanifest. 
-
-  So if your appxmanifest has
-
-  ``` xml
-  <Identity Name="DistroName.1.0"
-            Version="1.0"
-            Publisher="CN=MyCompany"
-            ProcessorArchitecture="x64" />
+  You can also use the powershell cmdlet `Add-AppxPackage` to register your appx. that can be invoked in a fashion similar to the following:
+  ``` powershell
+  powershell Add-AppxPackage x64\Debug\DistroLauncher-Appx\DistroLauncher-Appx_1.0.0.0_x64_Debug.appx
   ```
 
-  Then you'd need to change the `pkg.bat` script to the following:
+### Building Project (Visual Studio):
 
-  ``` cmd
-  set _OWNER=MyCompany
-  ```
+  You can also easily build and deploy the distro launcher from Visual Studio. To sideload your appx on your machine for testing, all you need to do is right-click on the "Solution (DistroLauncher)" in the Solution Explorer and click "Deploy Solution". This should build the project and sideload it automatically for testing.
 
-  Once that's set, you can call `pkg` from your command prompt in the root of the project to build the release version of your launcher, and pack it into an appx.
-
-  This first time you do this, `pkg` will prompt you for a password (3 times) to create some test certs and private keys to sign the appx with. (Sideloading your appx won't work unless it's signed in this manner.)
-
-  You will also need to add the generated cert to your test machine to be able to sideload the appx. 
-  after running `pkg`, you can run `%_KITS%\CertMgr /add %_OWNER%.cer /s /r localMachine root` to add the test cert as a root cert on your machine. If you'd like to use another cert to sign the appx instead, you can modify `pkg.bat` as necessary, or use at as a reference for invoking `makeappx.exe` and `signtool`.
+  Note that the "Big Green Button" for running your project will likely not work. If you've previously registered your distro with WSL once, you might be able to use that to rebuild and launch your exe, but in most cases it won't work.
 
 ### Testing
-  Once you have a signed appx, you can now install it on your machine to test it!
+  You should now have a finished appx sideloaded on your machine for testing.
 
-  But before you do that, make sure you've enabled Developer Mode in the Settings app (WSL won't work without it, and neither will sideloading). Then double click on the signed appx, and click "Install" to install it. Note that this only installed the appx on your system, but it doesn't unzip the tar.gz or register the distro yet. You can then begin the distro registration by launching the app from the Start Menu, or executing `mydistro` from the commandline. Unfortunately, the "Launch" button on the sideloading dialog does not work for Distro Launchers at the moment.
+  But before you do that, make sure you've enabled Developer Mode in the Settings app (WSL won't work without it, and neither will sideloading). Then double click on the signed appx, and click "Install" to install it. Note that this only installed the appx on your system, but it doesn't unzip the tar.gz or register the distro yet. 
+
+  You can then begin the distro registration by launching the app from the Start Menu, or executing `mydistro` from the commandline. 
 
 ### Publishing
-  Once you are ready to upload your appx to the store, you will need to change a few small things to prepare the appx for the store.
+  Once you are ready to upload your appx to the store, you will need to change a few small things to prepare the appx for the store.  
 
   1. In the appxmanifest, you will need to change the values of the Identity to match the value given to you by the store. This should look like the following:
 
@@ -138,15 +121,12 @@
           ProcessorArchitecture="x64" />
   ```
 
-  2. The appx that you upload to the store does not need to be signed. You can quickly do this with the following command:
+  **NOTE**: Visual Studio can update this for you. You can do that by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer, and clicking on "Store... Associate App with the Store..." and following the wizard. 
 
-  ``` cmd
-  build clean rel && %_KITS%\makeappx.exe pack /m %_AppxName%.appxmanifest /f %_FilemapName% /p %_AppxName%.appx
-  ```
+  2. You will either need to run `build rel` from the commandline to generate the Release version of your appx, or use Visual Studio directly to upload your package to the store. You can do this by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer, and clicking on "Store... Create App Packages..." and following the wizard. 
 
-  from a console window that you have previously run `pkg` in.
-  
   Also maker sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
+
 
 # Contributing
 
