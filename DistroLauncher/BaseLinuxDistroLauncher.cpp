@@ -55,8 +55,10 @@ HRESULT BaseLinuxDistroLauncher::InstallDistro()
     
     if (hr == HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS))
     {
-        // The install didn't actually fail - it's just already been installed.
-        hr = S_OK;
+        // We can get into this state if the registration for this distro was 
+        //   removed from WSL after being registered, but without uninstalling
+        //   the app or otherwise deleting the filesystem.
+        PrintMessage(INSTALL_ALREADY_EXISTS);
     }
 
     PrintMessage(SUCCEEDED(hr) ? MSG_INSTALL_SUCCESS : MSG_INSTALL_FAILURE);

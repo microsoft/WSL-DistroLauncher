@@ -134,3 +134,15 @@ MessageId=1023 SymbolicName=MSG_SET_USER_FAILURE
 Language=English
 Failed to set default user to: %1
 .
+
+MessageId=1024 SymbolicName=MSG_MISSING_OPTIONAL_COMPONENT
+Language=English
+The WSL optional component is not enabled. Please enable it and try again.
+See https://aka.ms/wslinstall for details.
+.
+
+MessageId=1025 SymbolicName=INSTALL_ALREADY_EXISTS
+Language=English
+It appears this distro's installation has become corrupted.
+Please try uninstalling and reinstalling the app.
+.

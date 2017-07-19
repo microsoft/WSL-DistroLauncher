@@ -8,7 +8,7 @@
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.16215.0" MaxVersionTested="10.0.16215.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.16215.0" MaxVersionTested="10.0.16240.0" />
   </Dependencies>
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
