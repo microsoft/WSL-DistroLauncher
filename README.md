@@ -127,7 +127,8 @@
 
   Also maker sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
 
+# Issues
+Any bugs or problems discovered with the Launcher should be filed in this project's Issues list. The team will be notified and will respond to the reported issue within 3 (US) working days.
 
 # Contributing
-
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
