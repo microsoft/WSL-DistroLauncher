@@ -193,7 +193,7 @@ HRESULT MyLinuxDistroLauncher::_CreateUserAccount(const std::wstring& userName)
 // - true iff the user already exists.
 bool MyLinuxDistroLauncher::_DoesUserExist(const wstring & userName)
 {
-    wstring bashCommand = L"/usr/bin/id " + userName + L" &> /dev/null";
+    wstring bashCommand = L"/usr/bin/id " + userName + L" > /dev/null 2>&1";
 
     bool userExists = false;
     DWORD returnValue = 0;
