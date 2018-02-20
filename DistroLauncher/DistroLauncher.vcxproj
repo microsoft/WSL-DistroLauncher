@@ -134,9 +134,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="helpers.hpp" />
     <ClInclude Include="BaseLinuxDistroLauncher.hpp" />
     <ClInclude Include="MyLinuxDistroLauncher.hpp" />
