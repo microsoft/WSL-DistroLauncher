@@ -7,36 +7,35 @@
 
 WslApiLoader::WslApiLoader()
 {
-    _hWslApiDll = LoadLibraryEx(L"wslapi.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
-    if (_hWslApiDll == nullptr)
-    {
-        // TODO: throw
-    }
+    _wslApiDll = LoadLibraryEx(L"wslapi.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+    if (_wslApiDll != nullptr) {
+        _isDistributionRegistered = (WSL_IS_DISTRIBUTION_REGISTERED)GetProcAddress(_wslApiDll, "WslIsDistributionRegistered");
+        _registerDistribution = (WSL_REGISTER_DISTRIBUTION)GetProcAddress(_wslApiDll, "WslRegisterDistribution");
+        _configureDistribution = (WSL_CONFIGURE_DISTRIBUTION)GetProcAddress(_wslApiDll, "WslConfigureDistribution");
+        _launchInteractive = (WSL_LAUNCH_INTERACTIVE)GetProcAddress(_wslApiDll, "WslLaunchInteractive");
+        _launch = (WSL_LAUNCH)GetProcAddress(_wslApiDll, "WslLaunch");
+        if ((_isDistributionRegistered  == nullptr) ||
+            (_registerDistribution  == nullptr) ||
+            (_configureDistribution  == nullptr) ||
+            (_launchInteractive  == nullptr) ||
+            (_launch  == nullptr)) {
 
-    _isDistributionRegistered = (WSL_IS_DISTRIBUTION_REGISTERED)GetProcAddress(_hWslApiDll, "WslIsDistributionRegistered");
-    _registerDistribution = (WSL_REGISTER_DISTRIBUTION)GetProcAddress(_hWslApiDll, "WslRegisterDistribution");
-    _getDistributionConfiguration = (WSL_GET_DISTRIBUTION_CONFIGURATION)GetProcAddress(_hWslApiDll, "WslGetDistributionConfiguration");
-    _configureDistribution = (WSL_CONFIGURE_DISTRIBUTION)GetProcAddress(_hWslApiDll, "WslConfigureDistribution");
-    _launchInteractive = (WSL_LAUNCH_INTERACTIVE)GetProcAddress(_hWslApiDll, "WslLaunchInteractive");
-    _launch = (WSL_LAUNCH)GetProcAddress(_hWslApiDll, "WslLaunch");
-
-    if ((_isDistributionRegistered  == nullptr) ||
-        (_registerDistribution  == nullptr) ||
-        (_getDistributionConfiguration  == nullptr) ||
-        (_configureDistribution  == nullptr) ||
-        (_launchInteractive  == nullptr) ||
-        (_launch  == nullptr)) {
-
-        // TODO: throw
+            FreeLibrary(_wslApiDll);
+            _wslApiDll = nullptr;
+        }
     }
 }
 
 WslApiLoader::~WslApiLoader()
 {
-    if (_hWslApiDll != nullptr)
-    {
-        FreeLibrary(_hWslApiDll);
+    if (_wslApiDll != nullptr) {
+        FreeLibrary(_wslApiDll);
     }
+}
+
+BOOL WslApiLoader::WslIsOptionalComponentInstalled()
+{
+    return (_wslApiDll != nullptr);
 }
 
 BOOL WslApiLoader::WslIsDistributionRegistered(PCWSTR distributionName)
@@ -47,9 +46,8 @@ BOOL WslApiLoader::WslIsDistributionRegistered(PCWSTR distributionName)
 HRESULT WslApiLoader::WslRegisterDistribution(PCWSTR distributionName, PCWSTR tarGzFilename)
 {
     HRESULT hr = _registerDistribution(distributionName, tarGzFilename);
-    if (FAILED(hr))
-    {
-        Helpers::PrintMessage(MSG_WSL_REGISTER_DISTRIBUTION_FAILED);
+    if (FAILED(hr)) {
+        Helpers::PrintMessage(MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
     }
 
     return hr;
@@ -58,32 +56,8 @@ HRESULT WslApiLoader::WslRegisterDistribution(PCWSTR distributionName, PCWSTR ta
 HRESULT WslApiLoader::WslConfigureDistribution(PCWSTR distributionName, ULONG defaultUID, WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
 {
     HRESULT hr = _configureDistribution(distributionName, defaultUID, wslDistributionFlags);
-    if (FAILED(hr))
-    {
-        Helpers::PrintMessage(MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED);
-    }
-
-    return hr;
-}
-
-HRESULT WslApiLoader::WslGetDistributionConfiguration(PCWSTR distributionName,
-                                                      ULONG *distributionVersion,
-                                                      ULONG *defaultUID,
-                                                      WSL_DISTRIBUTION_FLAGS *wslDistributionFlags,
-                                                      PSTR **defaultEnvironmentVariables,
-                                                      ULONG *defaultEnvironmentVariableCount)
-{
-
-    HRESULT hr = _getDistributionConfiguration(distributionName,
-                                               distributionVersion,
-                                               defaultUID,
-                                               wslDistributionFlags,
-                                               defaultEnvironmentVariables,
-                                               defaultEnvironmentVariableCount);
-
-    if (FAILED(hr))
-    {
-        Helpers::PrintMessage(MSG_WSL_GET_DISTRIBUTION_CONFIGURATION_FAILED);
+    if (FAILED(hr)) {
+        Helpers::PrintMessage(MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
     }
 
     return hr;
@@ -92,9 +66,8 @@ HRESULT WslApiLoader::WslGetDistributionConfiguration(PCWSTR distributionName,
 HRESULT WslApiLoader::WslLaunchInteractive(PCWSTR distributionName, PCWSTR command, BOOL useCurrentWorkingDirectory, DWORD *exitCode)
 {
     HRESULT hr = _launchInteractive(distributionName, command, useCurrentWorkingDirectory, exitCode);
-    if (FAILED(hr))
-    {
-        Helpers::PrintMessage(MSG_WSL_LAUNCH_INTERACTIVE_FAILED);
+    if (FAILED(hr)) {
+        Helpers::PrintMessage(MSG_WSL_LAUNCH_INTERACTIVE_FAILED, hr);
     }
 
     return hr;
@@ -109,9 +82,8 @@ HRESULT WslApiLoader::WslLaunch(PCWSTR distributionName,
                                 HANDLE *process)
 {
     HRESULT hr = _launch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process);
-    if (FAILED(hr))
-    {
-        Helpers::PrintMessage(MSG_WSL_LAUNCH_FAILED);
+    if (FAILED(hr)) {
+        Helpers::PrintMessage(MSG_WSL_LAUNCH_FAILED, hr);
     }
 
     return hr;

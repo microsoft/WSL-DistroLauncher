@@ -15,8 +15,10 @@ typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH)(PCWSTR, PCWSTR, BOOL, HANDLE, HANDL
 class WslApiLoader
 {
   public:
-	WslApiLoader();
-	~WslApiLoader();
+    WslApiLoader();
+    ~WslApiLoader();
+
+    BOOL WslIsOptionalComponentInstalled();
 
     BOOL WslIsDistributionRegistered(PCWSTR distributionName);
 
@@ -25,13 +27,6 @@ class WslApiLoader
     HRESULT WslConfigureDistribution(PCWSTR distributionName,
                                      ULONG defaultUID,
                                      WSL_DISTRIBUTION_FLAGS wslDistributionFlags);
-
-    HRESULT WslGetDistributionConfiguration(PCWSTR distributionName,
-                                            ULONG *distributionVersion,
-                                            ULONG *defaultUID,
-                                            WSL_DISTRIBUTION_FLAGS *wslDistributionFlags,
-                                            PSTR **defaultEnvironmentVariables,
-                                            ULONG *defaultEnvironmentVariableCount);
 
     HRESULT WslLaunchInteractive(PCWSTR distributionName,
                                  PCWSTR command,
@@ -47,11 +42,10 @@ class WslApiLoader
                       HANDLE *process);
 
   private:
-    HMODULE _hWslApiDll;
+    HMODULE _wslApiDll;
     WSL_IS_DISTRIBUTION_REGISTERED _isDistributionRegistered;
     WSL_REGISTER_DISTRIBUTION _registerDistribution;
     WSL_CONFIGURE_DISTRIBUTION _configureDistribution;
-    WSL_GET_DISTRIBUTION_CONFIGURATION _getDistributionConfiguration;
     WSL_LAUNCH_INTERACTIVE _launchInteractive;
     WSL_LAUNCH _launch;
 };

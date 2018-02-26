@@ -11,5 +11,7 @@ namespace Helpers
 
     // Output Helpers
     HRESULT FormatMessage(DWORD messageId, std::wstring* message, ...);
+    HRESULT PrintErrorMessage(HRESULT hr);
     HRESULT PrintMessage(DWORD messageId, ...);
+    void PromptForInput();
 }

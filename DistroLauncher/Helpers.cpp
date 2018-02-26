@@ -6,12 +6,9 @@
 
 std::wstring Helpers::GetUserInput(DWORD promptMsg, DWORD maxCharacters)
 {
-    std::wstring prompt;
-    Helpers::FormatMessage(promptMsg, &prompt);
-
+    Helpers::PrintMessage(promptMsg);
     size_t bufferSize = maxCharacters + 1;
     std::unique_ptr<wchar_t[]> inputBuffer(new wchar_t[bufferSize]);
-    wprintf(L"%ls", prompt.c_str());
     std::wstring input;
     if (wscanf_s(L"%s", inputBuffer.get(), (unsigned int)bufferSize) == 1) {
         input = inputBuffer.get();
@@ -19,8 +16,7 @@ std::wstring Helpers::GetUserInput(DWORD promptMsg, DWORD maxCharacters)
 
     // Throw away any additional chracters that did not fit in the buffer.
     wchar_t wch;
-    do 
-    {
+    do {
         wch = getwchar();
 
     } while ((wch != L'\n') && (wch != WEOF));
@@ -31,7 +27,7 @@ std::wstring Helpers::GetUserInput(DWORD promptMsg, DWORD maxCharacters)
 HRESULT FormatMessageHelperVa(DWORD messageId, va_list vaList, std::wstring* message)
 {
     PWSTR buffer = nullptr; 
-    DWORD written = FormatMessageW(FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_ALLOCATE_BUFFER,
+    DWORD written = ::FormatMessageW(FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_ALLOCATE_BUFFER,
                                      NULL,
                                      messageId,
                                      0,
@@ -41,21 +37,17 @@ HRESULT FormatMessageHelperVa(DWORD messageId, va_list vaList, std::wstring* mes
     *message = buffer;
     HeapFree(GetProcessHeap(), 0, buffer);
 
-    return written > 0? S_OK : HRESULT_FROM_WIN32(GetLastError());
+    return written > 0 ? S_OK : HRESULT_FROM_WIN32(GetLastError());
 }
 
-HRESULT PrintMessageVa(ULONG* const charactersPrinted, DWORD messageId, va_list vaList)
+HRESULT PrintMessageVa(DWORD messageId, va_list vaList)
 {
     std::wstring message;
     HRESULT hr = FormatMessageHelperVa(messageId, vaList, &message);
-    if (SUCCEEDED(hr))
-    {
-        unsigned long _charsPrinted = wprintf(L"%ls", message.c_str());
-        if (charactersPrinted != nullptr)
-        {
-            *charactersPrinted = _charsPrinted;
-        }
+    if (SUCCEEDED(hr)) {
+        wprintf(L"%ls", message.c_str());
     }
+
     return hr;
 }
 
@@ -68,13 +60,42 @@ HRESULT Helpers::FormatMessage(DWORD messageId, std::wstring* message, ...)
     return hr;
 }
 
+HRESULT Helpers::PrintErrorMessage(HRESULT error)
+{
+    PWSTR buffer = nullptr; 
+    DWORD written = ::FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER,
+                                     NULL,
+                                     error,
+                                     0,
+                                     (PWSTR)&buffer,
+                                     0,
+                                     NULL);
+
+    HRESULT hr;
+    if (written > 0) {
+        Helpers::PrintMessage(MSG_ERROR_CODE, error, buffer);
+        HeapFree(GetProcessHeap(), 0, buffer);
+        hr = S_OK;
+
+    } else {
+        hr = HRESULT_FROM_WIN32(GetLastError());
+    }
+
+    return hr;
+}
+
 HRESULT Helpers::PrintMessage(DWORD messageId, ...)
 {
     va_list argList;
     va_start(argList, messageId);
-    HRESULT hr = PrintMessageVa(nullptr, messageId, argList);
+    HRESULT hr = PrintMessageVa(messageId, argList);
     va_end(argList);
     return hr;
 }
 
-
+void Helpers::PromptForInput()
+{
+    Helpers::PrintMessage(MSG_PRESS_A_KEY);
+    _getwch();
+    return;
+}
