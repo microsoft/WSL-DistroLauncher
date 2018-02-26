@@ -4,31 +4,13 @@
 //
 #include "stdafx.h"
 
-#define DISTRO_NAME L"SampleDistribution"
+#define DISTRO_NAME L"MyDistribution"
 
 WslApiLoader g_wslApi;
 
-static HRESULT DoesUserExist(const std::wstring& userName, bool* userExists);
 static HRESULT InstallDistribution();
 static HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid);
 static HRESULT SetDefaultUser(const std::wstring& userName);
-
-HRESULT DoesUserExist(const std::wstring& userName, bool* userExists)
-{
-    std::wstring commandLine = L"/usr/bin/id -u " + userName + L" > /dev/null 2>&1";
-    DWORD exitCode;
-    HRESULT hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME,
-                                               commandLine.c_str(),
-                                               true,
-                                               &exitCode);
-
-    if (FAILED(hr)) {
-        return hr;
-    }
-
-    *userExists = (exitCode == 0);
-    return hr;
-}
 
 HRESULT InstallDistribution()
 {
@@ -71,15 +53,8 @@ HRESULT InstallDistribution()
         return hr;
     }
 
-    // Query the UID of the created user account and configure the distribution
-    // to use this UID as the default.
-    ULONG uid;
-    hr = QueryUserInfo(userName, &uid);
-    if (FAILED(hr)) {
-        return hr;
-    }
-
-    hr = g_wslApi.WslConfigureDistribution(DISTRO_NAME, uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    // Set this user account as the default.
+    hr = SetDefaultUser(userName);
     if (FAILED(hr)) {
         return hr;
     }
@@ -132,6 +107,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
         CloseHandle(readPipe);
         CloseHandle(writePipe);
     }
+
     return hr;
 }
 
@@ -172,7 +148,7 @@ int wmain(int argc, wchar_t const *argv[])
         Helpers::PrintMessage(SUCCEEDED(hr) ? MSG_INSTALL_SUCCESS : MSG_INSTALL_FAILURE);
     }
 
-    // Parse the command line.
+    // Parse the command line arguments.
     bool prompt = true;
     if (SUCCEEDED(hr)) {
         if (argc == 1) {

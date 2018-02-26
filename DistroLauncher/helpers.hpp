@@ -6,12 +6,8 @@
 
 namespace Helpers
 {
-    // Console helpers
     std::wstring GetUserInput(DWORD promptMsg, DWORD maxCharacters);
-
-    // Output Helpers
-    HRESULT FormatMessage(DWORD messageId, std::wstring* message, ...);
-    HRESULT PrintErrorMessage(HRESULT hr);
+    void PrintErrorMessage(HRESULT hr);
     HRESULT PrintMessage(DWORD messageId, ...);
     void PromptForInput();
 }
