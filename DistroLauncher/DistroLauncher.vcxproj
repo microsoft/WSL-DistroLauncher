@@ -64,7 +64,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
     <CustomBuildBeforeTargets>ClCompile</CustomBuildBeforeTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,8 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Helpers.cpp" />
-    <ClCompile Include="BaseLinuxDistroLauncher.cpp" />
-    <ClCompile Include="MyLinuxDistroLauncher.cpp" />
     <ClCompile Include="DistroLauncher.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

@@ -5,6 +5,13 @@
 #pragma once
 #include <wslapi.h>
 
+typedef BOOL    (STDAPICALLTYPE* WSL_IS_DISTRIBUTION_REGISTERED)(PCWSTR);
+typedef HRESULT (STDAPICALLTYPE* WSL_REGISTER_DISTRIBUTION)(PCWSTR, PCWSTR);
+typedef HRESULT (STDAPICALLTYPE* WSL_CONFIGURE_DISTRIBUTION)(PCWSTR, ULONG, WSL_DISTRIBUTION_FLAGS);
+typedef HRESULT (STDAPICALLTYPE* WSL_GET_DISTRIBUTION_CONFIGURATION)(PCWSTR, ULONG *, ULONG *, WSL_DISTRIBUTION_FLAGS *, PSTR **, ULONG *);
+typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH_INTERACTIVE)(PCWSTR, PCWSTR, BOOL, DWORD *);
+typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH)(PCWSTR, PCWSTR, BOOL, HANDLE, HANDLE, HANDLE, HANDLE *);
+
 class WslApiLoader
 {
   public:
@@ -14,8 +21,6 @@ class WslApiLoader
     BOOL WslIsDistributionRegistered(PCWSTR distributionName);
 
     HRESULT WslRegisterDistribution(PCWSTR distributionName, PCWSTR tarGzFilename);
-
-    HRESULT WslUnregisterDistribution(PCWSTR distributionName);
 
     HRESULT WslConfigureDistribution(PCWSTR distributionName,
                                      ULONG defaultUID,
@@ -41,9 +46,14 @@ class WslApiLoader
                       HANDLE stdErr,
                       HANDLE *process);
 
-    HRESULT EnsureWslApiDll();
   private:
     HMODULE _hWslApiDll;
+    WSL_IS_DISTRIBUTION_REGISTERED _isDistributionRegistered;
+    WSL_REGISTER_DISTRIBUTION _registerDistribution;
+    WSL_CONFIGURE_DISTRIBUTION _configureDistribution;
+    WSL_GET_DISTRIBUTION_CONFIGURATION _getDistributionConfiguration;
+    WSL_LAUNCH_INTERACTIVE _launchInteractive;
+    WSL_LAUNCH _launch;
 };
 
-extern WslApiLoader wslApi;
+extern WslApiLoader g_wslApi;

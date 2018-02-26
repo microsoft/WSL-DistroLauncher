@@ -7,15 +7,9 @@
 namespace Helpers
 {
     // Console helpers
-    HRESULT PromptAcceptance(DWORD promptWordMsg, DWORD promptMsg);
-    std::wstring GetUserInput(DWORD promptMsg, size_t maxCharacters);
+    std::wstring GetUserInput(DWORD promptMsg, DWORD maxCharacters);
 
     // Output Helpers
     HRESULT FormatMessage(DWORD messageId, std::wstring* message, ...);
-    HRESULT PrintMessage(ULONG* const charactersPrinted, DWORD messageId, ...);
     HRESULT PrintMessage(DWORD messageId, ...);
-
-    // User Input Helpers
-    bool IsValidUserName(const std::wstring& userName);
-
 }
