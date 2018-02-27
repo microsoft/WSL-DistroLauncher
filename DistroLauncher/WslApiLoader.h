@@ -15,26 +15,23 @@ typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH)(PCWSTR, PCWSTR, BOOL, HANDLE, HANDL
 class WslApiLoader
 {
   public:
-    WslApiLoader();
+    WslApiLoader(PCWSTR distributionName);
     ~WslApiLoader();
 
     BOOL WslIsOptionalComponentInstalled();
 
-    BOOL WslIsDistributionRegistered(PCWSTR distributionName);
+    BOOL WslIsDistributionRegistered();
 
-    HRESULT WslRegisterDistribution(PCWSTR distributionName, PCWSTR tarGzFilename);
+    HRESULT WslRegisterDistribution(PCWSTR tarGzFilename);
 
-    HRESULT WslConfigureDistribution(PCWSTR distributionName,
-                                     ULONG defaultUID,
+    HRESULT WslConfigureDistribution(ULONG defaultUID,
                                      WSL_DISTRIBUTION_FLAGS wslDistributionFlags);
 
-    HRESULT WslLaunchInteractive(PCWSTR distributionName,
-                                 PCWSTR command,
+    HRESULT WslLaunchInteractive(PCWSTR command,
                                  BOOL useCurrentWorkingDirectory,
                                  DWORD *exitCode);
 
-    HRESULT WslLaunch(PCWSTR distributionName,
-                      PCWSTR command,
+    HRESULT WslLaunch(PCWSTR command,
                       BOOL useCurrentWorkingDirectory,
                       HANDLE stdIn,
                       HANDLE stdOut,
@@ -42,6 +39,7 @@ class WslApiLoader
                       HANDLE *process);
 
   private:
+    std::wstring _distributionName;
     HMODULE _wslApiDll;
     WSL_IS_DISTRIBUTION_REGISTERED _isDistributionRegistered;
     WSL_REGISTER_DISTRIBUTION _registerDistribution;

@@ -4,9 +4,10 @@
 //
 #include "stdafx.h"
 
-#define DISTRO_NAME L"MyDistribution"
+#define DISTRIBUTION_FILESYSTEM L"install.tar.gz"
+#define DISTRIBUTION_NAME L"MyDistribution"
 
-WslApiLoader g_wslApi;
+WslApiLoader g_wslApi(DISTRIBUTION_NAME);
 
 static HRESULT InstallDistribution();
 static HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid);
@@ -15,18 +16,14 @@ static HRESULT SetDefaultUser(const std::wstring& userName);
 HRESULT InstallDistribution()
 {
     Helpers::PrintMessage(MSG_STATUS_INSTALLING);
-    HRESULT hr = g_wslApi.WslRegisterDistribution(DISTRO_NAME, L"install.tar.gz");
+    HRESULT hr = g_wslApi.WslRegisterDistribution(DISTRIBUTION_FILESYSTEM);
     if (FAILED(hr)) {
-        if (hr == HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)) {
-            Helpers::PrintMessage(INSTALL_ALREADY_EXISTS);
-        }
-
         return hr;
     }
 
     // Delete /etc/resolv.conf to allow WSL to generate a version based on Windows networking information.
     DWORD exitCode;
-    hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME, L"/bin/rm /etc/resolv.conf", true, &exitCode);
+    hr = g_wslApi.WslLaunchInteractive(L"/bin/rm /etc/resolv.conf", true, &exitCode);
     if (FAILED(hr)) {
         return hr;
     }
@@ -38,8 +35,8 @@ HRESULT InstallDistribution()
     do {
         userName = Helpers::GetUserInput(MSG_ENTER_USERNAME, 32);
         // Create the user account.
-        commandLine = L"/usr/sbin/adduser --gecos '' " + userName;
-        hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME, commandLine.c_str(), true, &exitCode);
+        commandLine = L"/usr/sbin/adduser --quiet --gecos '' " + userName;
+        hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
         if (FAILED(hr)) {
             return hr;
         }
@@ -48,7 +45,7 @@ HRESULT InstallDistribution()
 
     // Add the user account to any relevant groups.
     commandLine = L"/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev " + userName;
-    hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME, commandLine.c_str(), true, &exitCode);
+    hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
     if (FAILED(hr)) {
         return hr;
     }
@@ -74,7 +71,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
         std::wstring bashCommand = L"/usr/bin/id -u " + userName;
         int returnValue = 0;
         HANDLE child;
-        hr = g_wslApi.WslLaunch(DISTRO_NAME, bashCommand.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
+        hr = g_wslApi.WslLaunch(bashCommand.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
         if (SUCCEEDED(hr)) {
             // Wait for the child to exit.
             WaitForSingleObject(child, INFINITE);
@@ -121,7 +118,7 @@ HRESULT SetDefaultUser(const std::wstring& userName)
         return hr;
     }
 
-    hr = g_wslApi.WslConfigureDistribution(DISTRO_NAME, uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
     if (FAILED(hr)) {
         return hr;
     }
@@ -132,27 +129,34 @@ HRESULT SetDefaultUser(const std::wstring& userName)
 int wmain(int argc, wchar_t const *argv[])
 {
     DWORD exitCode = 1;
-    SetConsoleTitleW(DISTRO_NAME);
+    bool prompt = (argc == 1);
+    SetConsoleTitleW(DISTRIBUTION_NAME);
 
-    // Verify that the Windows Subsystem for Linux optional component is installed.
+    // Ensure that the Windows Subsystem for Linux optional component is installed.
     if (!g_wslApi.WslIsOptionalComponentInstalled()) {
         Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
         Helpers::PromptForInput();
         return exitCode;
     }
 
-    // Register the distribution if it is not already.
+    // Install the distribution if it is not already.
     HRESULT hr = S_OK;
-    if (!g_wslApi.WslIsDistributionRegistered(DISTRO_NAME)) {
+    if (!g_wslApi.WslIsDistributionRegistered()) {
         hr = InstallDistribution();
-        Helpers::PrintMessage(SUCCEEDED(hr) ? MSG_INSTALL_SUCCESS : MSG_INSTALL_FAILURE);
+        if (FAILED(hr)) {
+            if (hr == HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)) {
+                Helpers::PrintMessage(MSG_INSTALL_ALREADY_EXISTS);
+            }
+
+        } else {
+            Helpers::PrintMessage(MSG_INSTALL_SUCCESS);
+        }
     }
 
     // Parse the command line arguments.
-    bool prompt = true;
     if (SUCCEEDED(hr)) {
         if (argc == 1) {
-            hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME, L"", false, &exitCode);
+            hr = g_wslApi.WslLaunchInteractive(L"", false, &exitCode);
 
         } else if ((_wcsicmp(argv[1], L"run") == 0) ||
                    (_wcsicmp(argv[1], L"/c") == 0) ||
@@ -164,11 +168,10 @@ int wmain(int argc, wchar_t const *argv[])
                 command += argv[i];
             }
 
-            hr = g_wslApi.WslLaunchInteractive(DISTRO_NAME, command.c_str(), true, &exitCode);
+            hr = g_wslApi.WslLaunchInteractive(command.c_str(), true, &exitCode);
 
         } else if (_wcsicmp(argv[1], L"config") == 0 ) {
             hr = E_INVALIDARG;
-            prompt = false;
             if (argc == 4) {
                 if (_wcsicmp(argv[2], L"--default-user") == 0) {
                     hr = SetDefaultUser(argv[3]);
