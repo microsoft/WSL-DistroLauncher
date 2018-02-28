@@ -14,15 +14,6 @@ WslApiLoader::WslApiLoader(PCWSTR distributionName) : _distributionName(distribu
         _configureDistribution = (WSL_CONFIGURE_DISTRIBUTION)GetProcAddress(_wslApiDll, "WslConfigureDistribution");
         _launchInteractive = (WSL_LAUNCH_INTERACTIVE)GetProcAddress(_wslApiDll, "WslLaunchInteractive");
         _launch = (WSL_LAUNCH)GetProcAddress(_wslApiDll, "WslLaunch");
-        if ((_isDistributionRegistered  == nullptr) ||
-            (_registerDistribution  == nullptr) ||
-            (_configureDistribution  == nullptr) ||
-            (_launchInteractive  == nullptr) ||
-            (_launch  == nullptr)) {
-
-            FreeLibrary(_wslApiDll);
-            _wslApiDll = nullptr;
-        }
     }
 }
 
@@ -35,7 +26,12 @@ WslApiLoader::~WslApiLoader()
 
 BOOL WslApiLoader::WslIsOptionalComponentInstalled()
 {
-    return (_wslApiDll != nullptr);
+    return ((_wslApiDll != nullptr) && 
+            (_isDistributionRegistered != nullptr) &&
+            (_registerDistribution != nullptr) &&
+            (_configureDistribution != nullptr) &&
+            (_launchInteractive != nullptr) &&
+            (_launch != nullptr));
 }
 
 BOOL WslApiLoader::WslIsDistributionRegistered()
