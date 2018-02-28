@@ -4,7 +4,6 @@
 //
 #include "stdafx.h"
 
-#define DISTRIBUTION_FILESYSTEM L"install.tar.gz"
 #define DISTRIBUTION_NAME L"MyDistribution"
 
 WslApiLoader g_wslApi(DISTRIBUTION_NAME);
@@ -17,7 +16,7 @@ HRESULT InstallDistribution()
 {
     // Register the distribution.
     Helpers::PrintMessage(MSG_STATUS_INSTALLING);
-    HRESULT hr = g_wslApi.WslRegisterDistribution(DISTRIBUTION_FILESYSTEM);
+    HRESULT hr = g_wslApi.WslRegisterDistribution(L"install.tar.gz");
     if (FAILED(hr)) {
         return hr;
     }
