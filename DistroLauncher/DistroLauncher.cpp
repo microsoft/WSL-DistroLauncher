@@ -15,6 +15,7 @@ static HRESULT SetDefaultUser(const std::wstring& userName);
 
 HRESULT InstallDistribution()
 {
+    // Register the distribution.
     Helpers::PrintMessage(MSG_STATUS_INSTALLING);
     HRESULT hr = g_wslApi.WslRegisterDistribution(DISTRIBUTION_FILESYSTEM);
     if (FAILED(hr)) {
@@ -28,13 +29,12 @@ HRESULT InstallDistribution()
         return hr;
     }
 
-    // Prompt for a username, ensure the user does not already exist.
+    // Create a user account.
     Helpers::PrintMessage(MSG_CREATE_USER_PROMPT);
     std::wstring commandLine;
     std::wstring userName;
     do {
         userName = Helpers::GetUserInput(MSG_ENTER_USERNAME, 32);
-        // Create the user account.
         commandLine = L"/usr/sbin/adduser --quiet --gecos '' " + userName;
         hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
         if (FAILED(hr)) {
@@ -73,7 +73,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
         HANDLE child;
         hr = g_wslApi.WslLaunch(bashCommand.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
         if (SUCCEEDED(hr)) {
-            // Wait for the child to exit.
+            // Wait for the child to exit and ensure process exited successfully.
             WaitForSingleObject(child, INFINITE);
             DWORD exitCode;
             if ((GetExitCodeProcess(child, &exitCode) == 0) || (exitCode != 0)) {
@@ -110,7 +110,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
 
 HRESULT SetDefaultUser(const std::wstring& userName)
 {
-    // Query the UID of the created user account and configure the distribution
+    // Query the UID of the given user name and configure the distribution
     // to use this UID as the default.
     ULONG uid;
     HRESULT hr = QueryUserInfo(userName, &uid);
@@ -135,7 +135,10 @@ int wmain(int argc, wchar_t const *argv[])
     // Ensure that the Windows Subsystem for Linux optional component is installed.
     if (!g_wslApi.WslIsOptionalComponentInstalled()) {
         Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
-        Helpers::PromptForInput();
+        if (prompt) {
+            Helpers::PromptForInput();
+        }
+
         return exitCode;
     }
 
