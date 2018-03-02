@@ -1,6 +1,6 @@
 # WSL DistroLauncher Sample 
 ## Introduction 
-  This is the basic reference implementation for a Linux Distro Installer application.
+  This is the reference implementation for a Windows Subsystem for Linux distribution installer application.
 
   It provides the following functionality:
   (where `launcher` is replaced by the distro-specific name)
@@ -16,7 +16,7 @@
   * `launcher config [setting [value]]`
     - Configure certain settings for this distro.
     - Settings are any of the following (by default)
-      - `--default-user <username>`: Set the default user for this distro to <username>
+      - `--default-user <username>`: Set the default user for this distro
 
   * `launcher help`
     - Print the usage.
@@ -24,10 +24,10 @@
 ## Launcher Outline
   This is the basic flow of how the launcher code is set up.
 
-  1.  First check if the distribution is installed. If it's not, then it is registered it with the Windows Subsystem for Linux. 
-  2.  Once the distro is successfully installed, any other pre-launch setup is performed in `InstallDistribution()` This is where distro-specific setup can be performed. As an example, the reference implementation creates a user account and sets this user account as the default for the distro.
+  1.  First check if the distribution is registered. If it's not, then it is registered it with the Windows Subsystem for Linux. 
+  2.  Once the distro is successfully registered, any other pre-launch setup is performed in `InstallDistribution()` This is where distro-specific setup can be performed. As an example, the reference implementation creates a user account and sets this user account as the default for the distro.
       - Note: This sample function is Ubuntu specific; change as necessary to match the needs of your distro.
-  3.  Once the distro is configured, we parse any other command-line arguments. The details of these arguments are described above, in the [Introduction](#Introduction).
+  3.  Once the distro is configured, parse any other command-line arguments. The details of these arguments are described above, in the [Introduction](#Introduction).
 
 ## Project Structure
   The distro launcher is comprised of two Visual Studio projects - `launcher` and `DistroLauncher-Appx`. The first builds the actual launcher .exe that's executed when a user launches your app. The second is the project that builds the appx with all the correctly scaled resources and other dependencies for the Windows Store. All your code changes will happen in the `launcher` project (under `DistroLauncher/`). Any manifest changes are going to happen in the `DistroLauncher-Appx` project (under `DistroLauncher-Appx/`). 
@@ -110,9 +110,9 @@
 
   ``` xml
   <Identity Name="1234YourCompanyName.YourAppName"
-          Version="1.0.1.0"
-          Publisher="CN=12345678-045C-ABCD-1234-ABCDEF987654"
-          ProcessorArchitecture="x64" />
+            Version="1.0.1.0"
+            Publisher="CN=12345678-045C-ABCD-1234-ABCDEF987654"
+            ProcessorArchitecture="x64" />
   ```
 
   **NOTE**: Visual Studio can update this for you. You can do that by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer and clicking on "Store... Associate App with the Store..." and following the wizard. 
