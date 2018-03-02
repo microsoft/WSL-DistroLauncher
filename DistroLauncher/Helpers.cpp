@@ -78,7 +78,7 @@ namespace {
         *message = buffer;
         HeapFree(GetProcessHeap(), 0, buffer);
 
-        return written > 0 ? S_OK : HRESULT_FROM_WIN32(GetLastError());
+        return (written > 0) ? S_OK : HRESULT_FROM_WIN32(GetLastError());
     }
 
     HRESULT PrintMessageVa(DWORD messageId, va_list vaList)

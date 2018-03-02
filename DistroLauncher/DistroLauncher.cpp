@@ -4,6 +4,8 @@
 //
 #include "stdafx.h"
 
+// This is the name of the distribution, it must only conform to the following
+// regular expression: ^[a-zA-Z0-9._-]+$
 #define DISTRIBUTION_NAME L"MyDistribution"
 
 WslApiLoader g_wslApi(DISTRIBUTION_NAME);
@@ -127,11 +129,12 @@ HRESULT SetDefaultUser(const std::wstring& userName)
 
 int wmain(int argc, wchar_t const *argv[])
 {
-    DWORD exitCode = 1;
-    bool prompt = (argc == 1);
-    SetConsoleTitleW(DISTRIBUTION_NAME);
+    // Update the title bar of the console window.
+    SetConsoleTitleW(L"My Distribution");
 
     // Ensure that the Windows Subsystem for Linux optional component is installed.
+    DWORD exitCode = 1;
+    bool prompt = (argc == 1);
     if (!g_wslApi.WslIsOptionalComponentInstalled()) {
         Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
         if (prompt) {
