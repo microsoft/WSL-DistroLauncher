@@ -47,7 +47,7 @@ shift
 goto :ARGS_LOOP
 
 :POST_ARGS_LOOP
-%MSBUILD% %~dp0\DistroLauncher.sln /t:%_MSBUILD_TARGET% /m /nr:true /p:Configuration=%_MSBUILD_CONFIG% 
+%MSBUILD% %~dp0\DistroLauncher.sln /t:%_MSBUILD_TARGET% /m /nr:true /p:Configuration=%_MSBUILD_CONFIG%;Platform=x64
 
 if (%ERRORLEVEL%) == (0) (
     echo.
