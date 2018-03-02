@@ -153,13 +153,4 @@
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
     <None Include="..\install.tar.gz" />
   </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-    <CustomBuild Include="$(targetname)" />
-  </ItemGroup>
 </Project>
