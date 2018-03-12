@@ -7,7 +7,6 @@
 
   * `launcher`
     - Launch the distro's default login shell.
-    - If the instance has not yet been installed, this will unpack and install the instance.
 
   * `launcher run <command line>`
     - Run the given command line in that distro, using the default configuration.
@@ -24,23 +23,21 @@
 ## Launcher Outline
   This is the basic flow of how the launcher code is set up.
 
-  1.  First check if the distribution is registered. If it's not, then it is registered it with the Windows Subsystem for Linux. 
-  2.  Once the distro is successfully registered, any other pre-launch setup is performed in `InstallDistribution()` This is where distro-specific setup can be performed. As an example, the reference implementation creates a user account and sets this user account as the default for the distro.
-      - Note: This sample function is Ubuntu specific; change as necessary to match the needs of your distro.
+  1.  First check if the distribution is registered. If it's not, then it is registered it with the Windows Subsystem for Linux. Registration extracts the tar.gz file that is included in your distribution appx.
+  2.  Once the distro is successfully registered, any other pre-launch setup is performed in `InstallDistribution()`. This is where distro-specific setup can be performed. As an example, the reference implementation creates a user account and sets this user account as the default for the distro.
+      - Note: This commands used to query and create user accounts are Ubuntu-specific; change as necessary to match the needs of your distro.
   3.  Once the distro is configured, parse any other command-line arguments. The details of these arguments are described above, in the [Introduction](#Introduction).
 
 ## Project Structure
-  The distro launcher is comprised of two Visual Studio projects - `launcher` and `DistroLauncher-Appx`. The first builds the actual launcher .exe that's executed when a user launches your app. The second is the project that builds the appx with all the correctly scaled resources and other dependencies for the Windows Store. All your code changes will happen in the `launcher` project (under `DistroLauncher/`). Any manifest changes are going to happen in the `DistroLauncher-Appx` project (under `DistroLauncher-Appx/`). 
+  The distro launcher is comprised of two Visual Studio projects - `launcher` and `DistroLauncher-Appx`. The `launcher` project builds the actual executable that is run when a user launches the app. The `DistroLauncher-Appx` builds the appx with all the correctly scaled resources and other dependencies for the Windows Store. Code changes will happen in the `launcher` project (under `DistroLauncher/`). Any manifest changes are going to happen in the `DistroLauncher-Appx` project (under `DistroLauncher-Appx/`). 
 
 ## Getting Started
-  Creating your own Linux distro is simple!
   1. First, pick a _Name_ for your distro. WSL will use this as a key to identify this version of your distro - so please try to make it unique! **This name should not change from one version of your app to the next.**
   Set this _name_ in `DistroLauncher.cpp`, by modifying the `DISTRIBUTION_NAME` #define.
   2.  Modify `InstallDistribution` in `DistroLauncher.cpp` to set up the initial configuration of your distro.
-      - This can include prompting the user for the first user and password, for example.
-      - We have provided a sample for setting up a first user on an Ubuntu based system. This code should be modified to work appropriately on your distro.
+      - We have provided a sample for setting up a default user on an Ubuntu based system. This code should be modified to work appropriately on your distro.
   3.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
-      - The icon should be named `icon.ico`.
+      - The icon must be named `icon.ico`.
   4. Pick the name you'd like to make this distro callable by from the command line. For the rest of the README I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
   5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 5. By default, the lines should look like:
 
