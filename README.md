@@ -1,8 +1,19 @@
 # WSL DistroLauncher Sample 
 ## Introduction 
-  This is the reference implementation for a Windows Subsystem for Linux distribution installer application.
+  This is the reference implementation for a Windows Subsystem for Linux (WSL) distribution installer application. You can use this sample project to create your own Linux distribution application that can be submitted to the Microsoft Store or sideloaded on your dev machine. 
+  
+  Note: This project is written in C++.
 
-  It provides the following functionality:
+  ### Goals
+  The goal of this project is to enable:
+  * Linux distribution owners to package and submit an application that runs on top of WSL to the Microsoft Store
+  * Developers to create custom Linux distributions that can be sideloaded onto their dev machine
+
+### Project Status
+This project is an active repo maintained by the WSL engineering team at Microsoft.
+
+### Contents
+  The sample provides the following functionality:
   (where `launcher` is replaced by the distro-specific name)
 
   * `launcher`
@@ -69,6 +80,9 @@
 
   **Please Note** some sideloading/deployment steps don't work if you mix and match Visual Studio and the command line for development. If you run into errors while trying to deploy your app after already deploying it once, the easiest step is usually just to uninstall the previously sideloaded version and try again. 
 
+### Setting up your Windows Environment
+*TO-DO DETAILS*
+
 ### Building Project (Command line):
   To compile the project, you can simply type `build` in the root of the project
   to use MSBuild to build the solution. This is useful for verifying that your application compiles. It will also build an appx for you to sideload on your dev machine for testing.
@@ -118,8 +132,10 @@
 
   Also make sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
 
-# Issues
+# Issues & Contact
 Any bugs or problems discovered with the Launcher should be filed in this project's Issues list. The team will be notified and will respond to the reported issue within 3 (US) working days.
+
+You may also reach out to our team alias at wslpartners@microsoft.com for questions related to submitting your app to the Microsoft Store.
 
 # Contributing
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
