@@ -81,7 +81,9 @@ This project is an active repo maintained by the WSL engineering team at Microso
   **Please Note** some sideloading/deployment steps don't work if you mix and match Visual Studio and the command line for development. If you run into errors while trying to deploy your app after already deploying it once, the easiest step is usually just to uninstall the previously sideloaded version and try again. 
 
 ### Setting up your Windows Environment
-*TO-DO DETAILS*
+You will need a Windows environment to test that your app installs and works as expected. To set up a Windows environment for testing you can follow the steps from the [Windows Dev Center](https://developer.microsoft.com/en-us/windows/downloads/virtual-machines).
+
+Note: If you are using Hyper-V you can use the new VM gallery to easily spin up a Windows instance.
 
 ### Building Project (Command line):
   To compile the project, you can simply type `build` in the root of the project
