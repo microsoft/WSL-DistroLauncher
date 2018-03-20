@@ -112,7 +112,7 @@ Note: If you are using Hyper-V you can use the new VM gallery to easily spin up 
 ### Testing
   You should now have a finished appx sideloaded on your machine for testing.
 
-  But before you do that, make sure you've enabled Developer Mode in the Settings app (WSL won't work without it, and neither will sideloading). Then double click on the signed appx and click "Install" to install it. Note that this only installed the appx on your system, but it doesn't unzip the tar.gz or register the distro yet. 
+  But before you do that, make sure you've enabled Developer Mode in the Settings app (sideloading won't work without it). Then double click on the signed appx and click "Install" to install it. Note that this only installed the appx on your system, but it doesn't unzip the tar.gz or register the distro yet. 
 
   You can then begin the distro registration by launching the app from the Start Menu or executing `mydistro` from the command line. 
 
