@@ -2,6 +2,7 @@
 //    Copyright (C) Microsoft.  All rights reserved.
 // Licensed under the terms described in the LICENSE file in the root of this project.
 //
+
 #include "stdafx.h"
 
 namespace {
@@ -33,12 +34,12 @@ void Helpers::PrintErrorMessage(HRESULT error)
 {
     PWSTR buffer = nullptr; 
     ::FormatMessageW(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-                     NULL,
+                     nullptr,
                      error,
                      0,
                      (PWSTR)&buffer,
                      0,
-                     NULL);
+                     nullptr);
 
     Helpers::PrintMessage(MSG_ERROR_CODE, error, buffer);
     if (buffer != nullptr) {
@@ -69,14 +70,16 @@ namespace {
     {
         PWSTR buffer = nullptr; 
         DWORD written = ::FormatMessageW(FORMAT_MESSAGE_FROM_HMODULE | FORMAT_MESSAGE_ALLOCATE_BUFFER,
-                                         NULL,
+                                         nullptr,
                                          messageId,
                                          0,
                                          (PWSTR)&buffer,
                                          10,
                                          &vaList);
         *message = buffer;
-        HeapFree(GetProcessHeap(), 0, buffer);
+        if (buffer != nullptr) {
+            HeapFree(GetProcessHeap(), 0, buffer);
+        }
 
         return (written > 0) ? S_OK : HRESULT_FROM_WIN32(GetLastError());
     }
