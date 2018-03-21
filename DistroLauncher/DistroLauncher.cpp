@@ -2,12 +2,15 @@
 //    Copyright (C) Microsoft.  All rights reserved.
 // Licensed under the terms described in the LICENSE file in the root of this project.
 //
+
 #include "stdafx.h"
 
 // This is the name of the distribution, it must only conform to the following
 // regular expression: ^[a-zA-Z0-9._-]+$
 #define DISTRIBUTION_NAME L"MyDistribution"
 
+// Helper class for calling WSL Functions:
+// https://msdn.microsoft.com/en-us/library/windows/desktop/mt826874(v=vs.85).aspx
 WslApiLoader g_wslApi(DISTRIBUTION_NAME);
 
 static HRESULT InstallDistribution();
@@ -65,7 +68,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
     // Create a pipe to read the output of the launched process.
     HANDLE readPipe;
     HANDLE writePipe;
-    SECURITY_ATTRIBUTES sa{sizeof(sa), NULL, TRUE};
+    SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, true};
     HRESULT hr = E_FAIL;
     if (CreatePipe(&readPipe, &writePipe, &sa, 0)) {
         // Query the UID of the supplied username.
@@ -77,7 +80,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
             // Wait for the child to exit and ensure process exited successfully.
             WaitForSingleObject(child, INFINITE);
             DWORD exitCode;
-            if ((GetExitCodeProcess(child, &exitCode) == 0) || (exitCode != 0)) {
+            if ((GetExitCodeProcess(child, &exitCode) == false) || (exitCode != 0)) {
                 hr = E_INVALIDARG;
             }
 
@@ -87,7 +90,7 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
                 DWORD bytesRead;
 
                 // Read the output of the command from the pipe and convert to a UID.
-                if (ReadFile(readPipe, buffer, (sizeof(buffer) - 1), &bytesRead, NULL)) {
+                if (ReadFile(readPipe, buffer, (sizeof(buffer) - 1), &bytesRead, nullptr)) {
                     buffer[bytesRead] = ANSI_NULL;
                     try {
                         *uid = std::stoul(buffer, nullptr, 10);
@@ -181,6 +184,10 @@ int wmain(int argc, wchar_t const *argv[])
                 if (_wcsicmp(argv[2], L"--default-user") == 0) {
                     hr = SetDefaultUser(argv[3]);
                 }
+            }
+
+            if (SUCCEEDED(hr)) {
+                exitCode = 0;
             }
 
         } else {

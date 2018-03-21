@@ -29,12 +29,14 @@ Usage:
       - Launches the user's default shell in the user's home directory.
     
     run <command line> 
-      - Run the provided command line.
+      - Run the provided command line in the current working directory. If no
+        command line is provided, the default shell is launched.
 
     config [setting [value]] 
       - Configure settings for this distribution.
       - Settings are any of the following:
-        - `--default-user <username>`: Set the default user for this distribution to <username>
+        - --default-user <username>
+          Sets the default user to <username>. This must be an existing user.
     
     help 
       - Print this usage message.
@@ -80,5 +82,5 @@ See https://aka.ms/wslinstall for details.
 MessageId=1013 SymbolicName=MSG_INSTALL_ALREADY_EXISTS
 Language=English
 The distribution installation has become corrupted.
-Please try uninstalling and reinstalling the app.
+Please select Reset from App Settings or uninstall and reinstall the app.
 .
