@@ -96,7 +96,7 @@ Note: If you are using Hyper-V you can use the new VM gallery to easily spin up 
 
   If that's not the case, then you will need to modify that script.
 
-  Once you've completed the build, the packaged appx should be placed in a directory like `...WSL-DistroLauncher\x64\Release\DistroLauncher-Appx` and should be named something like `DistroLauncher-Appx_1.0.0.0_x64.appx`. Simply double click that appx file to open the sideloading dialog. 
+  Once you've completed the build, the packaged appx should be placed in a directory like `WSL-DistroLauncher\x64\Release\DistroLauncher-Appx` and should be named something like `DistroLauncher-Appx_1.0.0.0_x64.appx`. Simply double click that appx file to open the sideloading dialog. 
 
   You can also use the PowerShell cmdlet `Add-AppxPackage` to register your appx:
   ``` powershell
