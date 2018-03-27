@@ -198,7 +198,13 @@ int wmain(int argc, wchar_t const *argv[])
 
     // If an error was encountered, print an error message.
     if (FAILED(hr)) {
-        Helpers::PrintErrorMessage(hr);
+        if (hr == HRESULT_FROM_WIN32(ERROR_LINUX_SUBSYSTEM_NOT_PRESENT)) {
+            Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
+
+        } else {
+            Helpers::PrintErrorMessage(hr);
+        }
+
         if (prompt) {
             Helpers::PromptForInput();
         }
