@@ -21,14 +21,14 @@ typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH)(PCWSTR, PCWSTR, BOOL, HANDLE, HANDL
 class WslApiLoader
 {
   public:
-    WslApiLoader(PCWSTR distributionName);
+    WslApiLoader(const std::wstring distributionName);
     ~WslApiLoader();
 
     BOOL WslIsOptionalComponentInstalled();
 
     BOOL WslIsDistributionRegistered();
 
-    HRESULT WslRegisterDistribution(PCWSTR tarGzFilename);
+    HRESULT WslRegisterDistribution();
 
     HRESULT WslConfigureDistribution(ULONG defaultUID,
                                      WSL_DISTRIBUTION_FLAGS wslDistributionFlags);
