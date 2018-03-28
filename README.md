@@ -44,8 +44,7 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
 ## Getting Started
   1. Generate a test certificate. Open `DistroLauncher-Appx/MyDistro.appxmanifest`, select the Packaging tab, select Choose Certificate, click the Configure Certificate drop down and select Create test certificate.
-  2. Pick a _Name_ for your distro. WSL will use this as a key to identify this version of your distro - so please try to make it unique! **This name should not change from one version of your app to the next.**
-  Set this _name_ in `DistributionInfo.h`, by modifying `DistributionInfo::Name`.
+  2. Edit your distribution-specific information in `DistributionInfo.h`. **NOTE: The `Name` variable must be unique and cannot change from one version of your app to the next.**
   3.  Modify `InstallDistribution` in `DistroLauncher.cpp` to set up the initial configuration of your distro.
       - We have provided a sample for setting up a default user on an Ubuntu based system. This code should be modified to work appropriately on your distro.
   4.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
