@@ -50,7 +50,7 @@ This project is an active repo maintained by the WSL engineering team at Microso
   3.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
       - The icon must be named `icon.ico`.
   4. Pick the name you'd like to make this distro callable by from the command line. For the rest of the README I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
-  5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 5. By default, the lines should look like:
+  5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 4. By default, the lines should look like:
 
   ``` xml
   <PropertyGroup Label="Globals">
