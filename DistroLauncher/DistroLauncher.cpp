@@ -5,13 +5,9 @@
 
 #include "stdafx.h"
 
-// This is the name of the distribution, it must only conform to the following
-// regular expression: ^[a-zA-Z0-9._-]+$
-#define DISTRIBUTION_NAME L"MyDistribution"
-
 // Helper class for calling WSL Functions:
 // https://msdn.microsoft.com/en-us/library/windows/desktop/mt826874(v=vs.85).aspx
-WslApiLoader g_wslApi(DISTRIBUTION_NAME);
+WslApiLoader g_wslApi(DistributionInfo::Name);
 
 static HRESULT InstallDistribution();
 static HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid);
@@ -21,7 +17,7 @@ HRESULT InstallDistribution()
 {
     // Register the distribution.
     Helpers::PrintMessage(MSG_STATUS_INSTALLING);
-    HRESULT hr = g_wslApi.WslRegisterDistribution(L"install.tar.gz");
+    HRESULT hr = g_wslApi.WslRegisterDistribution();
     if (FAILED(hr)) {
         return hr;
     }
@@ -133,7 +129,7 @@ HRESULT SetDefaultUser(const std::wstring& userName)
 int wmain(int argc, wchar_t const *argv[])
 {
     // Update the title bar of the console window.
-    SetConsoleTitleW(L"My Distribution");
+    SetConsoleTitleW(DistributionInfo::WindowTitle.c_str());
 
     // Ensure that the Windows Subsystem for Linux optional component is installed.
     DWORD exitCode = 1;
