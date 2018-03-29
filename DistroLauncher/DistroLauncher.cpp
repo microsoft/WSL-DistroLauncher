@@ -31,24 +31,11 @@ HRESULT InstallDistribution()
 
     // Create a user account.
     Helpers::PrintMessage(MSG_CREATE_USER_PROMPT);
-    std::wstring commandLine;
     std::wstring userName;
     do {
         userName = Helpers::GetUserInput(MSG_ENTER_USERNAME, 32);
-        commandLine = L"/usr/sbin/adduser --quiet --gecos '' " + userName;
-        hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-        if (FAILED(hr)) {
-            return hr;
-        }
 
-    } while (exitCode != 0);
-
-    // Add the user account to any relevant groups.
-    commandLine = L"/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev " + userName;
-    hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
-    if (FAILED(hr)) {
-        return hr;
-    }
+    } while (!DistributionInfo::CreateUser(userName));
 
     // Set this user account as the default.
     hr = SetDefaultUser(userName);
@@ -68,10 +55,10 @@ HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
     HRESULT hr = E_FAIL;
     if (CreatePipe(&readPipe, &writePipe, &sa, 0)) {
         // Query the UID of the supplied username.
-        std::wstring bashCommand = L"/usr/bin/id -u " + userName;
+        std::wstring command = DistributionInfo::QueryUidCommand(userName);
         int returnValue = 0;
         HANDLE child;
-        hr = g_wslApi.WslLaunch(bashCommand.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
+        hr = g_wslApi.WslLaunch(command.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
         if (SUCCEEDED(hr)) {
             // Wait for the child to exit and ensure process exited successfully.
             WaitForSingleObject(child, INFINITE);

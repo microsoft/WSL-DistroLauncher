@@ -142,6 +142,7 @@
     <ClInclude Include="WslApiLoader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DistributionInfo.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="DistroLauncher.cpp" />
     <ClCompile Include="stdafx.cpp">

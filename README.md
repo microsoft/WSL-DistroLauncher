@@ -21,7 +21,7 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
   * `launcher run <command line>`
     - Run the given command line in that distro, using the default configuration.
-    - Everything after `run ` is passed to the Linux LaunchProcess call.
+    - Everything after `run` is passed to WslLaunchInteractive.
 
   * `launcher config [setting [value]]`
     - Configure certain settings for this distro.
@@ -36,7 +36,7 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
   1.  First check if the distribution is registered. If it's not, then it is registered it with the Windows Subsystem for Linux. Registration extracts the tar.gz file that is included in your distribution appx.
   2.  Once the distro is successfully registered, any other pre-launch setup is performed in `InstallDistribution()`. This is where distro-specific setup can be performed. As an example, the reference implementation creates a user account and sets this user account as the default for the distro.
-      - Note: This commands used to query and create user accounts are Ubuntu-specific; change as necessary to match the needs of your distro.
+      - Note: The commands used to query and create user accounts are Ubuntu-specific; change as necessary to match the needs of your distro.
   3.  Once the distro is configured, parse any other command-line arguments. The details of these arguments are described above, in the [Introduction](#Introduction).
 
 ## Project Structure
@@ -44,13 +44,12 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
 ## Getting Started
   1. Generate a test certificate. Open `DistroLauncher-Appx/MyDistro.appxmanifest`, select the Packaging tab, select Choose Certificate, click the Configure Certificate drop down and select Create test certificate.
-  2. Edit your distribution-specific information in `DistributionInfo.h`. **NOTE: The `Name` variable must be unique and cannot change from one version of your app to the next.**
-  3.  Modify `InstallDistribution` in `DistroLauncher.cpp` to set up the initial configuration of your distro.
-      - We have provided a sample for setting up a default user on an Ubuntu based system. This code should be modified to work appropriately on your distro.
-  4.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
+  2. Edit your distribution-specific information in `DistributionInfo.h` and `DistributionInfo.cpp`. **NOTE: The `DistributionInfo::Name` variable must uniquely identify your distribution and cannot change from one version of your app to the next.**
+      - The examples for creating a user account and querying the UID are from an Ubuntu-based system. They may need to be modified to work appropriately on your distribution.
+  3.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the console window.
       - The icon must be named `icon.ico`.
-  5. Pick the name you'd like to make this distro callable by from the command line. For the rest of the README I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
-  6. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 5. By default, the lines should look like:
+  4. Pick the name you'd like to make this distro callable by from the command line. For the rest of the README I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
+  5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 5. By default, the lines should look like:
 
   ``` xml
   <PropertyGroup Label="Globals">
@@ -69,11 +68,11 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
   **DO NOT** change the ProjectName of the `DistroLauncher/DistroLauncher.vcxproj` from the value `launcher`. Doing so will break the build, as the DistroLauncher-Appx project is looking for the output of this project as `launcher.exe`.
 
-  7.  Update `MyDistro.appxmanifest`. There are several properties that are in the manifest that will need to be updated with your specific values.
+  6.  Update `MyDistro.appxmanifest`. There are several properties that are in the manifest that will need to be updated with your specific values.
       - Make sure to note the `Identity Publisher` value (by default, `"CN=DistroOwner"`). We'll need that for testing the application.
       - Make sure that `<desktop:ExecutionAlias Alias="mydistro.exe" />` is set to something that ends in ".exe". This is the command that will be used to launch your distro from the command line and should match the executable name we picked in step 4.
       - Make sure each of the `Executable` values match the executable name we picked in step 4.
-  8. Copy your tar.gz containing your distro into the root of the project and rename it to `install.tar.gz`.
+  7. Copy your tar.gz containing your distro into the root of the project and rename it to `install.tar.gz`.
 
 ## Build and Test
   To help building and testing the DistroLauncher project, we've included the following scripts to automate some tasks. You can either choose to use these scripts from the command line, or work directly in Visual Studio, whatever your preference is. 
