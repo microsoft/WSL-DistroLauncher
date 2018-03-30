@@ -106,7 +106,7 @@ Note: If you are using Hyper-V you can use the new VM gallery to easily spin up 
 
   You can also easily build and deploy the distro launcher from Visual Studio. To sideload your appx on your machine for testing, all you need to do is right-click on the "Solution (DistroLauncher)" in the Solution Explorer and click "Deploy Solution". This should build the project and sideload it automatically for testing.
 
-  Note that the "Big Green Button" for running your project will likely not work. 
+  In order run your solution under the Visual Studio debugger, you will need to copy your install.tar.gz file into your output folder, for example: `x64\Debug`. **NOTE: If you have registered your distribution by this method, you will need to manually unregister it via wslconfig.exe /unregister**
 
 ### Testing
   You should now have a finished appx sideloaded on your machine for testing.
