@@ -5,6 +5,8 @@
 
 #pragma once
 
+#define UID_INVALID ((ULONG)-1)
+
 namespace Helpers
 {
     std::wstring GetUserInput(DWORD promptMsg, DWORD maxCharacters);

@@ -21,6 +21,6 @@ namespace DistributionInfo
     // Create and configure a user account.
     bool CreateUser(const std::wstring& userName);
 
-    // Generate a command to query the UID of the user account.
-    std::wstring QueryUidCommand(const std::wstring& userName);
+    // Query the UID of the user account.
+    ULONG QueryUid(const std::wstring& userName);
 }

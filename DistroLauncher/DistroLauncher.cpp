@@ -10,7 +10,6 @@
 WslApiLoader g_wslApi(DistributionInfo::Name);
 
 static HRESULT InstallDistribution();
-static HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid);
 static HRESULT SetDefaultUser(const std::wstring& userName);
 
 HRESULT InstallDistribution()
@@ -46,66 +45,16 @@ HRESULT InstallDistribution()
     return hr;
 }
 
-HRESULT QueryUserInfo(const std::wstring& userName, unsigned long* uid)
-{
-    // Create a pipe to read the output of the launched process.
-    HANDLE readPipe;
-    HANDLE writePipe;
-    SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, true};
-    HRESULT hr = E_FAIL;
-    if (CreatePipe(&readPipe, &writePipe, &sa, 0)) {
-        // Query the UID of the supplied username.
-        std::wstring command = DistributionInfo::QueryUidCommand(userName);
-        int returnValue = 0;
-        HANDLE child;
-        hr = g_wslApi.WslLaunch(command.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
-        if (SUCCEEDED(hr)) {
-            // Wait for the child to exit and ensure process exited successfully.
-            WaitForSingleObject(child, INFINITE);
-            DWORD exitCode;
-            if ((GetExitCodeProcess(child, &exitCode) == false) || (exitCode != 0)) {
-                hr = E_INVALIDARG;
-            }
-
-            CloseHandle(child);
-            if (SUCCEEDED(hr)) {
-                char buffer[64];
-                DWORD bytesRead;
-
-                // Read the output of the command from the pipe and convert to a UID.
-                if (ReadFile(readPipe, buffer, (sizeof(buffer) - 1), &bytesRead, nullptr)) {
-                    buffer[bytesRead] = ANSI_NULL;
-                    try {
-                        *uid = std::stoul(buffer, nullptr, 10);
-
-                    } catch( ... ) {
-                        hr = E_INVALIDARG;
-                    }
-
-                } else {
-                    hr = HRESULT_FROM_WIN32(GetLastError()); 
-                }
-            }
-        }
-
-        CloseHandle(readPipe);
-        CloseHandle(writePipe);
-    }
-
-    return hr;
-}
-
 HRESULT SetDefaultUser(const std::wstring& userName)
 {
     // Query the UID of the given user name and configure the distribution
     // to use this UID as the default.
-    ULONG uid;
-    HRESULT hr = QueryUserInfo(userName, &uid);
-    if (FAILED(hr)) {
-        return hr;
+    ULONG uid = DistributionInfo::QueryUid(userName);
+    if (uid == UID_INVALID) {
+        return HRESULT_FROM_WIN32(GetLastError());
     }
 
-    hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    HRESULT hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
     if (FAILED(hr)) {
         return hr;
     }

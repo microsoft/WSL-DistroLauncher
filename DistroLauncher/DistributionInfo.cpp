@@ -29,7 +29,46 @@ bool DistributionInfo::CreateUser(const std::wstring& userName)
     return true;
 }
 
-std::wstring DistributionInfo::QueryUidCommand(const std::wstring& userName)
+ULONG DistributionInfo::QueryUid(const std::wstring& userName)
 {
-    return L"/usr/bin/id -u " + userName;
+    // Create a pipe to read the output of the launched process.
+    HANDLE readPipe;
+    HANDLE writePipe;
+    SECURITY_ATTRIBUTES sa{sizeof(sa), nullptr, true};
+    ULONG uid = UID_INVALID;
+    if (CreatePipe(&readPipe, &writePipe, &sa, 0)) {
+        // Query the UID of the supplied username.
+        std::wstring command = L"/usr/bin/id -u " + userName;
+        int returnValue = 0;
+        HANDLE child;
+        HRESULT hr = g_wslApi.WslLaunch(command.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
+        if (SUCCEEDED(hr)) {
+            // Wait for the child to exit and ensure process exited successfully.
+            WaitForSingleObject(child, INFINITE);
+            DWORD exitCode;
+            if ((GetExitCodeProcess(child, &exitCode) == false) || (exitCode != 0)) {
+                hr = E_INVALIDARG;
+            }
+
+            CloseHandle(child);
+            if (SUCCEEDED(hr)) {
+                char buffer[64];
+                DWORD bytesRead;
+
+                // Read the output of the command from the pipe and convert to a UID.
+                if (ReadFile(readPipe, buffer, (sizeof(buffer) - 1), &bytesRead, nullptr)) {
+                    buffer[bytesRead] = ANSI_NULL;
+                    try {
+                        uid = std::stoul(buffer, nullptr, 10);
+
+                    } catch( ... ) { }
+                }
+            }
+        }
+
+        CloseHandle(readPipe);
+        CloseHandle(writePipe);
+    }
+
+    return uid;
 }
