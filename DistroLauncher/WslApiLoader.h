@@ -21,7 +21,7 @@ typedef HRESULT (STDAPICALLTYPE* WSL_LAUNCH)(PCWSTR, PCWSTR, BOOL, HANDLE, HANDL
 class WslApiLoader
 {
   public:
-    WslApiLoader(const std::wstring distributionName);
+    WslApiLoader(const std::wstring& distributionName);
     ~WslApiLoader();
 
     BOOL WslIsOptionalComponentInstalled();
