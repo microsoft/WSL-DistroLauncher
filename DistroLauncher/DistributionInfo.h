@@ -19,8 +19,8 @@ namespace DistributionInfo
     const std::wstring WindowTitle = L"My Distribution";
 
     // Create and configure a user account.
-    bool CreateUser(const std::wstring& userName);
+    bool CreateUser(std::wstring_view userName);
 
     // Query the UID of the user account.
-    ULONG QueryUid(const std::wstring& userName);
+    ULONG QueryUid(std::wstring_view userName);
 }
