@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "WslApiLoader.h"
 
-WslApiLoader::WslApiLoader(const std::wstring distributionName) :
+WslApiLoader::WslApiLoader(const std::wstring& distributionName) :
     _distributionName(distributionName)
 {
     _wslApiDll = LoadLibraryEx(L"wslapi.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
