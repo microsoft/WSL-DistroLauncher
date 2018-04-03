@@ -10,7 +10,7 @@
 WslApiLoader g_wslApi(DistributionInfo::Name);
 
 static HRESULT InstallDistribution();
-static HRESULT SetDefaultUser(const std::wstring& userName);
+static HRESULT SetDefaultUser(std::wstring_view userName);
 
 HRESULT InstallDistribution()
 {
@@ -45,13 +45,13 @@ HRESULT InstallDistribution()
     return hr;
 }
 
-HRESULT SetDefaultUser(const std::wstring& userName)
+HRESULT SetDefaultUser(std::wstring_view userName)
 {
     // Query the UID of the given user name and configure the distribution
     // to use this UID as the default.
     ULONG uid = DistributionInfo::QueryUid(userName);
     if (uid == UID_INVALID) {
-        return HRESULT_FROM_WIN32(GetLastError());
+        return E_INVALIDARG;
     }
 
     HRESULT hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
@@ -67,12 +67,17 @@ int wmain(int argc, wchar_t const *argv[])
     // Update the title bar of the console window.
     SetConsoleTitleW(DistributionInfo::WindowTitle.c_str());
 
+    // Initialize a vector of arguments.
+    std::vector<std::wstring_view> arguments;
+    for (int index = 1; index < argc; index += 1) {
+        arguments.push_back(argv[index]);
+    }
+
     // Ensure that the Windows Subsystem for Linux optional component is installed.
     DWORD exitCode = 1;
-    bool prompt = (argc == 1);
     if (!g_wslApi.WslIsOptionalComponentInstalled()) {
         Helpers::PrintMessage(MSG_MISSING_OPTIONAL_COMPONENT);
-        if (prompt) {
+        if (arguments.empty()) {
             Helpers::PromptForInput();
         }
 
@@ -95,26 +100,26 @@ int wmain(int argc, wchar_t const *argv[])
 
     // Parse the command line arguments.
     if (SUCCEEDED(hr)) {
-        if (argc == 1) {
+        if (arguments.empty()) {
             hr = g_wslApi.WslLaunchInteractive(L"", false, &exitCode);
 
-        } else if ((_wcsicmp(argv[1], L"run") == 0) ||
-                   (_wcsicmp(argv[1], L"/c") == 0) ||
-                   (_wcsicmp(argv[1], L"-c") == 0)) {
+        } else if ((arguments[0] == L"run") ||
+                   (arguments[0] == L"/c") ||
+                   (arguments[0] == L"-c")) {
 
             std::wstring command;
-            for (int i = 2; i < argc; ++i) {
+            for (size_t index = 1; index < arguments.size(); index += 1) {
                 command += L" ";
-                command += argv[i];
+                command += arguments[index];
             }
 
             hr = g_wslApi.WslLaunchInteractive(command.c_str(), true, &exitCode);
 
-        } else if (_wcsicmp(argv[1], L"config") == 0 ) {
+        } else if (arguments[0] == L"config") {
             hr = E_INVALIDARG;
-            if (argc == 4) {
-                if (_wcsicmp(argv[2], L"--default-user") == 0) {
-                    hr = SetDefaultUser(argv[3]);
+            if (arguments.size() == 3) {
+                if (arguments[1] == L"--default-user") {
+                    hr = SetDefaultUser(arguments[2]);
                 }
             }
 
@@ -137,7 +142,7 @@ int wmain(int argc, wchar_t const *argv[])
             Helpers::PrintErrorMessage(hr);
         }
 
-        if (prompt) {
+        if (arguments.empty()) {
             Helpers::PromptForInput();
         }
     }

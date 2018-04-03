@@ -22,6 +22,8 @@
 #include <assert.h>
 #include <locale>
 #include <codecvt>
+#include <string_view>
+#include <vector>
 #include <wslapi.h>
 #include "WslApiLoader.h"
 #include "Helpers.h"
