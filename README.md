@@ -14,22 +14,27 @@ This project is an active repo maintained by the WSL engineering team at Microso
 
 ### Contents
   The sample provides the following functionality:
-  (where `launcher` is replaced by the distro-specific name)
+  (where `launcher.exe` is replaced by the distro-specific name)
 
-  * `launcher`
-    - Launch the distro's default login shell.
+  * `launcher.exe`
+    - Launches the user's default shell in the user's home directory.
 
-  * `launcher run <command line>`
-    - Run the given command line in that distro, using the default configuration.
+  * `launcher.exe install [option]`
+    - Install the distribuiton and do not launch the shell when complete.
+    - Options:
+      - `--root` : Do not create a user account and leave the default user set to root.
+
+  * `launcher.exe run <command line>`
+    - Run the provided command line in the current working directory. If no command line is provided, the default shell is launched..
     - Everything after `run` is passed to WslLaunchInteractive.
 
-  * `launcher config [setting [value]]`
-    - Configure certain settings for this distro.
-    - Settings are any of the following (by default)
-      - `--default-user <username>`: Set the default user for this distro
+  * `launcher.exe config [setting [value]]`
+    - Configure settings for this distribution.
+    - Settings:
+      - `--default-user <username>`: Sets the default user to <username>. This must be an existing user.
 
-  * `launcher help`
-    - Print the usage.
+  * `launcher.exe help`
+    - Print usage information.
 
 ## Launcher Outline
   This is the basic flow of how the launcher code is set up.
