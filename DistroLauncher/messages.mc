@@ -28,9 +28,8 @@ Usage:
     <no args> 
         Launches the user's default shell in the user's home directory.
 
-    install [option]
+    install [--root]
         Install the distribuiton and do not launch the shell when complete.
-        Options:
           --root
               Do not create a user account and leave the default user set to root.
 
