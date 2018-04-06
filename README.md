@@ -19,9 +19,8 @@ This project is an active repo maintained by the WSL engineering team at Microso
   * `launcher.exe`
     - Launches the user's default shell in the user's home directory.
 
-  * `launcher.exe install [option]`
+  * `launcher.exe install [--root]`
     - Install the distribuiton and do not launch the shell when complete.
-    - Options:
       - `--root` : Do not create a user account and leave the default user set to root.
 
   * `launcher.exe run <command line>`
