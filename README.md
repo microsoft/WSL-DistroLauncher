@@ -172,7 +172,7 @@ You'll also need to change a few small things in your project to prepare your di
 	4. Launch "Developer Command Prompt for VS 2017" and navigate to the root of your solution.
 	5. Run "PowerShell.exe .\createARM64Package.ps1".  You will need to update the appxPath and pfxFile variables at the top of the PowerShell script.
 	6. In Visual Studio Project > Store > Upload App Packages
-	7. Sign in with your developer.microsoft.com account and select the appx file that was created in step 5.
+	7. Sign in with your developer.microsoft.com account and select the appx file that was created in step v.
 
 Also, make sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
 
