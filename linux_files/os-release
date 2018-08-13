@@ -1,0 +1,6 @@
+PRETTY_NAME="Xebian for WSL"
+NAME="Xebian"
+ID=debian
+HOME_URL="https://github.com/sirredbeard/Xebian"
+SUPPORT_URL="https://github.com/sirredbeard/Xebian"
+BUG_REPORT_URL="https://github.com/sirredbeard/Xebian/issues/"
