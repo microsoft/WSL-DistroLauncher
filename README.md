@@ -3,15 +3,16 @@
 A Linux distro optimized for WSL based on Debian stable.
 
 - Optimized for use with Windows Subsystem for Linux on Windows 10.
-- Out-of-the-box support for external X clients, e.g. [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
+- Out-of-the-box support for external Windows X clients, I recommend [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
 - Several useful packages pre-installed, including git and python3.
-- Easily install:
-    - Visual Studio Code `$ installcode.sh`
-    - Google Chrome `$ installchrome.sh`
+- Removes unnecessary packages, such as systemd and iptables.
+- Easily install the following popular packages:
+    - Visual Studio Code `$ sudo /opt/installcode.sh`
+    - Google Chrome `$ sudo /opt/installchrome.sh`
 
 ## Background
 
-Xebian is a community Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are availablw for WSL, this is the first Linux distro specifically intended for use on WSL. A number of enhancements are enabled by default and additional suggestions are welcome.
+Xebian is a community Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are availablw for WSL, this is the first Linux distro specifically intended for use on WSL. A number of enhancements are enabled by default and additional improvements are planned.
 
 Xebian is open-source. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed. A paid version of Xebian is planned for the Microsoft Store to support ongoing development.
 
