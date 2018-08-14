@@ -69,6 +69,60 @@ Planned For 1.1:
 
 Read more about the components [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
+## Requirements for building
+This project can be built using Visual Studio Community 2017. The "Universal Windows Platform development" feature is required, along with the following subfeatures:
+
+* C++ Universal Windows Platform tools
+* Windows 10 SDK (10.0.16299.0) for UWP: C#, VB, JS
+
+## Requirements for installing and running 
+The system must be in Developer mode (found in Settings -> Update & Security -> For developers)
+
+The Windows Subsystem for Linux is not enabled by default, and is required to run the app. You can add the feature to your Windows installation by running `C:\Windows\System32\OptionalFeatures.exe` and selecting it from the list.
+
+## Building
+- Open DistroLauncher.sln in Visual Studio.
+- Generate a test certificate:
+    - In the Solution Explorer, open `Gentoo-Appx\Gentoo.appxmanifest`
+    - Select the Packaging tab
+    - Select "Choose Certificate"
+    - Click the Configure Certificate drop down and select Create test certificate.
+- Build install.tar.gz using create-targz.sh on an existing WLinux or Debian image, copy to /x64/.
+- Build the package:
+    - Open a `Developer Command Prompt for VS 2017` and change directory to the project root.
+    - Run `build.bat`
+- If everything's gone right, you should find your app package in a subfolder under the `AppPackages\Gentoo-Appx` folder.
+    1. First, install the certificate:
+	    1. Double-click on the security certificate file.
+		1. Click the Install Certificate button.
+		1. Select Local Machine for the store location.
+		1. Select "Place all certificates in the following store", then click the Browse button.
+		1. Select "Trusted Root Certification Authorities" from the list, then click OK.
+		1. Proceed through the rest of the wizard.
+	1. Once that's done, you should be able to double-click on the package file and install it.
+
+## Usage
+The launcher provides the following functionality:
+
+* `wlinux.exe`
+  - Launches the user's default shell in the user's home directory.
+
+* `wlinux.exe install [--root]`
+  - Install the distribution and do not launch the shell when complete.
+    - `--root`: Do not create a user account and leave the default user set to root.
+
+* `wlinux.exe run <command line>`
+  - Run the provided command line in the current working directory. If no command line is provided, the default shell is launched.
+  - Everything after `run` is passed to WslLaunchInteractive.
+
+* `wlinux.exe config [setting [value]]`
+  - Configure settings for this distribution.
+  - Settings:
+    - `--default-user <username>`: Sets the default user to <username>. This must be an existing user.
+
+* `wlinux.exe help`
+  - Print usage information.
+
 ## Related Pages
 
 - [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL)
