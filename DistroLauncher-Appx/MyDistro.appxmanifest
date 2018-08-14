@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp uap2 uap3 rescap desktop">
-  <Identity Name="WLinux" Version="1.0.0.0" Publisher="CN=Hayden Barnes" ProcessorArchitecture="x64" />
-  <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="WLinux.WSL" Version="1.1.1.0" Publisher="CN=Hayden" ProcessorArchitecture="x64" />
+  <mp:PhoneIdentity PhoneProductId="81d6edb4-11a3-41b1-b79b-652fe8686f84" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WLinux</DisplayName>
     <PublisherDisplayName>Hayden Barnes</PublisherDisplayName>
@@ -17,14 +17,14 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="WLinux" Executable="wlinux.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="WLinux" Description="A Linux distribution optimized for WSL based on Debian stable." Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
+    <Application Id="wlinux" Executable="wlinux.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="WLinux" Description="WLinux Distro Launcher" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <uap3:Extension Category="windows.appExecutionAlias" Executable="wlinux.exe" EntryPoint="Windows.FullTrustApplication">
+        <uap3:Extension Category="windows.appExecutionAlias" Executable="debian.exe" EntryPoint="Windows.FullTrustApplication">
           <uap3:AppExecutionAlias>
             <desktop:ExecutionAlias Alias="wlinux.exe" />
           </uap3:AppExecutionAlias>

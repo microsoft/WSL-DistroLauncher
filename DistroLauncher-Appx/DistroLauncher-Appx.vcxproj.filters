@@ -147,6 +147,9 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
+    <AppxManifest Include="MyDistro.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
     <None Include="..\x64\install.tar.gz" />
   </ItemGroup>
@@ -155,8 +158,6 @@
     <CustomBuild Include="$(targetname)" />
     <CustomBuild Include="$(targetname)" />
     <CustomBuild Include="$(targetname)" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="WLinux.appxmanifest" />
+    <CustomBuild Include="$(targetname)" />
   </ItemGroup>
 </Project>

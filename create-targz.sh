@@ -32,5 +32,5 @@ sudo chroot $DIST apt-get autoremove -y
 cd $DIST
 sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
 # move to build directory
-cp $TMPDIR/install.tar.gz $BUILDIR
+cp $TMPDIR/install.tar.gz $BUILDIR/x64/
 cd $BUILDIR
