@@ -1,6 +1,6 @@
 # WLinux
 
-<img src="https://raw.githubusercontent.com/sirredbeard/WLinux/master/DistroLauncher/images/logo.png" height=15% width=15%>
+<img src="https://github.com/sirredbeard/WLinux/blob/master/DistroLauncher-Appx/Assets/StoreLogo.scale-100.png" height=15% width=15%>
 
 A Linux distribution optimized for WSL based on Debian stable.
 
