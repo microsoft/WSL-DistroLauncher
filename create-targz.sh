@@ -1,6 +1,7 @@
 #!/bin/bash
 # install script dependencies
-sudo apt install curl gpg cdebootstrap
+sudo apt update
+sudo apt install curl gnupg cdebootstrap
 # create our environment
 set -e
 BUILDIR=$(pwd)
@@ -8,17 +9,16 @@ TMPDIR=$(mktemp -d)
 ARCH="amd64"
 DIST="stable"
 cd $TMPDIR
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,python3,apt-transport-https $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,python3,apt-transport-https,wget $DIST $DIST http://deb.debian.org/debian
 # clean apt cache
 sudo chroot $DIST apt-get clean
 # configure bash
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
 sudo chroot $DIST /bin/bash -c "update-locale LANGUAGE=en_US.UTF-8 LC_ALL=C"
-# install wslu
-sudo chroot $DIST wget -O - https://api.patrickwu.ml/public.key | sudo apt-key add -
-sudo chroot $DIST echo "deb https://apt.patrickwu.ml/ stretch main" | sudo tee -a /etc/apt/sources.list 
-sudo chroot $DIST sudo apt update
-sudo chroot $DIST apt install wslu -y
+# install wslu repo key
+sudo chroot $DIST wget https://api.patrickwu.ml/public.key --no-check-certificate
+sudo chroot $DIST apt-key add public.key
+sudo chroot $DIST rm public.key
 # copy custom files to image
 sudo cp $BUILDIR/linux_files/profile $TMPDIR/$DIST/etc/profile
 sudo cp $BUILDIR/linux_files/os-release $TMPDIR/$DIST/etc/os-release
