@@ -47,15 +47,17 @@ Completed:
     - Pre-install git and python3.
     - Remove systemd and iptables.
 
-To Do:
+To Do Before 1.0:
 
-    - *Complete Windows app containerization.* (Lots of bugs in build process.)
-    - Complete branding.
+    - Complete Windows UWP app containerization.
+    - Branding Assets.
+
+Planned For 1.1:
+
     - ARM64 support.
-    - Custom color theme.
-    - Additional third-party app install scripts planned:
+    - Additional third-party app install scripts:
         - Oracle Java
-        - Anaconda
+        - Anaconda Python Distribution
 
 ## Project Components
 
