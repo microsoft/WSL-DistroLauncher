@@ -2,6 +2,8 @@
 
 A Linux distribution optimized for WSL based on Debian stable.
 
+**Warning**: Project is incomplete. See [Project Progress](https://github.com/sirredbeard/WLinux#project-progress).
+
 ## Features Overview
 
 - Optimized for use with Windows Subsystem for Linux on Windows 10.
@@ -26,30 +28,29 @@ First search for your issue [here](https://github.com/sirredbeard/WLinux/issues)
 
 WLinux is a Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are availablw for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned.
 
-WLinux is open-source and based on the stable Debian release. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed. A paid version of WLinux is planned for the Microsoft Store to support ongoing development.
+WLinux is open-source and based on the stable Debian release. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed.
 
-Note: There are no .iso or .img files available for WLinux, only a tar.gz image for use on Windows Subsystem for Linux.
+Note: There are no .iso or .img files available for WLinux.
 
 ## Project Progress
 
 Completed:
 
-    - Custom Linux distro image based on Debian stretch build working.
-    - Custom create-targz.sh script forked from Debian's upstream version.
-    - Custom /etc/os-release for Xebian.
+    - Automated custom Linux distro image based on Debian stretch.
+    - Custom /etc/os-release.
     - Custom /etc/profile optimized for WSL.
-    - Custom /etc/apt/sources.list for Xebian.
-    - Scripts to install popular software:
+    - Custom /etc/apt/sources.list.
+    - Scripts to install popular third-party software:
         - Google Chrome
         - Microsoft Virtual Studio Code
-    - Support for Windows X clients (via settings in /etc/profile)
+    - Support for Windows X clients and libGL enhancements.
     - Pre-install git and python3.
     - Remove systemd and iptables.
 
 To Do:
 
+    - *Complete Windows app containerization.* (Lots of bugs in build process.)
     - Complete branding.
-    - Complete Windows app containerization.
     - ARM64 support.
     - Custom color theme.
     - Additional third-party app install scripts planned:
