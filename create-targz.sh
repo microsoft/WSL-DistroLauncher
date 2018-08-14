@@ -34,6 +34,8 @@ sudo chroot $DIST apt-get autoremove -y
 # create tar
 cd $DIST
 sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
-# move to x86 directory
-cp $TMPDIR/install.tar.gz $BUILDIR/x64/install.tar.gz
+# move into place in build folder
+cd $TMPDIR
+cp install.tar.gz $BUILDIR/x64/
 cd $BUILDIR
+# cp install.tar.gz /mnt/c/Users/Hayden/OneDrive/Documents/GitHub/WLinux/x64/
