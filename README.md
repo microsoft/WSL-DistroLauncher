@@ -4,8 +4,6 @@
 
 A Linux distribution optimized for WSL based on Debian stable.
 
-**Warning**: Project is incomplete. See [Project Progress](https://github.com/sirredbeard/WLinux#project-progress).
-
 ## Features Overview
 
 - Optimized for use with Windows Subsystem for Linux (WSL) on Windows 10.
@@ -50,10 +48,11 @@ Completed:
     - Pre-install git, apt-https, and python3.
     - Remove systemd and iptables.
     - Add custom branding assets.
+    - Complete Windows UWP app containerization/workout package build errors.
 
 To Do Before 1.0:
 
-    - Complete Windows UWP app containerization/workout package build errors.
+    - Additional testing.
 
 Planned For 1.1:
 
