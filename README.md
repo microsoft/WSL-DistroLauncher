@@ -6,7 +6,7 @@ A Linux distribution optimized for WSL based on Debian stable.
 
 ## Features Overview
 
-- Optimized for use with Windows Subsystem for Linux on Windows 10.
+- Optimized for use with Windows Subsystem for Linux (WSL) on Windows 10.
 - Out-of-the-box support for external Windows X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
 - Popular programming tools, including git and python3, pre-installed. Additional packages can be easily installed via the apt package management system from expansive Debian repos.
 - Ships with useful utilities for running Linux on WSL installable with one command.
@@ -28,7 +28,7 @@ First search for your issue [here](https://github.com/sirredbeard/WLinux/issues)
 
 ## Background
 
-WLinux is a Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian release. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed.
+WLinux is a Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development.
 
 Note: There are no .iso or .img files available for WLinux.
 
@@ -66,7 +66,6 @@ Planned For 1.1:
     - Sample [install.tar.gz](https://1drv.ms/u/s!AspPK83V8Sf2g5pWRkGIYRFmAN7bIQ) built on 8/14/18.
 - Launcher project - Builds the actual executable that is run when a user launches the app. 
 - DistroLauncher-Appx project - Builds the distro package with all the assets and other dependencies.
-
 
 Read more about the components [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
