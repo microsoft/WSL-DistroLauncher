@@ -84,11 +84,11 @@ The Windows Subsystem for Linux is not enabled by default, and is required to ru
 ## Building
 - Open DistroLauncher.sln in Visual Studio.
 - Generate a test certificate:
-    - In the Solution Explorer, open `Gentoo-Appx\Gentoo.appxmanifest`
+    - In the Solution Explorer, open `DistroLauncher-Appx\Gentoo.appxmanifest`
     - Select the Packaging tab
     - Select "Choose Certificate"
     - Click the Configure Certificate drop down and select Create test certificate.
-- Build install.tar.gz using create-targz.sh on an existing WLinux or Debian image, copy to /x64/.
+- Build install.tar.gz by cloning the repo to an existing WLinux or Debian image, `$ chmod u+x create-targz.sh`, then ./create-targz.sh.
 - Build the package:
     - Open a `Developer Command Prompt for VS 2017` and change directory to the project root.
     - Run `build.bat`
