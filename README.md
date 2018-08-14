@@ -1,28 +1,45 @@
-# Xebian
+# WLinux
 
 A Linux distro optimized for WSL based on Debian stable.
 
+## Features Overview
+
 - Optimized for use with Windows Subsystem for Linux on Windows 10.
-- Out-of-the-box support for external Windows X clients, I recommend [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
-- Several useful packages pre-installed, including git and python3.
-- Removes unnecessary packages, such as systemd and iptables.
-- Easily install the following popular packages:
+- Out-of-the-box support for external Windows X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
+- Several useful packages are pre-installed, including git and python3. Additional packages can be easily installed via the apt package management system.
+- A handful of unnecessary packages, such as systemd and iptables, have been removed to improve stability and security.
+- Scripts to easily install the following popular applications:
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
 
+## Project Progress
+
+Completed:
+    - Custom Linux distro image based on Debian stretch build working.
+    - Custom create-targz.sh script forked from Debian's upstream version.
+    - Custom /etc/os-release for Xebian.
+    - Custom /etc/profile optimized for WSL.
+    - Custom /etc/apt/sources.list for Xebian.
+    - Scripts to install popular software:
+        - Google Chrome
+        - Microsoft Virtual Studio Code
+    - Support for Windows X clients (via settings in /etc/profile)
+    - Pre-install git and python3.
+    - Remove systemd and iptables.
+To Do:
+    - Complete branding.
+    - Complete Windows app containerization.
+    - Additional scripts planned:
+        - Oracle Java
+        - Anaconda
+
 ## Background
 
-Xebian is a community Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are availablw for WSL, this is the first Linux distro specifically intended for use on WSL. A number of enhancements are enabled by default and additional improvements are planned.
+WLinux is a  Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are availablw for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned.
 
-Xebian is open-source. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed. A paid version of Xebian is planned for the Microsoft Store to support ongoing development.
+Xebian is open-source and based on the stable Debian release. Development occurs on GitHub. Pull requests, forks, and issue reports are welcomed. A paid version of Xebian is planned for the Microsoft Store to support ongoing development.
 
 Note: There are no .iso or .img files available for Xebian, only a tar.gz image for use on Windows Subsystem for Linux.
-
-## Naming
-
-Xebian is a portmanteau of [Xenix](https://en.wikipedia.org/wiki/Xenix), a version of UNIX® distributed by Microsoft, and [Debian](https://www.debian.org/)®, the Linux distro upon which Xebian is based.
-
-NOTE: Xebian is not endorsed by the Debian Project or Microsoft.
 
 ## Components
 
