@@ -10,7 +10,7 @@
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <TargetName>mydistro</TargetName>
+    <TargetName>wlinux</TargetName>
     <ProjectName>WLinux</ProjectName>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
@@ -58,6 +58,14 @@
     <AppxBundle>Never</AppxBundle>
     <PackageCertificateThumbprint>AEA02AFC544DC77D1B4A8813B42A7C0759A45D23</PackageCertificateThumbprint>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>.\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>.\$(Platform)\$(Configuration)\$(MSBuildProjectName)\</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
       <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
@@ -65,7 +73,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <AppxManifest Include="MyDistro.appxmanifest">
+    <AppxManifest Include="WLinux.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />

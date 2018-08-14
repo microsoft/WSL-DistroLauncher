@@ -25,7 +25,7 @@ sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installcode.sh
 sudo chroot $DIST chmod u+x /opt/installchrome.sh
 sudo chroot $DIST chmod u+x /opt/installcode.sh
 # remove unnecessary apt packages
-sudo chroot $DIST apt remove systemd -y --allow-remove-essential
+sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
 # clean up orphaned apt dependencies
 sudo chroot $DIST apt-get autoremove -y
 # create tar
