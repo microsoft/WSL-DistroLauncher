@@ -106,6 +106,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\large logo.png">
+      <DeploymentContent>false</DeploymentContent>
+    </Image>
+    <Image Include="Assets\large logo.scale-100.png" />
+    <Image Include="Assets\large logo.scale-125.png" />
+    <Image Include="Assets\large logo.scale-150.png" />
+    <Image Include="Assets\large logo.scale-200.png" />
     <Image Include="Assets\LargeTile.scale-100.png" />
     <Image Include="Assets\LargeTile.scale-125.png" />
     <Image Include="Assets\LargeTile.scale-150.png" />
@@ -141,6 +148,9 @@
     <Image Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Image Include="Assets\Square71x71Logo.scale-100.png" />
+    <Image Include="Assets\Square71x71Logo.scale-200.png" />
+    <Image Include="Assets\Square71x71Logo.scale-400.png" />
     <Image Include="Assets\StoreLogo.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
