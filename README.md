@@ -92,15 +92,14 @@ The Windows Subsystem for Linux is not enabled by default, and is required to ru
 - Build the package:
     - Open a `Developer Command Prompt for VS 2017` and change directory to the project root.
     - Run `build.bat`
-- If everything's gone right, you should find your app package in a subfolder under the `AppPackages\Gentoo-Appx` folder.
+- If everything has gone right, you should find your app package in a subfolder under the `AppPackages\Gentoo-Appx` folder.
     1. First, install the certificate:
 	    1. Double-click on the security certificate file.
 		1. Click the Install Certificate button.
 		1. Select Local Machine for the store location.
-		1. Select "Place all certificates in the following store", then click the Browse button.
-		1. Select "Trusted Root Certification Authorities" from the list, then click OK.
-		1. Proceed through the rest of the wizard.
-	1. Once that's done, you should be able to double-click on the package file and install it.
+		1. Select "Automatically select the certificate store based on the type of certificate", then click Next.
+		1. Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
+	1. Once that's done, you should be able to double-click on the .appx package file and install it.
 
 ## Usage
 The launcher provides the following functionality:
@@ -137,4 +136,4 @@ The launcher provides the following functionality:
 - Debian® is a registered trademark of Software in the Public Interest, Inc.
 - Microsoft®, Microsoft Store®, Windows 10®, Visual Studio®, and Xenix® are trademarks or registered trademarks of Microsoft Corporation.
 - Linux® is a registered trademark of Linus Torvalds.
-- Chrome™ is a registered trademarks of Alphabet, Inc.
+- Chrome™ is a registered trademark of Alphabet, Inc.
