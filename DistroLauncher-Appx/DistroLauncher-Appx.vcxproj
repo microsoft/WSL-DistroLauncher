@@ -78,7 +78,7 @@
     <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Never</AppxBundle>
-    <PackageCertificateThumbprint>8C42025696B6C9ADED9885C423CB3BD5376D6168</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>EBBD96EF9B970B447135756D1D9D29167C148C44</PackageCertificateThumbprint>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -90,7 +90,6 @@
     <AppxManifest Include="MyDistro.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <None Include="..\x64\install.tar.gz">
@@ -164,5 +163,8 @@
       <Command>copy $(SolutionDir)\$(platform)\$(Configuration)\launcher.exe $(SolutionDir)\$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Command>
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
   </ItemGroup>
 </Project>

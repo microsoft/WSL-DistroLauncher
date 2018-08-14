@@ -50,6 +50,7 @@ To Do:
 
     - Complete branding.
     - Complete Windows app containerization.
+    - ARM64 support.
     - Custom color theme.
     - Additional third-party app install scripts planned:
         - Oracle Java
