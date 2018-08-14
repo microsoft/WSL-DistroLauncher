@@ -7,7 +7,7 @@ A Linux distribution optimized for WSL based on Debian stable.
 - Optimized for use with Windows Subsystem for Linux on Windows 10.
 - Out-of-the-box support for external Windows X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
 - Several useful packages are pre-installed, including git and python3. Additional packages can be easily installed via the apt package management system.
-- A handful of unnecessary packages, such as systemd and iptables, have been removed to improve stability and security.
+- A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
 - Scripts to easily install the following popular applications:
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
