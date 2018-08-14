@@ -6,7 +6,7 @@
     Portions from https://salsa.debian.org/rhaist-guest/WSL/tree/master/DistroLauncher:
     Copyright (c) Software in the Public Interest, Inc.
 
-    Original WLinux Modifications
+    Original WLinux modifications herein:
     Copyright (c) Hayden Barnes. All rights reserved.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
