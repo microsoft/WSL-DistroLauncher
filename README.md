@@ -1,5 +1,7 @@
 # WLinux
 
+<img src="https://github.com/sirredbeard/WLinux/blob/master/DistroLauncher-Appx/Assets/StoreLogo.scale-100.png" height=15% width=15%>
+
 A Linux distribution optimized for WSL based on Debian stable.
 
 **Warning**: Project is incomplete. See [Project Progress](https://github.com/sirredbeard/WLinux#project-progress).
@@ -47,11 +49,11 @@ Completed:
     - Support for Windows X clients and libGL enhancements.
     - Pre-install git, apt-https, and python3.
     - Remove systemd and iptables.
+    - Add custom branding assets.
 
 To Do Before 1.0:
 
     - Complete Windows UWP app containerization/workout package build errors.
-    - Add custom branding assets.
 
 Planned For 1.1:
 
@@ -131,6 +133,7 @@ The launcher provides the following functionality:
 ## Intellectual Property Compliance
 
 - [Licensed](https://github.com/sirredbeard/WLinux/blob/master/LICENSE) under the MIT license.
+- [Icons](https://www.iconfinder.com/icons/652577/linux_os_penguin_platform_server_system_icon) by [Erik Ragnar Eliasson](http://www.erikeliasson.io/).
 - UNIX® is a trademark of The Open Group.
 - Debian® is a registered trademark of Software in the Public Interest, Inc.
 - Microsoft®, Microsoft Store®, Windows 10®, Visual Studio®, and Xenix® are trademarks or registered trademarks of Microsoft Corporation.
