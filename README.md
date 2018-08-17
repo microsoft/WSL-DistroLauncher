@@ -64,7 +64,7 @@ Planned For 1.1:
 ## Project Components
 
 - create-targz.sh - Builds the WLinux custom Linux distro in a WLinux or Debian environment. **Status:** Working.
-    - Sample nightly [install.tar.gz](https://1drv.ms/u/s!AspPK83V8Sf2g6EmpW8T_CIKexA3ig) built on 8/14/18.
+    - Sample nightly [install.tar.gz](https://1drv.ms/f/s!AspPK83V8Sf2g6MBYIEVDX2GBBIqJQ) built on 8/17/18.
 - Launcher project - Builds the actual executable that is run when a user launches the app. 
 - DistroLauncher-Appx project - Builds the distro package with all the assets and other dependencies.
 
