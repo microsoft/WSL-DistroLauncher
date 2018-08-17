@@ -22,7 +22,7 @@ sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 # copy app installer scripts to image
 sudo cp $BUILDIR/linux_files/installchrome.sh $TMPDIR/$DIST/opt/installchrome.sh
 sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installcode.sh
-sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installwslu.sh
+sudo cp $BUILDIR/linux_files/installwslu.sh $TMPDIR/$DIST/opt/installwslu.sh
 # make app installer scripts executable
 sudo chroot $DIST chmod u+x /opt/installchrome.sh
 sudo chroot $DIST chmod u+x /opt/installcode.sh
