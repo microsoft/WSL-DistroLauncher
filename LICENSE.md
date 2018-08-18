@@ -99,12 +99,11 @@ Portions from https://github.com/Microsoft/WSL-DistroLauncher:
 
 Portions from the GNU/Linux Debian distribution are licensed under the [following licenses](https://www.debian.org/legal/licenses/), copies of which can also be found in /usr/share/common-licenses/ on WLinux:
 
+    Apache License
+    Version 2.0, January 2004
+    http://www.apache.org/licenses/
 
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
-
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
    1. Definitions.
 
@@ -303,9 +302,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
    limitations under the License.
 
 
-                The "Artistic License"
+    The "Artistic License"
 
-                    Preamble
+    Preamble
 
     The intent of this document is to state the conditions under which a
     Package may be copied, such that the Copyright Holder maintains some
@@ -314,7 +313,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     the Package in a more-or-less customary fashion, plus the right to make
     reasonable modifications.
 
-    Definitions:
+        Definitions:
 
         "Package" refers to the collection of files distributed by the
         Copyright Holder, and derivatives of that collection of files
@@ -341,96 +340,95 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
         It also means that recipients of the item may redistribute it
         under the same conditions they received it.
 
-    1. You may make and give away verbatim copies of the source form of the
-    Standard Version of this Package without restriction, provided that you
-    duplicate all of the original copyright notices and associated disclaimers.
+        1. You may make and give away verbatim copies of the source form of the
+        Standard Version of this Package without restriction, provided that you
+        duplicate all of the original copyright notices and associated disclaimers.
 
-    2. You may apply bug fixes, portability fixes and other modifications
-    derived from the Public Domain or from the Copyright Holder.  A Package
-    modified in such a way shall still be considered the Standard Version.
+        2. You may apply bug fixes, portability fixes and other modifications
+        derived from the Public Domain or from the Copyright Holder.  A Package
+        modified in such a way shall still be considered the Standard Version.
 
-    3. You may otherwise modify your copy of this Package in any way, provided
-    that you insert a prominent notice in each changed file stating how and
-    when you changed that file, and provided that you do at least ONE of the
-    following:
+        3. You may otherwise modify your copy of this Package in any way, provided
+        that you insert a prominent notice in each changed file stating how and
+        when you changed that file, and provided that you do at least ONE of the
+        following:
 
-        a) place your modifications in the Public Domain or otherwise make them
-        Freely Available, such as by posting said modifications to Usenet or
-        an equivalent medium, or placing the modifications on a major archive
-        site such as uunet.uu.net, or by allowing the Copyright Holder to include
-        your modifications in the Standard Version of the Package.
+            a) place your modifications in the Public Domain or otherwise make them
+            Freely Available, such as by posting said modifications to Usenet or
+            an equivalent medium, or placing the modifications on a major archive
+            site such as uunet.uu.net, or by allowing the Copyright Holder to include
+            your modifications in the Standard Version of the Package.
 
-        b) use the modified Package only within your corporation or organization.
+            b) use the modified Package only within your corporation or organization.
 
-        c) rename any non-standard executables so the names do not conflict
-        with standard executables, which must also be provided, and provide
-        a separate manual page for each non-standard executable that clearly
-        documents how it differs from the Standard Version.
+            c) rename any non-standard executables so the names do not conflict
+            with standard executables, which must also be provided, and provide
+            a separate manual page for each non-standard executable that clearly
+            documents how it differs from the Standard Version.
 
-        d) make other distribution arrangements with the Copyright Holder.
+            d) make other distribution arrangements with the Copyright Holder.
 
-    4. You may distribute the programs of this Package in object code or
-    executable form, provided that you do at least ONE of the following:
+        4. You may distribute the programs of this Package in object code or
+        executable form, provided that you do at least ONE of the following:
 
-        a) distribute a Standard Version of the executables and library files,
-        together with instructions (in the manual page or equivalent) on where
-        to get the Standard Version.
+            a) distribute a Standard Version of the executables and library files,
+            together with instructions (in the manual page or equivalent) on where
+            to get the Standard Version.
 
-        b) accompany the distribution with the machine-readable source of
-        the Package with your modifications.
+            b) accompany the distribution with the machine-readable source of
+            the Package with your modifications.
 
-        c) give non-standard executables non-standard names, and clearly
-        document the differences in manual pages (or equivalent), together
-        with instructions on where to get the Standard Version.
+            c) give non-standard executables non-standard names, and clearly
+            document the differences in manual pages (or equivalent), together
+            with instructions on where to get the Standard Version.
 
-        d) make other distribution arrangements with the Copyright Holder.
+            d) make other distribution arrangements with the Copyright Holder.
 
-    5. You may charge a reasonable copying fee for any distribution of this
-    Package.  You may charge any fee you choose for support of this
-    Package.  You may not charge a fee for this Package itself.  However,
-    you may distribute this Package in aggregate with other (possibly
-    commercial) programs as part of a larger (possibly commercial) software
-    distribution provided that you do not advertise this Package as a
-    product of your own.  You may embed this Package's interpreter within
-    an executable of yours (by linking); this shall be construed as a mere
-    form of aggregation, provided that the complete Standard Version of the
-    interpreter is so embedded.
+        5. You may charge a reasonable copying fee for any distribution of this
+        Package.  You may charge any fee you choose for support of this
+        Package.  You may not charge a fee for this Package itself.  However,
+        you may distribute this Package in aggregate with other (possibly
+        commercial) programs as part of a larger (possibly commercial) software
+        distribution provided that you do not advertise this Package as a
+        product of your own.  You may embed this Package's interpreter within
+        an executable of yours (by linking); this shall be construed as a mere
+        form of aggregation, provided that the complete Standard Version of the
+        interpreter is so embedded.
 
-    6. The scripts and library files supplied as input to or produced as
-    output from the programs of this Package do not automatically fall
-    under the copyright of this Package, but belong to whoever generated
-    them, and may be sold commercially, and may be aggregated with this
-    Package.  If such scripts or library files are aggregated with this
-    Package via the so-called "undump" or "unexec" methods of producing a
-    binary executable image, then distribution of such an image shall
-    neither be construed as a distribution of this Package nor shall it
-    fall under the restrictions of Paragraphs 3 and 4, provided that you do
-    not represent such an executable image as a Standard Version of this
-    Package.
+        6. The scripts and library files supplied as input to or produced as
+        output from the programs of this Package do not automatically fall
+        under the copyright of this Package, but belong to whoever generated
+        them, and may be sold commercially, and may be aggregated with this
+        Package.  If such scripts or library files are aggregated with this
+        Package via the so-called "undump" or "unexec" methods of producing a
+        binary executable image, then distribution of such an image shall
+        neither be construed as a distribution of this Package nor shall it
+        fall under the restrictions of Paragraphs 3 and 4, provided that you do
+        not represent such an executable image as a Standard Version of this
+        Package.
 
-    7. C subroutines (or comparably compiled subroutines in other
-    languages) supplied by you and linked into this Package in order to
-    emulate subroutines and variables of the language defined by this
-    Package shall not be considered part of this Package, but are the
-    equivalent of input as in Paragraph 6, provided these subroutines do
-    not change the language in any way that would cause it to fail the
-    regression tests for the language.
+        7. C subroutines (or comparably compiled subroutines in other
+        languages) supplied by you and linked into this Package in order to
+        emulate subroutines and variables of the language defined by this
+        Package shall not be considered part of this Package, but are the
+        equivalent of input as in Paragraph 6, provided these subroutines do
+        not change the language in any way that would cause it to fail the
+        regression tests for the language.
 
-    8. Aggregation of this Package with a commercial distribution is always
-    permitted provided that the use of this Package is embedded; that is,
-    when no overt attempt is made to make this Package's interfaces visible
-    to the end user of the commercial distribution.  Such use shall not be
-    construed as a distribution of this Package.
+        8. Aggregation of this Package with a commercial distribution is always
+        permitted provided that the use of this Package is embedded; that is,
+        when no overt attempt is made to make this Package's interfaces visible
+        to the end user of the commercial distribution.  Such use shall not be
+        construed as a distribution of this Package.
 
-    9. The name of the Copyright Holder may not be used to endorse or promote
-    products derived from this software without specific prior written permission.
+        9. The name of the Copyright Holder may not be used to endorse or promote
+        products derived from this software without specific prior written permission.
 
-    10. THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
-    IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
-    WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+        10. THIS PACKAGE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+        IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+        WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
-                    The End
-
+        The End
 
 
     Copyright (c) The Regents of the University of California.
@@ -462,9 +460,8 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
 
 
-                    GNU Free Documentation License
-                    Version 1.3, 3 November 2008
-
+    GNU Free Documentation License
+    Version 1.3, 3 November 2008
 
     Copyright (C) 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
         <http://fsf.org/>
@@ -599,7 +596,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     You may also lend copies, under the same conditions stated above, and
     you may publicly display copies.
 
-
     3. COPYING IN QUANTITY
 
     If you publish printed copies (or copies in media that commonly have
@@ -637,7 +633,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Document well before redistributing any large number of copies, to
     give them a chance to provide you with an updated version of the
     Document.
-
 
     4. MODIFICATIONS
 
@@ -907,15 +902,14 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     to permit their use in free software.
 
 
-                    GNU Free Documentation License
-                    Version 1.2, November 2002
 
+    GNU Free Documentation License
+     Version 1.2, November 2002
 
     Copyright (C) 2000,2001,2002  Free Software Foundation, Inc.
         51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
     Everyone is permitted to copy and distribute verbatim copies
     of this license document, but changing it is not allowed.
-
 
     0. PREAMBLE
 
@@ -939,7 +933,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     it can be used for any textual work, regardless of subject matter or
     whether it is published as a printed book.  We recommend this License
     principally for works whose purpose is instruction or reference.
-
 
     1. APPLICABILITY AND DEFINITIONS
 
@@ -1027,7 +1020,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     implication that these Warranty Disclaimers may have is void and has
     no effect on the meaning of this License.
 
-
     2. VERBATIM COPYING
 
     You may copy and distribute the Document in any medium, either
@@ -1042,7 +1034,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
     You may also lend copies, under the same conditions stated above, and
     you may publicly display copies.
-
 
     3. COPYING IN QUANTITY
 
@@ -1080,7 +1071,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     It is requested, but not required, that you contact the authors of the
     Document well before redistributing any large number of copies, to give
     them a chance to provide you with an updated version of the Document.
-
 
     4. MODIFICATIONS
 
@@ -1166,7 +1156,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     give permission to use their names for publicity for or to assert or
     imply endorsement of any Modified Version.
 
-
     5. COMBINING DOCUMENTS
 
     You may combine the Document with other documents released under this
@@ -1191,7 +1180,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     and any sections Entitled "Dedications".  You must delete all sections
     Entitled "Endorsements".
 
-
     6. COLLECTIONS OF DOCUMENTS
 
     You may make a collection consisting of the Document and other documents
@@ -1204,7 +1192,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     it individually under this License, provided you insert a copy of this
     License into the extracted document, and follow this License in all
     other respects regarding verbatim copying of that document.
-
 
     7. AGGREGATION WITH INDEPENDENT WORKS
 
@@ -1224,7 +1211,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     electronic equivalent of covers if the Document is in electronic form.
     Otherwise they must appear on printed covers that bracket the whole
     aggregate.
-
 
     8. TRANSLATION
 
@@ -1304,9 +1290,8 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
 
 
-                    GNU Free Documentation License
-                    Version 1.3, 3 November 2008
-
+    GNU Free Documentation License
+    Version 1.3, 3 November 2008
 
     Copyright (C) 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
         <http://fsf.org/>
@@ -1716,7 +1701,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     under CC-BY-SA on the same site at any time before August 1, 2009,
     provided the MMC is eligible for relicensing.
 
-
     ADDENDUM: How to use this License for your documents
 
     To use this License in a document you have written, include a copy of
@@ -1747,15 +1731,14 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     to permit their use in free software.
 
 
-
-                        GNU GENERAL PUBLIC LICENSE
-                        Version 3, 29 June 2007
+    GNU GENERAL PUBLIC LICENSE
+    Version 3, 29 June 2007
 
     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
     Everyone is permitted to copy and distribute verbatim copies
     of this license document, but changing it is not allowed.
 
-                                Preamble
+                            Preamble
 
     The GNU General Public License is a free, copyleft license for
     software and other kinds of works.
@@ -2425,11 +2408,11 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
 
 
-                        GNU GENERAL PUBLIC LICENSE
-                        Version 1, February 1989
+    GNU GENERAL PUBLIC LICENSE
+    Version 1, February 1989
 
     Copyright (C) 1989 Free Software Foundation, Inc.
-                        51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+    51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
     Everyone is permitted to copy and distribute verbatim copies
     of this license document, but changing it is not allowed.
@@ -2678,9 +2661,8 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
 
 
-
-                        GNU GENERAL PUBLIC LICENSE
-                        Version 2, June 1991
+    GNU GENERAL PUBLIC LICENSE
+    Version 2, June 1991
 
     Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
@@ -3020,8 +3002,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Public License instead of this License.
 
 
-                        GNU GENERAL PUBLIC LICENSE
-                        Version 3, 29 June 2007
+
+    GNU GENERAL PUBLIC LICENSE
+    Version 3, 29 June 2007
 
     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
     Everyone is permitted to copy and distribute verbatim copies
@@ -3696,8 +3679,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 
 
-                    GNU LESSER GENERAL PUBLIC LICENSE
-                        Version 3, 29 June 2007
+
+    GNU LESSER GENERAL PUBLIC LICENSE
+    Version 3, 29 June 2007
 
     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
     Everyone is permitted to copy and distribute verbatim copies
@@ -3863,8 +3847,8 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Library.
 
 
-                    GNU LIBRARY GENERAL PUBLIC LICENSE
-                        Version 2, June 1991
+    GNU LIBRARY GENERAL PUBLIC LICENSE
+    Version 2, June 1991
 
     Copyright (C) 1991 Free Software Foundation, Inc.
     51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -4346,8 +4330,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     That's all there is to it!
 
 
-                    GNU LESSER GENERAL PUBLIC LICENSE
-                        Version 2.1, February 1999
+
+    GNU LESSER GENERAL PUBLIC LICENSE
+    Version 2.1, February 1999
 
     Copyright (C) 1991, 1999 Free Software Foundation, Inc.
     51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
@@ -4850,8 +4835,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     That's all there is to it!
 
 
-                    GNU LESSER GENERAL PUBLIC LICENSE
-                        Version 3, 29 June 2007
+
+    GNU LESSER GENERAL PUBLIC LICENSE
+    Version 3, 29 June 2007
 
     Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
     Everyone is permitted to copy and distribute verbatim copies
@@ -5017,10 +5003,9 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Library.
 
 
-                            MOZILLA PUBLIC LICENSE
-                                 Version 1.1
-
-                                ---------------
+    MOZILLA PUBLIC LICENSE
+    Version 1.1
+     ---------------
 
     1. Definitions.
 
