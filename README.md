@@ -87,7 +87,7 @@ The Windows Subsystem for Linux is not enabled by default, and is required to ru
 ## Build Process
 - Open DistroLauncher.sln in Visual Studio Community 2017.
 - Generate a test certificate:
-    - In the Solution Explorer, open `DistroLauncher-Appx\Gentoo.appxmanifest`
+    - In the Solution Explorer, open `DistroLauncher-Appx\DistroLauncher.appxmanifest`
     - Select the Packaging tab
     - Select "Choose Certificate"
     - Click the Configure Certificate drop down and select Create test certificate.
@@ -104,7 +104,7 @@ The Windows Subsystem for Linux is not enabled by default, and is required to ru
         - ` $ cd WLinux`
         - ` $ chmod u+x create-targz.sh`
         - ` $ ./create-targz.sh`
-    - You should find an install.tar.gz in the /x64/ directory of your build directory. When we get ARM64 support installed there will also be an install.tar.gz in a /ARM64/ directory.
+    - You should find an install.tar.gz in the /x64/ directory of your build directory. (When we get ARM64 support working there will also be an install.tar.gz in a /ARM64/ directory.)
 
 - Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 
