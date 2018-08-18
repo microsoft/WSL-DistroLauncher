@@ -100,7 +100,7 @@ Portions from https://github.com/Microsoft/WSL-DistroLauncher:
 Portions from the GNU/Linux Debian distribution are licensed under the [following licenses](https://www.debian.org/legal/licenses/), copies of which can also be found in /usr/share/common-licenses/ on WLinux:
 
 
-                                     Apache License
+                                 Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -432,6 +432,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
                     The End
 
 
+
     Copyright (c) The Regents of the University of California.
     All rights reserved.
 
@@ -458,6 +459,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
     OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
     SUCH DAMAGE.
+
 
 
                     GNU Free Documentation License
@@ -1244,7 +1246,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     its Title (section 1) will typically require changing the actual
     title.
 
-
     9. TERMINATION
 
     You may not copy, modify, sublicense, or distribute the Document except
@@ -1254,7 +1255,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     parties who have received copies, or rights, from you under this
     License will not have their licenses terminated so long as such
     parties remain in full compliance.
-
 
     10. FUTURE REVISIONS OF THIS LICENSE
 
@@ -1272,8 +1272,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Free Software Foundation.  If the Document does not specify a version
     number of this License, you may choose any version ever published (not
     as a draft) by the Free Software Foundation.
-
-
+    
     ADDENDUM: How to use this License for your documents
 
     To use this License in a document you have written, include a copy of
@@ -1336,7 +1335,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     it can be used for any textual work, regardless of subject matter or
     whether it is published as a printed book.  We recommend this License
     principally for works whose purpose is instruction or reference.
-
 
     1. APPLICABILITY AND DEFINITIONS
 
@@ -1442,7 +1440,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     You may also lend copies, under the same conditions stated above, and
     you may publicly display copies.
 
-
     3. COPYING IN QUANTITY
 
     If you publish printed copies (or copies in media that commonly have
@@ -1480,7 +1477,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Document well before redistributing any large number of copies, to
     give them a chance to provide you with an updated version of the
     Document.
-
 
     4. MODIFICATIONS
 
@@ -1566,7 +1562,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     give permission to use their names for publicity for or to assert or
     imply endorsement of any Modified Version.
 
-
     5. COMBINING DOCUMENTS
 
     You may combine the Document with other documents released under this
@@ -1591,7 +1586,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     and any sections Entitled "Dedications".  You must delete all sections
     Entitled "Endorsements".
 
-
     6. COLLECTIONS OF DOCUMENTS
 
     You may make a collection consisting of the Document and other
@@ -1606,7 +1600,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     copy of this License into the extracted document, and follow this
     License in all other respects regarding verbatim copying of that
     document.
-
 
     7. AGGREGATION WITH INDEPENDENT WORKS
 
@@ -1627,7 +1620,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Otherwise they must appear on printed covers that bracket the whole
     aggregate.
 
-
     8. TRANSLATION
 
     Translation is considered a kind of modification, so you may
@@ -1647,7 +1639,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     "Dedications", or "History", the requirement (section 4) to Preserve
     its Title (section 1) will typically require changing the actual
     title.
-
 
     9. TERMINATION
 
@@ -1675,7 +1666,6 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     this License.  If your rights have been terminated and not permanently
     reinstated, receipt of a copy of some or all of the same material does
     not give you any rights to use it.
-
 
     10. FUTURE REVISIONS OF THIS LICENSE
 
@@ -1755,6 +1745,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     recommend releasing these examples in parallel under your choice of
     free software license, such as the GNU General Public License,
     to permit their use in free software.
+
 
 
                         GNU GENERAL PUBLIC LICENSE
@@ -2684,6 +2675,8 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
     Ty Coon, President of Vice
 
     That's all there is to it!
+
+
 
 
                         GNU GENERAL PUBLIC LICENSE
@@ -5025,7 +5018,7 @@ Portions from the GNU/Linux Debian distribution are licensed under the [followin
 
 
                             MOZILLA PUBLIC LICENSE
-                                    Version 1.1
+                                 Version 1.1
 
                                 ---------------
 
