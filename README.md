@@ -2,15 +2,15 @@
 
 <img src="https://github.com/sirredbeard/WLinux/blob/master/DistroLauncher-Appx/Assets/large%20logo.scale-100.png" height=15% width=15%>
 
-A Linux distribution optimized for WSL based on Debian stable.
+A Linux® distribution optimized for WSL based on Debian® stable.
 
-## Features Overview
+## Features
 
-- Optimized for use with Windows Subsystem for Linux (WSL) on Windows 10.
+- Optimized for use with Windows® Subsystem for Linux (WSL) on Windows 10.
 - Out-of-the-box support for external Windows X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
-- Popular programming tools, including git and python3, pre-installed. Additional packages can be easily installed via the apt package management system from expansive Debian repos.
+- Popular programming tools, including git and python3, are pre-installed. Additional packages can be easily installed via the apt package management system from the expansive Debian repos.
 - Ships with useful utilities for running Linux on WSL installable with one command.
-- A handful of unnecessary packages, such as systemd, have been removed from WLinux to improve stability and security.
+- A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
 - Scripts to easily install the following popular applications:
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
@@ -18,17 +18,17 @@ A Linux distribution optimized for WSL based on Debian stable.
 
 ## User Support
 
-### WSL Resources
+### General WSL Resources
 
-See [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL) for a comprehensive overview of WSL.
+See [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL) for a comprehensive overview of the Windows Subsystem for Linux feature in Windows 10.
 
 ### Getting Help 
 
-First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find help, please open an issue [here](https://github.com/sirredbeard/WLinux/issues/new).
+Support is handled via the GitHub project issues page. First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
 
 ## Background
 
-WLinux is a Linux distro optimized for use on Windows Subsystem for Linux (WSL). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development.
+WLinux is a Linux distribution ("distro") optimized for use on Windows Subsystem for Linux ("WSL"). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development.
 
 Note: There are no .iso or .img files available for WLinux.
 
@@ -47,62 +47,82 @@ Completed:
     - Support for Windows X clients and libGL enhancements.
     - Pre-install git, apt-https, and python3.
     - Remove systemd and iptables.
+    - Windows UWP app containerization..
     - Add custom branding assets.
-    - Complete Windows UWP app containerization/workout package build errors.
 
-To Do Before 1.0:
+Ongoing:
 
-    - Additional testing.
+    - Testing.
 
-Planned For 1.1:
+Planned:
 
     - ARM64 support.
+    - Additional Linux and Windows 10 integration features.
     - Additional third-party app install scripts:
         - Oracle Java
         - Anaconda Python Distribution
 
-## Project Components
+# Geeky Details
+
+## Components
 
 - create-targz.sh - Builds the WLinux custom Linux distro in a WLinux or Debian environment. **Status:** Working.
-    - Sample nightly [install.tar.gz](https://1drv.ms/f/s!AspPK83V8Sf2g6MBYIEVDX2GBBIqJQ) built on 8/17/18.
+    - Sample [install.tar.gz](https://1drv.ms/u/s!AspPK83V8Sf2g5pWRkGIYRFmAN7bIQ) built on 8/14/18.
 - Launcher project - Builds the actual executable that is run when a user launches the app. 
 - DistroLauncher-Appx project - Builds the distro package with all the assets and other dependencies.
 
 Read more about the components [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
-## Requirements for building
+## Building Requirements
 This project can be built using Visual Studio Community 2017. The "Universal Windows Platform development" feature is required, along with the following subfeatures:
 
 * C++ Universal Windows Platform tools
 * Windows 10 SDK (10.0.16299.0) for UWP: C#, VB, JS
 
-## Requirements for installing and running 
+## Building Configuation 
 The system must be in Developer mode (found in Settings -> Update & Security -> For developers)
 
 The Windows Subsystem for Linux is not enabled by default, and is required to run the app. You can add the feature to your Windows installation by running `C:\Windows\System32\OptionalFeatures.exe` and selecting it from the list.
 
-## Building
-- Open DistroLauncher.sln in Visual Studio.
+## Build Process
+- Open DistroLauncher.sln in Visual Studio Community 2017.
 - Generate a test certificate:
     - In the Solution Explorer, open `DistroLauncher-Appx\Gentoo.appxmanifest`
     - Select the Packaging tab
     - Select "Choose Certificate"
     - Click the Configure Certificate drop down and select Create test certificate.
-- Build install.tar.gz by cloning the repo to an existing WLinux or Debian image, `$ chmod u+x create-targz.sh`, then ./create-targz.sh.
-- Build the package:
-    - Open a `Developer Command Prompt for VS 2017` and change directory to the project root.
+
+- Build install.tar.gz
+    - You will need access to an existing WLinux or Debian-based distro for this step. If you do not already have WLinux installed, I recommend the following steps:
+        - Enable WSL on Windows if you have not already.
+        - Install the [Debian for WSL app](https://www.microsoft.com/en-us/p/debian-gnu-linux/9msvkqc78pk6?activetab=pivot%3Aoverviewtab) from the Microsoft Store.
+        - Run, let it finish installing, configure your username and password.
+        - Then you will need to update apt, upgrade existing packages, and then install git:
+            - ` $ sudo apt-get update ; sudo apt-get upgrade -y ; sudo apt-get install git -y`
+    - With your WLinux (or configured/updated Debian) distro in place, execute the following:
+        - ` $ git clone https://github.com/sirredbeard/WLinux.git `
+        - ` $ cd WLinux`
+        - ` $ chmod u+x create-targz.sh`
+        - ` $ ./create-targz.sh`
+    - You should find an install.tar.gz in the /x64/ directory of your build directory. When we get ARM64 support installed there will also be an install.tar.gz in a /ARM64/ directory.
+
+- Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
+
+- Build the Windows UWP package:
+    - Open a `Developer Command Prompt for VS 2017` and change directory to your build directory.
     - Run `build.bat`
-- If everything has gone right, you should find your app package in a subfolder under the `AppPackages\Gentoo-Appx` folder.
-    1. First, install the certificate:
-	    1. Double-click on the security certificate file.
-		1. Click the Install Certificate button.
-		1. Select Local Machine for the store location.
-		1. Select "Automatically select the certificate store based on the type of certificate", then click Next.
-		1. Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
-	1. Once that's done, you should be able to double-click on the .appx package file and install it.
+
+- If everything has gone correctly, you should find your app package in a subfolder under the `AppPackages\DistroLauncher-Appx` folder.
+    - First, install the certificate:
+	    - Double-click on the security certificate file.
+		- Click the "Install Certificate" button.
+		- Select "Local Machine" for the store location.
+		- Select "Automatically select the certificate store based on the type of certificate", then click Next.
+		- Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
+	- Once that's done, you should be able to double-click on the .appx package file and install it.
 
 ## Usage
-The launcher provides the following functionality:
+The launcher app provides the following functionality:
 
 * `wlinux.exe`
   - Launches the user's default shell in the user's home directory.
@@ -123,17 +143,11 @@ The launcher provides the following functionality:
 * `wlinux.exe help`
   - Print usage information.
 
-## Related Pages
+# Related Pages
 
 - [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
 
-## Intellectual Property Compliance
+# Intellectual Property
 
-- [Licensed](https://github.com/sirredbeard/WLinux/blob/master/LICENSE) under the MIT license.
-- [Icons](https://www.iconfinder.com/icons/652577/linux_os_penguin_platform_server_system_icon) by [Erik Ragnar Eliasson](http://www.erikeliasson.io/).
-- UNIX® is a trademark of The Open Group.
-- Debian® is a registered trademark of Software in the Public Interest, Inc.
-- Microsoft®, Microsoft Store®, Windows 10®, Visual Studio®, and Xenix® are trademarks or registered trademarks of Microsoft Corporation.
-- Linux® is a registered trademark of Linus Torvalds.
-- Chrome™ is a registered trademark of Alphabet, Inc.
+See [LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md).
