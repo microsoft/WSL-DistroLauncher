@@ -117,7 +117,7 @@ The Windows Subsystem for Linux is not enabled by default, and is required to ru
 	    - Double-click on the security certificate file.
 		- Click the "Install Certificate" button.
 		- Select "Local Machine" for the store location.
-		- Select "Automatically select the certificate store based on the type of certificate", then click Next.
+		- Select "Automatically select the certificate store based on the type of certificate", then click Next. (If you have any certificate issues, try specifying the Root Certificate Authority Trust here.)
 		- Proceed through the rest of the wizard, clicking Next, Finish, OK, and then OK.
 	- Once that's done, you should be able to double-click on the .appx package file and install it.
 
