@@ -23,7 +23,7 @@
 
 # Copyright and Licenses
 
-WLinux modifications on https://github.com/sirredbeard/WLinux:
+WLinux original modifications on https://github.com/sirredbeard/WLinux:
 
     MIT License
 
@@ -48,7 +48,7 @@ WLinux modifications on https://github.com/sirredbeard/WLinux:
     SOFTWARE
 
 
-Portions from https://salsa.debian.org/rhaist-guest/WSL/tree/master/DistroLauncher:
+Debian-based WSL template from https://salsa.debian.org/rhaist-guest/WSL/tree/master/DistroLauncher:
 
     MIT License
 
@@ -72,8 +72,31 @@ Portions from https://salsa.debian.org/rhaist-guest/WSL/tree/master/DistroLaunch
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
+Build instructions from https://github.com/r-car/WSL-Gentoo/blob/master/README.md:
 
-Portions from https://github.com/Microsoft/WSL-DistroLauncher:
+ MIT License
+
+    Copyright (c) "r-car" https://github.com/r-car.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE
+
+Upstream WSL distro template from https://github.com/Microsoft/WSL-DistroLauncher:
 
     MIT License
 
