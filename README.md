@@ -74,17 +74,13 @@ Planned:
 Read more about the components from the upstream template by Microsoft [here](https://github.com/Microsoft/WSL-DistroLauncher). 
 
 ## Building Requirements
-This project can be built using Visual Studio Community 2017. The "Universal Windows Platform development" feature is required, along with the following subfeatures:
-
-- C++ Universal Windows Platform tools
-- Windows 10 SDK for UWP: C#, VB, JS
-
-## Building Configuation 
-
+1. [Visual Studio Community 2017](https://visualstudio.microsoft.com/vs/community/). (Free)
+	- The "Universal Windows Platform development" Workload is required, along with the following Individual components:
+		- `C++ Universal Windows Platform tools`
+		- `Windows 10 SDK (10.0.15063.0) for UWP: C#, VB, JS`
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
-
-2. Enable WSL
+1. Enable WSL
 	- The Windows Subsystem for Linux is not enabled by default, and is required to run the app. You can add the feature to your Windows installation by running `C:\Windows\System32\OptionalFeatures.exe` and selecting it from the list.
 
 ## Build Process
