@@ -14,7 +14,7 @@
 
 - Microsoft®, Windows®, and Visual Studio® are registered trademarks of [Microsoft Corporation](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/en-us.aspx) and are used in compliance with the [Microsoft Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general.aspx).
 
-- Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. Used in compliance with the [Linux attribution guidelines](https://www.linuxmark.org/). An application for a [Linux sublicense](https://www.linuxmark.org/programs/legal/trademark/sublicense-agreement) is pending as of 18 Aug 2018.
+- Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries. Used in compliance with a [Linux sublicense](https://www.linuxmark.org/programs/legal/trademark/sublicense-agreement).
 
 - Chrome® is the registered trademark of Alphabet, Inc.
 
