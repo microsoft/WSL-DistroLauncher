@@ -8,7 +8,7 @@
 
 # Trademarks
 
-- WLinux is a trademark of Hayden Barnes.
+- WLinux is a trademark of Whitewater Foundry, Ltd. Co.
 
 - Debian® is a registered trademark of Software in the Public Interest, Inc. and is used in compliance with the [Debian Trademark Policy](https://www.debian.org/trademark).
 
@@ -27,7 +27,7 @@ WLinux original modifications on https://github.com/sirredbeard/WLinux:
 
     MIT License
 
-    Copyright (c) Hayden Barnes. All rights reserved.
+    Copyright (c) 2018 Whitewater Foundry, Ltd. Co. All rights reserved.
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -46,7 +46,6 @@ WLinux original modifications on https://github.com/sirredbeard/WLinux:
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
-
 
 Debian-based WSL template from https://salsa.debian.org/rhaist-guest/WSL/tree/master/DistroLauncher:
 
