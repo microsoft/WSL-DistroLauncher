@@ -1,13 +1,11 @@
 # WLinux
 
-<img src="https://github.com/sirredbeard/WLinux/blob/master/DistroLauncher-Appx/Assets/large%20logo.scale-100.png" height=15% width=15%>
-
-A Linux® distribution optimized for WSL based on Debian® stable.
+A Linux® distribution optimized for WSL based on Debian® stable from Whitewater Foundry, Ltd. Co.
 
 ## WLinux Features
 
-- Optimized for use with Windows® Subsystem for Linux (WSL) on Windows 10.
-- Out-of-the-box support for external Windows X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
+- Optimized for use with Windows® Subsystem for Linux (WSL) on Windows 10 Version 1709+.
+- Out-of-the-box support for external Windows-based X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
 - Popular programming tools, including git and python3, are pre-installed. Additional packages can be easily installed via the apt package management system from the expansive Debian repos.
 - Ships with useful utilities for running Linux on WSL installable with one command.
 - A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
