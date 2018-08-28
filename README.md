@@ -22,7 +22,7 @@ WLinux is a Linux distribution ("distro") optimized for use on Windows Subsystem
 
 Support is handled via the GitHub project issues page. First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
 
-# Additional Documentation
+## Additional Documentation
 
 - [LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md)
 - [ROADMAP.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/ROADMAP.md)
@@ -30,7 +30,7 @@ Support is handled via the GitHub project issues page. First search for your iss
 - [PRIVACY.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/PRIVACY.md)
 - [CONTRIBUTING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/CONTRIBUTING.md)
 
-# Related Pages
+## Related Pages
 
 - [Awesome Windows Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
