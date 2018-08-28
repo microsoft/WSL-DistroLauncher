@@ -23,7 +23,7 @@
 
 # Copyright and Licenses
 
-WLinux original modifications on https://github.com/sirredbeard/WLinux:
+WLinux original modifications on https://github.com/WhitewaterFoundry/WLinux:
 
     MIT License
 
