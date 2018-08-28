@@ -75,10 +75,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>DistroLauncher-Appx_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Never</AppxBundle>
-    <PackageCertificateThumbprint>FA489A2E1604F422017805366B0E6CA1A55A161B</PackageCertificateThumbprint>
+    <AppxBundle>Auto</AppxBundle>
+    <PackageCertificateThumbprint>7EC819BEE6E259B9B623D16998043BCA6B55B7E4</PackageCertificateThumbprint>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -174,8 +178,12 @@
       <FileType>Document</FileType>
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <Message>Copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe into $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Message>
-      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\\$(ProjectName)\$(targetname).exe</Command>
+      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(targetname).exe</Command>
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DistroLauncher-Appx_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
 </Project>

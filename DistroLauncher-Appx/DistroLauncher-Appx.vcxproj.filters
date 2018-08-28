@@ -171,9 +171,12 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\ARM64\install.tar.gz" />
+    <None Include="..\x64\install.tar.gz" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="DistroLauncher-Appx_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="$(targetname)" />
     <CustomBuild Include="$(targetname)" />
     <CustomBuild Include="$(targetname)" />
     <CustomBuild Include="$(targetname)" />
