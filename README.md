@@ -16,22 +16,22 @@ A Linux® distribution optimized for WSL based on Debian® stable from Whitewate
     
 ## Background
 
-WLinux is a Linux distribution ("distro") optimized for use on Windows Subsystem for Linux ("WSL"). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development, including bug/feature bounties.
+WLinux is a Linux distribution ("distro") optimized for use on Windows Subsystem for Linux ("WSL"). While other distros are available for WSL, this is the first Linux distro specifically customized for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development, including bug/feature bounties.
 
 ## Support
 
 Support is handled via the GitHub project issues page. First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
 
-# Additional
+# Additional Documentation
 
-[LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md)
-[ROADMAP.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/ROADMAP.md)
-[BUILDING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/BUILDING.md)
-[PRIVACY.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/PRIVACY.md)
-[CONTRIBUTING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/CONTRIBUTING.md)
+- [LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md)
+- [ROADMAP.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/ROADMAP.md)
+- [BUILDING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/BUILDING.md)
+- [PRIVACY.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/PRIVACY.md)
+- [CONTRIBUTING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/CONTRIBUTING.md)
 
 # Related Pages
 
-- [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL)
+- [Awesome Windows Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
 
