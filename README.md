@@ -2,7 +2,7 @@
 
 A Linux® distribution optimized for WSL based on Debian® stable from Whitewater Foundry, Ltd. Co.
 
-## WLinux Features
+## Features
 
 - Optimized for use with Windows® Subsystem for Linux (WSL) on Windows 10 Version 1709+.
 - Out-of-the-box support for external Windows-based X clients, such as [X410](https://www.microsoft.com/store/productId/9NLP712ZMN9Q).
@@ -13,24 +13,24 @@ A Linux® distribution optimized for WSL based on Debian® stable from Whitewate
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
     - [wslu](https://github.com/patrick330602/wslu) `$ sudo /opt/installwslu.sh`
-
-## WLinux User Support
-
-### General WSL Resources
-
-See [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL) for a comprehensive overview of the Windows Subsystem for Linux feature in Windows 10.
-
-### Getting Help For WLinux
-
-Support is handled via the GitHub project issues page. First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
-
-## WLinux Background
+    
+## Background
 
 WLinux is a Linux distribution ("distro") optimized for use on Windows Subsystem for Linux ("WSL"). While other distros are available for WSL, this is the first Linux distro specifically designed for use on WSL. A number of enhancements are enabled by default and additional improvements are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and issues are welcome. A paid version is planned for the Microsoft Store to fund future development.
 
 Note: There are no .iso or .img files available for WLinux.
 
-## WLinux Project Progress
+## Support
+
+### General
+
+See [Awesome WSL](https://github.com/sirredbeard/Awesome-WSL) for a comprehensive overview of the Windows Subsystem for Linux feature in Windows 10.
+
+### Help
+
+Support is handled via the GitHub project issues page. First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
+
+## Project Progress
 
 Completed:
 
