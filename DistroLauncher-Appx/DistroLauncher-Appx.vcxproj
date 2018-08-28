@@ -178,7 +178,4 @@
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
-  </ItemGroup>
 </Project>

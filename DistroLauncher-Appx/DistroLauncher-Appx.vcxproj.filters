@@ -171,7 +171,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
     <None Include="..\ARM64\install.tar.gz" />
   </ItemGroup>
   <ItemGroup>
