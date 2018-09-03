@@ -6,7 +6,7 @@ Completed:
     - Custom /etc/apt/sources.list.
     - Scripts to install popular third-party software:
         - Google Chrome
-        - Microsoft Virtual Studio Code
+        - Microsoft Visual Studio Code
         - wslu
     - Support for Windows X clients and libGL enhancements.
     - Pre-install git, apt-https, and python3.
