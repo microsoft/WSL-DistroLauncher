@@ -13,7 +13,7 @@ A Linux® distribution optimized for WSL based on Debian® stable from Whitewate
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
     - [wslu](https://github.com/patrick330602/wslu) `$ sudo /opt/installwslu.sh`
-- New features actively added based on community demand.
+- New features actively added based on community demand, including [paid bug and feature bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
     
 ## Background
 
