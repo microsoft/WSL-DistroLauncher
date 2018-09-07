@@ -2,9 +2,6 @@
 # install script dependencies
 sudo apt update
 sudo apt -y install curl gnupg cdebootstrap
-
-# download latest wslu repo key
-curl https://api.patrickwu.ml/public.key | gpg --dearmor > wslu.gpg
 # create our environment
 set -e
 BUILDIR=$(pwd)
@@ -19,8 +16,11 @@ sudo chroot $DIST apt-get clean
 # configure bash
 sudo chroot $DIST /bin/bash -c "echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen && locale-gen"
 sudo chroot $DIST /bin/bash -c "update-locale LANGUAGE=en_US.UTF-8 LC_ALL=C"
-# copy custom files to image
+# download and copy latest wslu repo key
+curl https://api.patrickwu.ml/public.key | gpg --dearmor > $BUILDIR/wslu.gpg
 sudo cp $BUILDIR/wslu.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/wslu.gpg
+rm $BUILDIR/wslu.gpg
+# copy custom files to image
 sudo cp $BUILDIR/linux_files/profile $TMPDIR/$DIST/etc/profile
 sudo cp $BUILDIR/linux_files/os-release $TMPDIR/$DIST/etc/os-release
 sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
@@ -38,8 +38,6 @@ sudo chroot $DIST apt -y install wslu
 sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
 # clean up orphaned apt dependencies
 sudo chroot $DIST apt-get autoremove -y
-# remove wslu.gpg
-rm wslu.gpg
 # create tar
 cd $DIST
 sudo tar --ignore-failed-read -czvf $TMPDIR/install.tar.gz *
