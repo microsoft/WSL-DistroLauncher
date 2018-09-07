@@ -5,15 +5,16 @@ A Linux® distribution optimized for WSL based on Debian® stable from Whitewate
 ## Features
 
 - Optimized for use with [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL) (WSL) on Windows 10 Version 1709+.
-- Out-of-the-box support for external Windows-based X clients, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
-- Popular programming tools, including git and python3, pre-installed. Additional packages can be easily installed via the apt package management system from the expansive Debian repos.
-- Ships with useful utilities for running Linux on WSL installable with one command.
+- Out-of-the-box support for external Windows-based X clients, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q), no need to set DISPLAY or LIBGL settings.
+- Popular programming tools, including git and python3, are pre-installed. Additional packages can be easily installed via the apt package management system from the expansive Debian repos.
 - A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
-- Scripts to easily install the following popular applications:
+- Install [wslu](https://github.com/patrick330602/wslu), a set of useful utilities for running Linux on WSL, with one command.
+- Additional scripts to easily install the following popular applications:
     - Visual Studio Code `$ sudo /opt/installcode.sh`
     - Google Chrome `$ sudo /opt/installchrome.sh`
-    - [wslu](https://github.com/patrick330602/wslu) `$ sudo /opt/installwslu.sh`
-- New features actively added based on community demand, including [paid bug and feature bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
+    - Think another app needs to be here? File a [feature request](https://github.com/WhitewaterFoundry/WLinux/issues/new/choose).
+- New features are actively added based on community demand, including [paid bug and feature bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
+- Faster patching than any upstream Linux distro for WSL-specific bugs.
     
 ## Background
 
@@ -26,7 +27,6 @@ Support is handled via the GitHub project issues page. First search for your iss
 ## Additional Documentation
 
 - [LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md)
-- [ROADMAP.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/ROADMAP.md)
 - [BUILDING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/BUILDING.md)
 - [PRIVACY.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/PRIVACY.md)
 - [CONTRIBUTING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/CONTRIBUTING.md)
@@ -35,4 +35,3 @@ Support is handled via the GitHub project issues page. First search for your iss
 
 - [Awesome Windows Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
-
