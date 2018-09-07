@@ -1,5 +1,7 @@
-Fixes in the form of pull requests are welcomed.
+Issue reports and pull requests are welcomed.
 
-WLinux is licensed under the [MIT license](https://github.com/sirredbeard/WLinux/blob/master/LICENSE).
+There are templates for both when a new issue is opened.
 
-All contributions to WLinux must comply with the license above and similarly be licensed under the MIT license.
+WLinux is licensed under the [MIT license](https://github.com/WhitewaterFoundry/WLinux/blob/master/LICENSE.md).
+
+All contributions to WLinux must comply with the MIT license and similarly be licensed under the MIT license.
