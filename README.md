@@ -1,7 +1,5 @@
 # WLinux
 
-<img src="https://raw.githubusercontent.com/WhitewaterFoundry/Screenshots/master/installingnodejs.PNG" width=75% height=75%>
-
 A Linux® distribution optimized for WSL based on Debian® stable from Whitewater Foundry.
 
 ## Features
