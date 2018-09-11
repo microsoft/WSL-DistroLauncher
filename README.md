@@ -37,6 +37,7 @@ Please check the Wiki first. It has a guide for getting started, installing pack
 - [LICENSE.md](https://github.com/sirredbeard/WLinux/blob/master/LICENSE.md)
 - [BUILDING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/BUILDING.md)
 - [PRIVACY.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/PRIVACY.md)
+- [ROADMAP.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/ROADMAP.md)
 - [CONTRIBUTING.md](https://github.com/WhitewaterFoundry/WLinux/blob/master/CONTRIBUTING.md)
 
 ## Related Pages
