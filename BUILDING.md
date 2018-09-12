@@ -1,7 +1,7 @@
 ## WLinux Components
 
 - /x64/create-targz.sh - Builds the WLinux custom Linux distro in a WLinux or Debian environment. **Status:** Working.
-    - Sample [install.tar.gz](https://1drv.ms/u/s!AspPK83V8Sf2hJktBn7UMRCP2Kif7A) built on 8/27/18.
+    - Sample [install.tar.gz](https://1drv.ms/u/s!AspPK83V8Sf2hKcaanzZzikZ1iWQKA) built on 9/12/18.
 - Launcher project - Builds the actual executable that is run when a user launches the app. 
 - DistroLauncher-Appx project - Builds the distro package with all the assets and other dependencies.
 
@@ -32,7 +32,7 @@ Read more about the components from the upstream template by Microsoft [here](ht
         - Then you will need to update apt, upgrade existing packages, and then install git:
             - ` $ sudo apt-get update ; sudo apt-get upgrade -y ; sudo apt-get install git -y`
     1. With your WLinux (or configured/updated Debian) distro in place, execute the following:
-        - ` $ git clone https://github.com/sirredbeard/WLinux.git `
+        - ` $ git clone https://github.com/WhitewaterFoundry/WLinux.git `
         - ` $ cd WLinux`
         - ` $ chmod u+x create-targz.sh`
         - ` $ ./create-targz.sh`
