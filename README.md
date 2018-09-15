@@ -1,6 +1,7 @@
 # WLinux
 
-A Linux® distribution optimized for WSL based on Debian® stable from Whitewater Foundry.
+A Linux® distribution optimized for WSL based on Debian® stable from open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com
+).
 
 ## Features
 
