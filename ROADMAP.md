@@ -1,10 +1,20 @@
-Release 1.1
+Release 1.1.5.
 
 Status: Submitted to Microsoft for Certification
 
 - All initial features.
 - Tested and stable on amd64.
 - Snapshot of Debian stretch and code as of 9 Sept 2018.
+
+-----
+
+Release 1.1.10.
+
+Status: Undergoing testing.
+
+- Minor bug fixes.
+
+----
 
 Release 1.2
 
