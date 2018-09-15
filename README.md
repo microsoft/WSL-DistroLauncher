@@ -19,7 +19,7 @@ A Linux® distribution optimized for WSL based on Debian® stable from open-sour
     
 ## Background
 
-WLinux is a Linux distribution optimized for use on Windows Subsystem for Linux. While other distros are available for WSL, this is the first distro specifically customized for use on WSL. A number of WSL-specific enhancements are enabled by default and additional features are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and new issue reports are welcome. A paid version is planned for the Microsoft Store to fund future development, including bug/feature bounties.
+WLinux is a Linux distribution optimized for use on Windows Subsystem for Linux. While other distros are available for WSL, this is the first distro specifically customized for use on WSL. A number of WSL-specific enhancements are enabled by default and additional features are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and new issue reports are welcome. For more background, see [here](https://whitewaterfoundry.com/). 
 
 ## Support
 
@@ -27,7 +27,7 @@ WLinux is a Linux distribution optimized for use on Windows Subsystem for Linux.
 
 Please check the Wiki first. It has a guide for getting started, installing packages, and more.
 
-**Twitter**: [@Linux4Windows](https://twitter.com/Linux4Windows)
+**Twitter**: [@WLinuxApp](https://twitter.com/WLinuxApp)
 
 **Telegram**: [WSLinux](https://t.me/wslinux)
 

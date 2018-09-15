@@ -1,12 +1,14 @@
-Release 1 - Submitted to store
+Release 1.1
 
-- tested and working on amd64
-- snapshot on 8.27.18
+Status: Submitted to Microsoft for Certification
 
-Tentative Release 1.1
+- All initial features.
+- Tested and stable on amd64.
+- Snapshot of Debian stretch and code as of 9 Sept 2018.
 
-- adds wslu integration
+Release 1.2
 
-Tenative Release 2.0
+Status: Pending
 
-- add arm64 support
+- Add arm64 support.
+- Add non-English translations for README and BUILDING.
