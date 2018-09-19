@@ -13,7 +13,7 @@ DIST="stable"
 cd $TMPDIR
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,python3,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh $DIST $DIST http://deb.debian.org/debian
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
@@ -40,6 +40,9 @@ sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installcode.sh
 # make app installer scripts executable
 sudo chroot $DIST chmod u+x /opt/installchrome.sh
 sudo chroot $DIST chmod u+x /opt/installcode.sh
+
+# install python 3.7 from testing
+sudo chroot $DIST apt -t testing install python3.7 -y
 
 # set up the latest wslu app
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
