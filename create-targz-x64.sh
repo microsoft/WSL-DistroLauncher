@@ -42,6 +42,7 @@ sudo chroot $DIST chmod u+x /opt/installchrome.sh
 sudo chroot $DIST chmod u+x /opt/installcode.sh
 
 # install python 3.7 from testing
+sudo chroot $DIST apt update
 sudo chroot $DIST apt -t testing install python3.7 -y
 
 # set up the latest wslu app
