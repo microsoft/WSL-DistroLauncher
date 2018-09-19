@@ -13,6 +13,7 @@ Release 1.1.10.
 Status: Undergoing testing.
 
 - Added zsh to default image.
+- Added python 3.7 from testing.
 - Minor bug fixes.
 
 ----
