@@ -7,7 +7,7 @@ A Linux® distribution optimized for WSL based on Debian® stable from open-sour
 
 - A fast Linux terminal and development environment for developers and pro-users built on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL) (WSL) on Windows 10.
 - Out-of-the-box support for most Linux graphical apps with no need to configure display or libGL settings. Note: Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
-- Popular development tools, including zsh shell, git, and python3, are pre-installed. Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party Debian-compatible repos. The Debian backports repo is pre-configured.
+- Popular development tools, including zsh shell, git, and python 3.7, are pre-installed. Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party Debian-compatible repos. The Debian backports repo is pre-configured.
 - Pre-installed with [wslu](https://github.com/patrick330602/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
 - A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
 - Additional scripts to easily install the following popular applications:
