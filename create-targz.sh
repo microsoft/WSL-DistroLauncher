@@ -10,7 +10,7 @@ ARCH="amd64"
 DIST="stable"
 cd $TMPDIR
 # 
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,python3,apt-transport-https,wget,ca-certificates,gnome-themes-standard,gtk2-engines-murrine,dbus-x11 $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,python3,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11 $DIST $DIST http://deb.debian.org/debian
 # clean apt cache
 sudo chroot $DIST apt-get clean
 # configure bash
