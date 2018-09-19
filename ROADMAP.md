@@ -12,6 +12,7 @@ Release 1.1.10.
 
 Status: Undergoing testing.
 
+- Added zsh to default image.
 - Minor bug fixes.
 
 ----
