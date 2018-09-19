@@ -1,11 +1,11 @@
 Package: *
 Pin: release a=stable
-Pin-Priority: 1000
+Pin-Priority: 990
 
 Package: *
 Pin: release a=backports
-Pin-Priority: 100
+Pin-Priority: -1
 
 Package: *
 Pin: release a=testing
-Pin-Priority: -1
+Pin-Priority: 501
