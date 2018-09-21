@@ -1,6 +1,6 @@
 Release 1.1.5.
 
-Status: Submitted to Microsoft for Certification
+Status: Released
 
 - All initial features.
 - Tested and stable on amd64.
@@ -10,7 +10,7 @@ Status: Submitted to Microsoft for Certification
 
 Release 1.1.10.
 
-Status: Undergoing testing.
+Status: Submitted to Microsoft for Certification
 
 - Added zsh to default image.
 - Added python 3.7 from testing.
