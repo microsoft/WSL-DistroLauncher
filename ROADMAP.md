@@ -8,12 +8,12 @@ Status: Released
 
 -----
 
-Release 1.1.10.
+Release 1.1.15.
 
 Status: Submitted to Microsoft for Certification
 
-- Added zsh to default image.
-- Added python 3.7 from testing.
+- Added ssh and zsh to default image.
+- Added python 3.7 from Debian testing.
 - Minor bug fixes.
 
 ----
