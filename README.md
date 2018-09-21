@@ -3,6 +3,8 @@
 A Linux® distribution optimized for WSL based on Debian® stable from open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com
 ).
 
+WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fstore%2FproductId%2F9NV1GV1PXZ6P).
+
 ## Features
 
 - A fast Linux terminal and development environment for developers and pro-users built on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL) (WSL) on Windows 10.
