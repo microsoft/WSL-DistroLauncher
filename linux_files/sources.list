@@ -1,6 +1,17 @@
 deb https://deb.debian.org/debian stable main
+# deb-src https://deb.debian.org/debian stable main
+
 deb https://deb.debian.org/debian stable-updates main
+# deb-src https://deb.debian.org/debian stable-updates main
+
 deb http://security.debian.org/debian-security/ stable/updates main
+# deb-src http://security.debian.org/debian-security/ stable/updates main
+
 deb https://deb.debian.org/debian stretch-backports main
+# deb-src https://deb.debian.org/debian stretch-backports main
+
 deb https://deb.debian.org/debian testing main
+# deb-src https://deb.debian.org/debian testing main
+
 deb https://apt.patrickwu.ml/ stable main
+# obtain source from https://github.com/wslutilities/wslu
