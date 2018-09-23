@@ -78,11 +78,12 @@
     <PackageCertificateKeyFile>DistroLauncher-Appx_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
-    <PackageCertificateThumbprint>7EC819BEE6E259B9B623D16998043BCA6B55B7E4</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>17958D27E972C713E06B53D183606366CF8C66EF</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageDir>C:\Users\hayden\Documents\Builds\</AppxPackageDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -184,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DistroLauncher-Appx_StoreKey.pfx" />
+    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
 </Project>

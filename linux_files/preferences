@@ -1,0 +1,11 @@
+Package: *
+Pin: release a=stable
+Pin-Priority: 990
+
+Package: *
+Pin: release a=backports
+Pin-Priority: -1
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 501

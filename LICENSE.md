@@ -20,7 +20,6 @@
 
 - GitHub® is the registered trademark of GitHub, Inc.
 
-
 # Copyright and Licenses
 
 WLinux original modifications on https://github.com/WhitewaterFoundry/WLinux:
@@ -119,7 +118,11 @@ Upstream WSL distro template from https://github.com/Microsoft/WSL-DistroLaunche
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE
 
-Portions from the GNU/Linux Debian distribution are licensed under the [following licenses](https://www.debian.org/legal/licenses/), copies of which can also be found in /usr/share/common-licenses/ on WLinux:
+Portions from the GNU/Linux Debian distribution are licensed under the [following licenses](https://www.debian.org/legal/licenses/), copies of which can also be found in /usr/share/common-licenses/ on WLinux.
+
+For access to the source code of any Debian package, uncomment the deb-src lines in /etc/apt/sources.list, run `$ sudo apt-get update`, and you can now install sources using `$ sudo apt-get source <package name>`.
+
+Debian Licenses and Disclosures:
 
     Apache License
     Version 2.0, January 2004
