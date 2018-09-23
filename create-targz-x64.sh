@@ -33,6 +33,7 @@ sudo cp $BUILDIR/linux_files/os-release $TMPDIR/$DIST/etc/os-release
 sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
 sudo cp $BUILDIR/linux_files/wsl.conf $TMPDIR/$DIST/etc/wsl.conf
+sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
 
 # copy app installer scripts to image
 sudo cp $BUILDIR/linux_files/installchrome.sh $TMPDIR/$DIST/opt/installchrome.sh
