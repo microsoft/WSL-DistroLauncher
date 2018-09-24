@@ -50,7 +50,7 @@ sudo chroot $DIST apt -t testing install python3.7 -y
 # set up the latest wslu app
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
 sudo chroot $DIST apt update
-sudo chroot $DIST apt -y install wslu
+sudo chroot $DIST apt -y install wslu n
 
 # remove unnecessary apt packages
 sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
