@@ -13,7 +13,7 @@ DIST="stable"
 cd $TMPDIR
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh,neovim $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh,neovim,curl $DIST $DIST http://deb.debian.org/debian
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
