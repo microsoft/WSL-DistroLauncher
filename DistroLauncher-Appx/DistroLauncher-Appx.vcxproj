@@ -7,10 +7,10 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.16215.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.17134.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <TargetName>mydistro</TargetName>
+    <TargetName>wlinux</TargetName>
     <ProjectName>DistroLauncher-Appx</ProjectName>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
@@ -75,9 +75,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>DistroLauncher-Appx_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Never</AppxBundle>
+    <AppxBundle>Auto</AppxBundle>
+    <PackageCertificateThumbprint>17958D27E972C713E06B53D183606366CF8C66EF</PackageCertificateThumbprint>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageDir>C:\Users\hayden\Documents\Builds\</AppxPackageDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
@@ -89,7 +99,6 @@
     <AppxManifest Include="MyDistro.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup Condition="'$(Platform)'=='x64'">
     <None Include="..\x64\install.tar.gz">
@@ -102,6 +111,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\large logo.png">
+      <DeploymentContent>false</DeploymentContent>
+    </Image>
+    <Image Include="Assets\large logo.scale-100.png" />
+    <Image Include="Assets\large logo.scale-125.png" />
+    <Image Include="Assets\large logo.scale-150.png" />
+    <Image Include="Assets\large logo.scale-200.png" />
     <Image Include="Assets\LargeTile.scale-100.png" />
     <Image Include="Assets\LargeTile.scale-125.png" />
     <Image Include="Assets\LargeTile.scale-150.png" />
@@ -137,6 +153,9 @@
     <Image Include="Assets\Square44x44Logo.targetsize-256.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-32.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Image Include="Assets\Square71x71Logo.scale-100.png" />
+    <Image Include="Assets\Square71x71Logo.scale-200.png" />
+    <Image Include="Assets\Square71x71Logo.scale-400.png" />
     <Image Include="Assets\StoreLogo.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
     </Image>
@@ -159,9 +178,14 @@
     <CustomBuild Include="$(targetname)">
       <FileType>Document</FileType>
       <ExcludedFromBuild>false</ExcludedFromBuild>
-      <Message>Copy $(SolutionDir)\$(platform)\$(Configuration)\launcher.exe into $(SolutionDir)\$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Message>
-      <Command>copy $(SolutionDir)\$(platform)\$(Configuration)\launcher.exe $(SolutionDir)\$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Command>
+      <Message>Copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe into $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Message>
+      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(targetname).exe</Command>
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DistroLauncher-Appx_StoreKey.pfx" />
+    <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
 </Project>

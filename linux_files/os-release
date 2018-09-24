@@ -1,0 +1,6 @@
+PRETTY_NAME="WLinux"
+NAME="WLinux"
+ID=debian
+HOME_URL="https://github.com/whitewaterfoundry/WLinux"
+SUPPORT_URL="https://github.com/whitewaterfoundry/WLinux"
+BUG_REPORT_URL="https://github.com/whitewaterfoundry/WLinux"
