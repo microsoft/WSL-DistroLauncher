@@ -27,11 +27,12 @@ Status: Testing
 
 ----
 
-Release 1.1.x.
+Release 1.1.20.
 
 Status: In Development
 
 - Interactive OOBE script.
+- International language/keyboard support.
 
 
 -----
