@@ -141,7 +141,7 @@ function basicguiinstall {
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
 if [[ $response == ^[yY]$ ]]
 then
-    sudo apt install gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
+    sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
 fi    
 }
 
