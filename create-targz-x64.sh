@@ -35,6 +35,12 @@ sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
 sudo cp $BUILDIR/linux_files/wsl.conf $TMPDIR/$DIST/etc/wsl.conf
 sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
+sudo cp $BUILDIR/linux_files/helpme $TMPDIR/$DIST/etc/helpme
+sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
+
+#make helpme and setup executable
+sudo chroot $DIST chmod 755 /etc/helpme
+sudo chroot $DIST chmod 755 /etc/setup
 
 # copy app installer scripts to image
 sudo cp $BUILDIR/linux_files/installchrome.sh $TMPDIR/$DIST/opt/installchrome.sh
