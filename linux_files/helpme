@@ -1,2 +1,2 @@
 #!/bin/bash
-explorer.exe https://github.com/WhitewaterFoundry/WLinux
+wslview https://github.com/WhitewaterFoundry/WLinux
