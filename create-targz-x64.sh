@@ -42,10 +42,6 @@ sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 sudo chroot $DIST chmod 755 /etc/helpme
 sudo chroot $DIST chmod 755 /etc/setup
 
-# install python 3.7 from testing
-sudo chroot $DIST apt update
-sudo chroot $DIST apt -t testing install python3.7 -y
-
 # set up the latest wslu app and n npm management tool
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
 sudo chroot $DIST apt update

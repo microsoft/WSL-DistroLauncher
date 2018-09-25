@@ -3,6 +3,8 @@
 set -e
 set response = ""
 set updateflag = false
+set CURDUR = ""
+set TMPDIR = ""
 
 # functions
 
@@ -48,10 +50,24 @@ echo "Checking for security updates."
 
 ## package meta functions
 
+    # list all package sets and the order they should be presented for optional install here
+
 function installpackages {
+echo "[Shells]"
 zshinstall
 fishinstall
+echo "[Editors]"
 neoviminstall
+emacsinstall
+echo "[Enhancements]"
+fzfinstall
+azurecliinstall
+echo "[Development Environment]"
+pythoninstall
+echo "[GUI Applications]"
+basicguiinstall
+codeinstall
+chromeinstall
 }
 
 function updateupgrade {
@@ -59,7 +75,9 @@ sudo apt update
 sudo apt upgrade -y
 }
 
-## individual package install functions
+## package set functions
+
+### shells
 
 function zshinstall {
 read -r -p "Would you like to download and set optional shell zsh? [y/N] " response
@@ -77,14 +95,130 @@ if [[ $response == ^[yY]$ ]]
 then
     sudo apt install fish -y
     chsh -z /bin/zsh
+    # add ohmyfish
+fi
+}
+
+### editors
+
+function neoviminstall {
+read -r -p "Would you like to download and install optional editor neovim? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo apt install neovim -y
 fi
 }
 
 function neoviminstall {
-read -r -p "Would you like to download and install neovim? [y/N] " response
+read -r -p "Would you like to download and install optional editor emacs? [y/N] " response
 if [[ $response == ^[yY]$ ]]
 then
-    sudo apt install neovim -y
+    sudo apt install emacs -y
+fi
+}
+
+function codeinstall {
+read -r -p "Would you like to download and install optional editor Microsoft Code? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg 
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' 
+    sudo apt upgrade -y 
+    sudo apt update
+    sudo apt install code libxss1 libasound2 -y
+    cd $CURDIR
+    rm -r $TMPDIR
+fi  
+}
+
+### gui apps
+
+function basicguiinstall {
+read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo apt install gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
+fi    
+}
+
+function chromeinstall {
+read -r -p "Would you like to download and install Google Chrome? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main " > /etc/apt/sources.list.d/googlechrome.list' 
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install google-chrome-stable -y
+    cd $CURDIR
+    rm -r $TMPDIR
+fi    
+}
+
+### dev environments
+
+function pythoninstall {
+read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+    apt update
+    sudo apt -t testing install python3.7 idle-python3.7 -y
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python3 get-pip.py --user
+    export PATH="$PATH:/home/~/.local/bin"
+    echo 'export PATH="$PATH:/home/~/.local/bin"' >> ~/.bashrc
+    pip install -U pip
+    cd $CURDIR
+    rm -r $TMPDIR
+fi   
+}
+
+### enhancements
+
+function fzfinstall {
+read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+    git clone --depth 1 https://github.com/junegunn/fzf.git
+    cd fzf
+    ./install
+    cd $CURDIR
+    rm -r $TMPDIR
+fi   
+}
+
+### cloud tools
+
+function azurecliinstall {
+read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mkdir -d)
+    cd $TMPDIR
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo chmod 644 /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo bash -c "echo 'deb https://packages.microsoft.com/repos/azure-cli/ stretch main' >> /etc/apt/sources.list.d/azurecli.list"
+    sudo apt update 
+    sudo apt upgrade -y
+    echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
+    sudo apt install azure-cli -y
+    cd $CURDIR
+    rm -r $TMPDIR
 fi
 }
 
