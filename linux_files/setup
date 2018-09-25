@@ -1,0 +1,125 @@
+#!/bin/bash
+
+set -e
+set response = ""
+set updateflag = false
+
+# functions
+
+## core functions
+
+function welcomeprompt {
+echo "Welcome to WLinux. Thank you for supporting sustainable indie open source development."
+echo 
+echo "WLinux comes with a core set of packages. This script allows you to install additional sets of curated packages."
+echo
+}
+
+function continueprompt {
+read -r -p "Would you like to continue with this setup script? [Y/n] " response
+if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]
+then
+    echo "Continuing with setup."
+else
+    echo "You may run the script again any time by running: bash /etc/setup"
+    quit
+fi
+}
+
+function quit {
+exit
+}
+
+function updatescriptprompt {
+read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response
+if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]
+then
+    TMPDIR=$(mktemp -d)
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/sirredbeard/linux_files/setup | bash -s u
+    quit
+else
+    echo "Continuing with release install script."
+fi
+}
+
+function securitypatches {
+echo "Checking for security updates."
+}
+
+## package meta functions
+
+function installpackages {
+zshinstall
+fishinstall
+neoviminstall
+}
+
+function updateupgrade {
+sudo apt update
+sudo apt upgrade -y
+}
+
+## individual package install functions
+
+function zshinstall {
+read -r -p "Would you like to download and set optional shell zsh? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo apt install zsh -y
+    chsh -z /bin/zsh
+    # add ohmyzsh
+fi
+}
+
+function fishinstall {
+read -r -p "Would you like to download and set optional shell fish? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo apt install fish -y
+    chsh -z /bin/zsh
+fi
+}
+
+function neoviminstall {
+read -r -p "Would you like to download and install neovim? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo apt install neovim -y
+fi
+}
+
+# main
+
+## process update command line flag
+
+while getopts ":u:" opt; do
+  case $opt in
+    u ) updateflag=true
+      ;;
+    \?  ) echo "Option -$OPTARG requires an argument." >&2
+         exit 1
+      ;;
+    : ) updateflag=false
+      ;;
+
+  esac
+done
+
+## setup script
+
+if [ updateflag ]
+then
+  echo "Continuing with updated script from GitHub."
+  updateupgrade
+  securitypatches
+  installpackages
+else
+  welcomeprompt
+  continueprompt
+  updatescriptprompt
+  updateupgrade
+  securitypatches
+  installpackages
+fi
+
+quit
