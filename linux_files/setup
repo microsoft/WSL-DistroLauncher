@@ -59,6 +59,24 @@ function securitypatches {
 echo "Checking for security updates."
 }
 
+## internationalization
+
+function languageprompt {
+
+# read install additional languages? y/n
+
+    # if yes, setlangmenu
+
+}
+
+function setlangmenu {
+
+# echo select languages to install from following list
+
+# sudo dpkg-reconfigure locales
+
+}
+
 ## package meta functions
 
     # list all package sets and the order they should be presented for optional install here
@@ -261,6 +279,7 @@ then
 else
   welcomeprompt
   continueprompt
+  language prompt
   updatescriptprompt
   updateupgrade
   securitypatches
