@@ -11,8 +11,19 @@ set TMPDIR = ""
 ## core functions
 
 function welcomeprompt {
-echo "Welcome to WLinux. Thank you for supporting sustainable indie open source development."
-echo 
+echo "Welcome to WLinux. Thank you for supporting sustainable indepdendent open source development."
+echo "欢迎"
+echo "ようこそ"
+echo "Bienvenue"
+echo "Willkommen"
+echo "Bienvenido"
+echo "желанный"
+echo "העלא"
+echo "Välkommen"
+echo "ကြိုဆိုပါတယ်"
+echo "স্বাগত"
+echo
+echo
 echo "WLinux comes with a core set of packages. This script allows you to install additional sets of curated packages."
 echo
 }
