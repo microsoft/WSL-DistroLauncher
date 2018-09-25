@@ -13,7 +13,7 @@ DIST="stable"
 cd $TMPDIR
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh,neovim,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,xclip,curl $DIST $DIST http://deb.debian.org/debian
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
@@ -41,14 +41,6 @@ sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 #make helpme and setup executable
 sudo chroot $DIST chmod 755 /etc/helpme
 sudo chroot $DIST chmod 755 /etc/setup
-
-# copy app installer scripts to image
-sudo cp $BUILDIR/linux_files/installchrome.sh $TMPDIR/$DIST/opt/installchrome.sh
-sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installcode.sh
-
-# make app installer scripts executable
-sudo chroot $DIST chmod u+x /opt/installchrome.sh
-sudo chroot $DIST chmod u+x /opt/installcode.sh
 
 # install python 3.7 from testing
 sudo chroot $DIST apt update
