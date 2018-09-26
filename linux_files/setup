@@ -208,7 +208,7 @@ if [[ $response == ^[yY]$ ]]
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
     sudo echo 'export QT_SCALE_FACTOR=2' >> /etc/profile
-    sudo echo `GDK_SCALE=2` >> /etc/profile
+    sudo echo 'export GDK_SCALE=2' >> /etc/profile
 fi    
 }
 
