@@ -74,6 +74,7 @@ function installpackages {
 echo "[Shells]"
 zshinstall
 fishinstall
+setshell
 echo "[Editors]"
 neoviminstall
 emacsinstall
@@ -93,26 +94,36 @@ sudo apt update
 sudo apt upgrade -y
 }
 
+function setshell {
+
+# list all install shells
+
+# which one would you like?
+
+    # default bash
+
+# set shell with chsh
+
+}
+
 ## package set functions
 
 ### shells
 
 function zshinstall {
-read -r -p "Would you like to download and set optional shell zsh? [y/N] " response
+read -r -p "Would you like to download and install optional shell zsh? [y/N] " response
 if [[ $response == ^[yY]$ ]]
 then
     sudo apt install zsh -y
-    chsh -z /bin/zsh
     # add ohmyzsh
 fi
 }
 
 function fishinstall {
-read -r -p "Would you like to download and set optional shell fish? [y/N] " response
+read -r -p "Would you like to download and install optional shell fish? [y/N] " response
 if [[ $response == ^[yY]$ ]]
 then
     sudo apt install fish -y
-    chsh -z /bin/zsh
     # add ohmyfish
 fi
 }
@@ -127,7 +138,7 @@ then
 fi
 }
 
-function neoviminstall {
+function emacsinstall {
 read -r -p "Would you like to download and install optional editor emacs? [y/N] " response
 if [[ $response == ^[yY]$ ]]
 then
@@ -242,7 +253,7 @@ fi
 
 # main
 
-## process update command line flag
+## process update command line flag to detect if running from update script
 
 while getopts ":u:" opt; do
   case $opt in
