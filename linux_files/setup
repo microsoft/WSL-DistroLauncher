@@ -182,7 +182,7 @@ read -r -p "Would you like to download and install a base set of libraries for G
 if [[ $response == ^[yY]$ ]]
 then
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
-fi    
+fi
 }
 
 function chromeinstall {
@@ -199,17 +199,18 @@ then
     sudo apt install google-chrome-stable -y
     cd $CURDIR
     rm -r $TMPDIR
-fi    
+fi
 }
 
 function hidpiconfig {
 read -r -p "Would you like to configure Qt and GDK for HiDPI displays (set scaling factor to 2)? [y/N] " response
 if [[ $response == ^[yY]$ ]]
+then
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
     sudo echo 'export QT_SCALE_FACTOR=2' >> /etc/profile
     sudo echo 'export GDK_SCALE=2' >> /etc/profile
-fi    
+fi
 }
 
 ### dev environments
@@ -230,7 +231,7 @@ then
     pip install -U pip
     cd $CURDIR
     rm -r $TMPDIR
-fi   
+fi
 }
 
 ### enhancements
@@ -247,7 +248,7 @@ then
     ./install
     cd $CURDIR
     rm -r $TMPDIR
-fi   
+fi
 }
 
 ### cloud tools
