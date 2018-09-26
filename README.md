@@ -5,7 +5,7 @@ A Linux® distribution optimized for WSL based on Debian® from open-source soft
 
 WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fstore%2FproductId%2F9NV1GV1PXZ6P).
 
-*Read in other languages: [普通话](README.zh-cn.md) [日本](README.ja.md)*
+**Read in other languages: [简体中文](README.zh-hans.md) [繁體中文](README.zh-han.md) [日本語](README.ja.md)**
 
 ## Features
 
@@ -13,6 +13,7 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - Out-of-the-box support for most Linux graphical apps with no need to configure display or libGL settings. Note: Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
 - Popular shell and development tools, including zsh shell, git, neovim, and python can be easily installed on first run. Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party Debian-compatible repos. The Debian backports and testing repos are also pre-configured.
 - Pre-installed with [wslu](https://github.com/patrick330602/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
+- Pre-installed with [n](https://github.com/tj/n), a nodejs management tool. 
 - A handful of unnecessary packages, such as systemd, have been removed to improve stability and security.
 - New features are actively added based on community interest, including [paid bug and feature bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
 - WLinux offers faster patching than any upstream Linux distro for WSL-specific bugs.
