@@ -1,10 +1,9 @@
 #!/bin/bash
 
-set -e
-set response = ""
-set updateflag = false
-set CURDUR = ""
-set TMPDIR = ""
+response=""
+CURDUR=""
+TMPDIR=""
+updateflag="0"
 
 # functions
 
@@ -24,12 +23,8 @@ then
     echo "Continuing with setup."
 else
     echo "You may run the script again any time by running: bash /etc/setup"
-    quit
+    exit 0
 fi
-}
-
-function quit {
-exit
 }
 
 function updatescriptprompt {
@@ -38,7 +33,7 @@ if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]
 then
     TMPDIR=$(mktemp -d)
     curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/sirredbeard/linux_files/setup | bash -s u
-    quit
+    exit 0
 else
     echo "Continuing with release install script."
 fi
@@ -55,13 +50,13 @@ function languageprompt {
 # read install additional languages? y/n
 
     # if yes, setlangmenu
-
+echo ""
 }
 
 function setlangmenu {
 
 # echo select languages to install from following list
-
+echo ""
 # sudo dpkg-reconfigure locales
 
 }
@@ -71,10 +66,6 @@ function setlangmenu {
     # list all package sets and the order they should be presented for optional install here
 
 function installpackages {
-echo "[Shells]"
-zshinstall
-fishinstall
-setshell
 echo "[Editors]"
 neoviminstall
 emacsinstall
@@ -94,39 +85,66 @@ sudo apt update
 sudo apt upgrade -y
 }
 
-function setshell {
+function shellmenu () {
+    echo "Shells:"
+    for i in ${!options[@]}; do 
+        printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
+    done
+    [[ "$msg" ]] && echo "$msg"; :
+}
 
-# list all install shells
+# This is a testing function, so I didn't include it other codes.
+function installandsetshell {
+options=("zsh" "fish" "csh")
 
-# which one would you like?
+prompt="Check a shell (again to uncheck, ENTER when done): "
+while shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
+    [[ "$num" != *[![:digit:]]* ]] &&
+    (( num > 0 && num <= ${#options[@]} )) ||
+    { msg="Invalid option: $num"; continue; }
+    ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
+    [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
+done
 
-    # default bash
-
-# set shell with chsh
-
+toselect=("bash")
+msg="1"
+for i in ${!options[@]}; do 
+    if [[ "${choices[i]}" ]]
+    then
+        toselect+=("${options[i]}")
+        echo "Installing ${options[i]}..."
+        sudo apt install ${options[i]} -y
+        msg="0"
+    fi
+done
+if [[ "$msg" == "1" ]]
+then
+    echo "No extra shell is selected, continuing setup..."
+else
+    echo "Set default shell:"
+    for i in ${!toselect[@]}; do 
+        printf "%3d) %s\n" $((i)) "${toselect[i]}"
+    done
+    passed="1"
+    while [[ "$passed" == "1" ]]
+    do
+        read -rp "Type a number and enter: " opt
+        if [[ "$opt" != *[![:digit:]]* ]] && (( opt < 0 && opt >= ${#toselect[@]} ))
+        then
+            echo "Invalid option: $opt"
+        elif [[ "$opt" == "" ]]
+        then
+            echo "Value should not be empty"
+        else
+            passed="0"
+        fi
+    done
+    echo "Setting ${toselect[$opt]} as default..."
+    chsh -s $(which ${toselect[$opt]})
+fi
 }
 
 ## package set functions
-
-### shells
-
-function zshinstall {
-read -r -p "Would you like to download and install optional shell zsh? [y/N] " response
-if [[ $response == ^[yY]$ ]]
-then
-    sudo apt install zsh -y
-    # add ohmyzsh
-fi
-}
-
-function fishinstall {
-read -r -p "Would you like to download and install optional shell fish? [y/N] " response
-if [[ $response == ^[yY]$ ]]
-then
-    sudo apt install fish -y
-    # add ohmyfish
-fi
-}
 
 ### editors
 
@@ -254,36 +272,30 @@ fi
 # main
 
 ## process update command line flag to detect if running from update script
-
-while getopts ":u:" opt; do
-  case $opt in
-    u ) updateflag=true
-      ;;
-    \?  ) echo "Option -$OPTARG requires an argument." >&2
-         exit 1
-      ;;
-    : ) updateflag=false
-      ;;
-
-  esac
+while [ $1 ]; do
+	case $1 in
+		-u) $updateflag="0";shift;;
+	esac
 done
 
 ## setup script
 
-if [ updateflag ]
+if [[ "$updateflag" == "1" ]]
 then
   echo "Continuing with updated script from GitHub."
   updateupgrade
   securitypatches
   installpackages
 else
+  
   welcomeprompt
   continueprompt
-  language prompt
+  languageprompt
   updatescriptprompt
   updateupgrade
+  installandsetshell
   securitypatches
   installpackages
 fi
 
-quit
+exit 0
