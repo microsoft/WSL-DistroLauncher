@@ -78,6 +78,7 @@ echo "[GUI Applications]"
 basicguiinstall
 codeinstall
 chromeinstall
+hidpiconfig
 }
 
 function updateupgrade {
@@ -209,6 +210,17 @@ then
 fi    
 }
 
+function hidpiconfig {
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays (set scaling factor to 2)? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+    export QT_SCALE_FACTOR=2
+    export GDK_SCALE=2
+    sudo echo 'export QT_SCALE_FACTOR=2' >> /etc/profile
+    sudo echo `GDK_SCALE=2` >> /etc/profile
+
+fi    
+}
+
 ### dev environments
 
 function pythoninstall {
@@ -219,7 +231,7 @@ then
     TMPDIR=$(mktemp -d)
     cd $TMPDIR
     apt update
-    sudo apt -t testing install python3.7 idle-python3.7 -y
+    sudo apt -t testing install build-essential python3.7 idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user
     export PATH="$PATH:/home/~/.local/bin"
