@@ -47,7 +47,7 @@ sudo chroot $DIST chmod u+x /opt/installcode.sh
 
 # install python 3.7 from testing
 sudo chroot $DIST apt update
-sudo chroot $DIST apt -t testing install python3.7 -y
+sudo chroot $DIST apt -t testing install python3.7 build-essential -y
 
 # set up the latest wslu app and n npm management tool
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
