@@ -66,14 +66,19 @@ neoviminstall
 emacsinstall
 echo "Enhancements:"
 fzfinstall
-azurecliinstall
+explorerintegration
+## package set functions
 echo "Development Environment:"
 pythoninstall
+powershellinstall
+echo "Cloud Tools:"
+azurecliinstall
 echo "GUI Applications:"
 basicguiinstall
 codeinstall
 chromeinstall
 hidpiconfig
+soundconfig
 }
 
 function updateupgrade {
@@ -82,7 +87,9 @@ sudo apt update
 sudo apt upgrade -y
 }
 
-# shells
+## package set functions
+
+### shells
 
 function shellmenu () {
     echo "The default shell in WLinux is bash. You may select additional shells to install here."
@@ -141,8 +148,6 @@ else
     chsh -s $(which ${toselect[$opt]})
 fi
 }
-
-## package set functions
 
 ### editors
 
@@ -218,6 +223,61 @@ then
 fi
 }
 
+function soundconfig {
+read -r -p "Would you like to configure sound playback for WSL? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+
+    # download and install pulseaudio server on c:\
+
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+
+    # wget zip
+
+    wget https://brkp5a.dm.files.1drv.com/y4mzzXYR0K2wcJJhmeps-X7Crdn8qFBFaLBMBt4Ked1R9FBgKug7DUIiLsCgC0DumFtzos0a5RsikTLhzdcTyQ870sZojPNElVCVQueheYgH4YFbDTGOlkfU0iTyf8-ArW8UTTavCNuSrRoHc1Eu5Pcms8vM1T5knJn3rE_UREukPEDmHbcgRRop97gOjunaOyk/PulseAudio26sept18.zip
+
+    # this is a just cygwin32 installation zipped up with pulseaudio and a variety of audio codecs installed
+
+    # implement a sha check here for security
+
+    # create windows pulseaudio installation folder
+    cmd.exe /C 'mkdir C:\PulseAudio'
+
+    # extract to windows pulseaudio folder
+    sudo apt install zip -yes
+    unzip PulseAudio26sept18.zip -d /mnt/c/PulseAudio/
+
+    # configure windows pulse audio
+
+        # can you help me with these seds?
+
+        # /mnt/c/PulseAudio/etc/pulse/default.pa
+        # change 'load-module module-waveout sink_name=output source_name=input' to 'load-module module-waveout sink_name=output source_name=input record=0'
+        # change '#load-module module-native-protocol-tcp' to 'load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1'        
+
+        # /mnt/c/PulseAudio/etc/pulse/daemon.conf
+        # change '; exit-idle-time = 20' to `exit-idle-time = -1`
+
+    sudo echo 'export DISPLAY=:0' >> /mnt/c/PulseAudio/etc/profile
+
+    # install and configure pulse audio WLinux
+
+    sudo apt install pulseaudio -y
+
+    export PULSE_SERVER=tcp:127.0.0.1;
+    sudo echo 'export PULSE_SERVER=tcp:127.0.0.1;' >> /etc/profile
+
+    # add command launching pulse audio server to /etc/profile
+
+    sudo echo 'taskkill.exe /IM pulseaudio.exe /T /F' >> /etc/profile # kill existing daemon if one exists
+
+    sudo echo 'bash -c 'cmd.exe /mnt/c/Temp/PulseAudio/bin/pulseaudio.exe -D' &' >> /etc/profile # still trying to find a way to launch this silently, any ideas?
+
+fi
+}
+
 ### dev environments
 
 function pythoninstall {
@@ -239,6 +299,27 @@ then
 fi
 }
 
+function powershellinstall {
+read -r -p "Would you like to download and install Powershell? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > $BUILDIR/microsoft.gpg
+    sudo cp $BUILDIR/microsoft.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/microsoft.gpg
+    rm $BUILDIR/microsoft.gpg
+    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/powershell.list' 
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install powershell -y
+    cd $CURDIR
+    rm -r $TMPDIR
+fi
+}
+
+}
+
 ### enhancements
 
 function fzfinstall {
@@ -253,6 +334,24 @@ then
     ./install
     cd $CURDIR
     rm -r $TMPDIR
+fi
+}
+
+function explorerintegration {
+read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    cmd.exe /C 'mkdir C:\Temp\'
+    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
+    cmd.exe /C 'Reg import C:\Temp\Install.reg'
+    cmd.exe /C 'del C:\Temp\Install.reg'
+    cmd.exe /C 'rmdir C:\Temp'
+else
+    cmd.exe /C 'mkdir C:\Temp\'
+    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
+    cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
+    cmd.exe /C 'del C:\Temp\Uninstall.reg'
+    cmd.exe /C 'rmdir C:\Temp'
 fi
 }
 
