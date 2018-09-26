@@ -33,8 +33,8 @@ Read more about the components from the upstream template by Microsoft [here](ht
     1. With your WLinux (or configured/updated Debian) distro in place, execute the following:
         - ` $ git clone https://github.com/WhitewaterFoundry/WLinux.git `
         - ` $ cd WLinux`
-        - ` $ chmod u+x create-targz.sh`
-        - ` $ ./create-targz.sh`
+        - ` $ chmod u+x create-targz-x64.sh`
+        - ` $ ./create-targz-x64.sh`
     1. You should find an install.tar.gz in the /x64/ directory of your build directory. (When we get ARM64 support working there will also be an install.tar.gz in a /ARM64/ directory.)
 1. Build the solution to make sure you have everything you need. Fix any build dependencies you are missing.
 1. Build the Windows UWP package:
