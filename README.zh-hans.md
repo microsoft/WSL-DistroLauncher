@@ -12,7 +12,7 @@ WLinux 可以从[微软商店](https://afflnk.microsoft.com/c/1291904/433017/759
 - 开箱即用的GUI支持！注：需要安装Windows下的X服务器，如[X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q)。
 - 内置常用命令行和开发工具，如zsh，git，neovim，python可在第一次运行一键安装。其他的工具和包可以使用apt和我们内置的[扩展Debian包服务器](https://packages.debian.org/stable/)和第三方包服务器，例如用`$ sudo apt install nodejs`一键安装nodejs。`Debian backports`和`Debian Testing`包服务器也进行了内部配置。
 - 预装[wslu](https://github.com/patrick330602/wslu)，一个为WSL而设计的工具包（我其实就是wslu开发者哈哈哈哈）。
-- 预装[n]（https://github.com/tj/n），一款nodejs版本管理器。
+- 预装[n](https://github.com/tj/n)，一款nodejs版本管理器。
 - 一些不必要或者不支持的应用如`systemd`已被移除。
 - 新功能会不断的添加，包括我们的[功能&Bug赏金计划](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty)。
 - WLinux提供更快的Bug修复。
