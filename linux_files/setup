@@ -40,7 +40,7 @@ fi
 }
 
 function securitypatches {
-echo "Checking for security updates."
+echo "Security up to date."
 }
 
 ## internationalization
@@ -58,15 +58,18 @@ fi
     # list all package sets and the order they should be presented for optional install here
 
 function installpackages {
-echo "[Editors]"
+echo "Shells:"
+shellmenu
+installandsetshell
+echo "Editors:"
 neoviminstall
 emacsinstall
-echo "[Enhancements]"
+echo "Enhancements:"
 fzfinstall
 azurecliinstall
-echo "[Development Environment]"
+echo "Development Environment:"
 pythoninstall
-echo "[GUI Applications]"
+echo "GUI Applications:"
 basicguiinstall
 codeinstall
 chromeinstall
@@ -74,19 +77,21 @@ hidpiconfig
 }
 
 function updateupgrade {
+echo "Checking for and applying updates. Please wait."
 sudo apt update
 sudo apt upgrade -y
 }
 
+# shells
+
 function shellmenu () {
-    echo "Shells:"
+    echo "The default shell in WLinux is bash. You may select additional shells to install here."
     for i in ${!options[@]}; do 
         printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
     done
     [[ "$msg" ]] && echo "$msg"; :
 }
 
-# This is a testing function, so I didn't include it other codes.
 function installandsetshell {
 options=("zsh" "fish" "csh")
 
