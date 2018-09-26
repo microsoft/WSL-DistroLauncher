@@ -5,7 +5,7 @@ A Linux® distribution optimized for WSL based on Debian® from open-source soft
 
 WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fstore%2FproductId%2F9NV1GV1PXZ6P).
 
-*Read in other languages: [普通话](README.zh-cn.md) [日本](README.ja.md)*
+*Read in other languages: [简体中文](README.zh-hans.md)　[繁體中文](README.zh-han.md) [日本語](README.ja.md)*
 
 ## Features
 
