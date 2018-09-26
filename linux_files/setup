@@ -46,19 +46,11 @@ echo "Checking for security updates."
 ## internationalization
 
 function languageprompt {
-
-# read install additional languages? y/n
-
-    # if yes, setlangmenu
-echo ""
-}
-
-function setlangmenu {
-
-# echo select languages to install from following list
-echo ""
-# sudo dpkg-reconfigure locales
-
+read -r -p "Would you like to configure additional languages? [y/N] " response
+if [[ $response == ^[yY]$ ]]
+then
+    sudo dpkg-reconfigure locales
+fi
 }
 
 ## package meta functions
@@ -299,7 +291,6 @@ then
   securitypatches
   installpackages
 else
-  
   welcomeprompt
   continueprompt
   languageprompt
