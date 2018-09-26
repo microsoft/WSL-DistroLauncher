@@ -19,19 +19,19 @@ WLinux 可以从[微软商店](https://afflnk.microsoft.com/c/1291904/433017/759
     
 ## 背景
 
-WLinux是一款基于Debian®, 专门为Windows 10 Linux 子系统调整的 Linux® 发行版。纵然其他发行版也有提供Linux® 子系统版本，这是第一款专门为Windows 10 Linux 子系统调整的 Linux® 发行版。 A number of WSL-specific enhancements are enabled by default and additional features are planned. WLinux is open-source and based on the stable Debian GNU/Linux distro. Development occurs on GitHub. Pull requests, forks, and new issue reports are welcome. For more background, see [here](https://whitewaterfoundry.com/). 
+WLinux是一款基于Debian®, 专门为Windows 10 Linux 子系统调整的 Linux® 发行版。纵然其他发行版也有提供Linux® 子系统版本，这是第一款专门为Windows 10 Linux 子系统调整的 Linux® 发行版。 一些为WSL做出的调整已经启用，新功能也在计划中。WLinux是一款基于稳定版Debian GNU/Linux的开源系统，于GitHub开源。欢迎开PR，Issue或者fork本项目。欲了解更多，请看[此](https://whitewaterfoundry.com/)。
 
 ## 支持
 
 **[Official WLinux Wiki](https://github.com/WhitewaterFoundry/WLinux/wiki)**
 
-Please check the Wiki first. It has a guide for getting started, installing packages, and more.
+请首先查看官方Wiki一了解更多。
 
 **Twitter**: [@WLinuxApp](https://twitter.com/WLinuxApp)
 
 **Telegram**: [WSLinux](https://t.me/wslinux)
 
-**GitHub**: First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
+**GitHub**: 请先[在此](https://github.com/sirredbeard/WLinux/issues)搜索你的问题。如果你无法找到你的问题，请[开一个新的issue](https://github.com/sirredbeard/WLinux/issues/new)。
 
 ## 其他文档
 
