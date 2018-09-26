@@ -4,7 +4,7 @@
 
 WLinux 可以从[微软商店](https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fstore%2FproductId%2F9NV1GV1PXZ6P)下载.
 
-*其他语言版本： [English](EADME.md)　[繁體中文](README.zh-hant.md) [日本語](README.ja.md)*
+**其他语言版本： [English](EADME.md) [繁體中文](README.zh-hant.md) [日本語](README.ja.md)**
 
 ## 功能
 
