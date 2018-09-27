@@ -18,26 +18,54 @@ Status: Released on Store
 
 ----
 
-Release 1.1.17.
+Release 1.1.17 - Master branch.
 
-Status: Testing
+Status: Final Testing (Push to Store September 9)
 
+- Dark tile.
 - Sets variables for fish and non-bash shells.
-- Minor bug fixes.
+- Improved unicode support.
+- Minor bug fixes for python 3.7.
+- Documentation translations.
 
 ----
 
-Release 1.1.20.
+Release 1.1.18-1.1.19.
 
-Status: In Development
+Status: Reserved for bug fixes, if needed.
 
-- Interactive OOBE script.
-- International language/keyboard support.
+----
 
+Release 1.1.20 - Currently in branch oobe-staging.
+
+Status: Feature Freeze (Push to Store Early-Mid October)
+
+- Interactive setup script:
+  - Choice of shell: bash, csh, zsh, fish
+  - Choice of editors: neovim, emacs, nano
+  - Optional packages:
+    - fzf
+    - visual studio code
+    - chrome
+    - azure cloud tools
+    - powershell
+- International language/keyboard support. 
+- Audio playback support.
+- HiDPI support.
+- 50% size reduction in default package.
 
 -----
 
-Release 2.x
+Release 1.2
+
+Status: Tentantive
+
+- Snap support.
+
+-----
+
+Release 1.5
+
+Status: Tentantive
 
 - Add arm64 support.
-- Add non-English translations for README and BUILDING.
