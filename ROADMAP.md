@@ -24,7 +24,7 @@ Status: Final Testing (Push to Store September 9)
 
 - Dark tile.
 - Better support for fish and non-bash shells.
-- Improved unicode support.
+- Improved unicode font support.
 - Minor bug fixes for python 3.7.
 - Documentation translations.
 
@@ -41,18 +41,18 @@ Release 1.1.20 - Currently in branch oobe-staging.
 Status: Feature Freeze (Push to Store Early-Mid October)
 
 - Interactive setup script:
-  - Choice of shell: bash, csh, zsh, fish
-  - Choice of editors: neovim, emacs, nano
+  - Choice of shell: bash, csh, zsh (with oh-my-zsh), fish (with oh-my-fish)
+  - Choice of additional editors: neovim, emacs
   - Optional packages:
     - fzf
     - visual studio code
     - chrome
     - azure cloud tools
     - powershell
-- International language/keyboard support. 
+  - International language/keyboard selection.
 - Audio playback support.
 - HiDPI support.
-- 50% size reduction in default package.
+- 50% file size reduction in default package.
 
 -----
 
