@@ -50,7 +50,7 @@ Status: Feature Freeze (Push to Store Early-Mid October)
 
 Status: Tentantive
 
-- Snap support.
+- Snap and Flatpak support.
 
 ### Release 1.5
 
