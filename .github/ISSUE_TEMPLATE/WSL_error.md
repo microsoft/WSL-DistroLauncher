@@ -4,9 +4,13 @@ about: Create a report to help us improve
 
 ---
 
-These WSL error messages occur time to time, are usually user-specific, and can be hard to pin down.
-They are usually not an issue with WLinux but with the underlying Windows Subsystem for Linux in Windows 10.
+**Note**
+
+These WSL error messages occur occasionally, are usually user-specific, and can be hard to troubleshoot short of reinstalling WSL.
+They are usually not an issue with WLinux but a glitch with the underlying Windows Subsystem for Linux in Windows 10.
 You can help us help you and Microsoft improve WSL and address these if you can provide us some debugging information.
+
+[ ] I have read the above statement.
 
 **Basic Troubleshooting**
 
