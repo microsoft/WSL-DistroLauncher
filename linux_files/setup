@@ -118,7 +118,18 @@ for i in ${!options[@]}; do
     then
         toselect+=("${options[i]}")
         echo "Installing ${options[i]}..."
-        sudo apt install ${options[i]} -y
+        sudo apt install ${options[i]} -y	
+	
+	if [ ${options[i]} = "zsh" ]
+	then
+	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	fi
+	
+	if [ ${options[i]} = "fish" ]
+	then
+	    curl -L https://get.oh-my.fish | fish
+        fi    
+            
         msg="0"
     fi
 done
