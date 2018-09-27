@@ -1,4 +1,4 @@
-Release 1.1.5.
+## Release 1.1.5.
 
 Status: Released on Store
 
@@ -6,9 +6,7 @@ Status: Released on Store
 - Tested and stable on amd64.
 - Snapshot of Debian stretch and code as of 9 Sept 2018.
 
------
-
-Release 1.1.16.
+## Release 1.1.16.
 
 Status: Released on Store
 
@@ -16,9 +14,7 @@ Status: Released on Store
 - Added python 3.7 from Debian testing.
 - Minor bug fixes.
 
-----
-
-Release 1.1.17 - Master branch.
+# Release 1.1.17 - Master branch.
 
 Status: Final Testing (Push to Store September 9)
 
@@ -28,15 +24,11 @@ Status: Final Testing (Push to Store September 9)
 - Minor bug fixes for python 3.7.
 - Documentation translations.
 
-----
-
-Release 1.1.18-1.1.19.
+## Release 1.1.18-1.1.19.
 
 Status: Reserved for bug fixes, if needed.
 
-----
-
-Release 1.1.20 - Currently in branch oobe-staging.
+# Release 1.1.20 - Currently in branch oobe-staging.
 
 Status: Feature Freeze (Push to Store Early-Mid October)
 
@@ -54,17 +46,13 @@ Status: Feature Freeze (Push to Store Early-Mid October)
 - HiDPI support.
 - 50% file size reduction in default package.
 
------
-
-Release 1.2
+## Release 1.2
 
 Status: Tentantive
 
 - Snap support.
 
------
-
-Release 1.5
+### Release 1.5
 
 Status: Tentantive
 
