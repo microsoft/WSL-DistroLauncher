@@ -16,7 +16,7 @@ Status: Released on Store
 
 # Release 1.1.17 - Master branch.
 
-Status: Final Testing (Push to Store September 9)
+Status: Final Testing (Push to Store September 29)
 
 - Dark tile.
 - Better support for fish and non-bash shells.
