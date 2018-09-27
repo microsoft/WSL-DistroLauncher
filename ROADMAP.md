@@ -23,7 +23,7 @@ Release 1.1.17 - Master branch.
 Status: Final Testing (Push to Store September 9)
 
 - Dark tile.
-- Sets variables for fish and non-bash shells.
+- Better support for fish and non-bash shells.
 - Improved unicode support.
 - Minor bug fixes for python 3.7.
 - Documentation translations.
