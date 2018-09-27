@@ -38,7 +38,7 @@ sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
 sudo cp $BUILDIR/linux_files/helpme $TMPDIR/$DIST/etc/helpme
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 
-mkdir $TMPDIR/$DIST/opt/ShellIntegration
+sudo mkdir $TMPDIR/$DIST/opt/ShellIntegration
 sudo cp $BUILDIR/linux_files/ShellIntegration/Install.reg $TMPDIR/$DIST/opt/ShellIntegration/Install.reg
 sudo cp $BUILDIR/linux_files/ShellIntegration/Uninstall.reg $TMPDIR/$DIST/opt/ShellIntegration/Uninstall.reg
 
