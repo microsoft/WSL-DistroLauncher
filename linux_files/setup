@@ -248,7 +248,7 @@ then
 
     # wget zip
 
-    wget https://brkp5a.dm.files.1drv.com/y4mzzXYR0K2wcJJhmeps-X7Crdn8qFBFaLBMBt4Ked1R9FBgKug7DUIiLsCgC0DumFtzos0a5RsikTLhzdcTyQ870sZojPNElVCVQueheYgH4YFbDTGOlkfU0iTyf8-ArW8UTTavCNuSrRoHc1Eu5Pcms8vM1T5knJn3rE_UREukPEDmHbcgRRop97gOjunaOyk/PulseAudio26sept18.zip
+    wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
 
     # this is a just cygwin32 installation zipped up with pulseaudio and a variety of audio codecs installed
 
@@ -259,20 +259,7 @@ then
 
     # extract to windows pulseaudio folder
     sudo apt install zip -yes
-    unzip PulseAudio26sept18.zip -d /mnt/c/PulseAudio/
-
-    # configure windows pulse audio
-
-        # can you help me with these seds?
-
-        # /mnt/c/PulseAudio/etc/pulse/default.pa
-        # change 'load-module module-waveout sink_name=output source_name=input' to 'load-module module-waveout sink_name=output source_name=input record=0'
-        # change '#load-module module-native-protocol-tcp' to 'load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1'        
-
-        # /mnt/c/PulseAudio/etc/pulse/daemon.conf
-        # change '; exit-idle-time = 20' to `exit-idle-time = -1`
-
-    sudo echo 'export DISPLAY=:0' >> /mnt/c/PulseAudio/etc/profile
+    unzip pulseaudio-for-wsl.zip -d /mnt/c/PulseAudio/
 
     # install and configure pulse audio WLinux
 
