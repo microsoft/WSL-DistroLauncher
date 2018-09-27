@@ -18,7 +18,7 @@ echo
 
 function continueprompt {
 read -r -p "Would you like to continue with this setup script? [Y/n] " response
-if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]
+if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     echo "Continuing with setup."
 else
@@ -29,7 +29,7 @@ fi
 
 function updatescriptprompt {
 read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response
-if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]
+if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     TMPDIR=$(mktemp -d)
     curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/oobe-staging/linux_files/setup | bash -s u
@@ -47,7 +47,7 @@ echo "Security up to date."
 
 function languageprompt {
 read -r -p "Would you like to configure additional languages? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     sudo dpkg-reconfigure locales
 fi
@@ -165,7 +165,7 @@ fi
 
 function neoviminstall {
 read -r -p "Would you like to download and install optional editor neovim? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     sudo apt install neovim -y
 fi
@@ -173,7 +173,7 @@ fi
 
 function emacsinstall {
 read -r -p "Would you like to download and install optional editor emacs? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     sudo apt install emacs -y
 fi
@@ -181,7 +181,7 @@ fi
 
 function codeinstall {
 read -r -p "Would you like to download and install optional editor Microsoft Code? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
@@ -201,7 +201,7 @@ fi
 
 function basicguiinstall {
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
 fi
@@ -209,7 +209,7 @@ fi
 
 function chromeinstall {
 read -r -p "Would you like to download and install Google Chrome? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
@@ -226,7 +226,7 @@ fi
 
 function hidpiconfig {
 read -r -p "Would you like to configure Qt and GDK for HiDPI displays (set scaling factor to 2)? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
@@ -237,7 +237,7 @@ fi
 
 function soundconfig {
 read -r -p "Would you like to configure sound playback for WSL? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
 
     # download and install pulseaudio server on c:\
@@ -294,7 +294,7 @@ fi
 
 function pythoninstall {
 read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
@@ -313,7 +313,7 @@ fi
 
 function powershellinstall {
 read -r -p "Would you like to download and install Powershell? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
@@ -336,7 +336,7 @@ fi
 
 function fzfinstall {
 read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
@@ -351,7 +351,7 @@ fi
 
 function explorerintegration {
 read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     cmd.exe /C 'mkdir C:\Temp\'
     cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
@@ -371,7 +371,7 @@ fi
 
 function azurecliinstall {
 read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
-if [[ $response == ^[yY]$ ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     CURDIR=$(pwd)
     TMPDIR=$(mkdir -d)
