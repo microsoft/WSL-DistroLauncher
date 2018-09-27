@@ -109,6 +109,7 @@ while shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
     { msg="Invalid option: $num"; continue; }
     ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
     [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
+    clear
 done
 
 toselect=("bash")
@@ -128,9 +129,9 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "fish" ]
 	then
 	    curl -L https://get.oh-my.fish | fish
-        fi    
+    fi    
             
-        msg="0"
+    msg="0"
     fi
 done
 if [[ "$msg" == "1" ]]
@@ -150,7 +151,7 @@ else
             echo "Invalid option: $opt"
         elif [[ "$opt" == "" ]]
         then
-            echo "Value should not be empty"
+            echo "Value should not be empty."
         else
             passed="0"
         fi
