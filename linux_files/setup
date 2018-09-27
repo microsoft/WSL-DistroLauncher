@@ -4,6 +4,7 @@ response=""
 CURDUR=""
 TMPDIR=""
 updateflag="0"
+VERSION="1.1.20"
 
 # functions
 
@@ -20,7 +21,7 @@ function continueprompt {
 read -r -p "Would you like to continue with this setup script? [Y/n] " response
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
-    echo "Continuing with setup."
+    echo "Continuing with setup..."
 else
     echo "You may run the script again any time by running: bash /etc/setup"
     exit 0
@@ -32,10 +33,11 @@ read -r -p "Would you like to download and run an updated version of this setup 
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     TMPDIR=$(mktemp -d)
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/oobe-staging/linux_files/setup | bash -s u
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/oobe-staging/linux_files/setup | sudo tee /etc/setup
+    echo "You may run the script again now by running: bash /etc/setup"
     exit 0
 else
-    echo "Continuing with release install script."
+    echo "Continuing with setup..."
 fi
 }
 
@@ -59,7 +61,6 @@ fi
 
 function installpackages {
 echo "Shells:"
-shellmenu
 installandsetshell
 echo "Editors:"
 neoviminstall
@@ -91,7 +92,13 @@ sudo apt upgrade -y
 
 ### shells
 
-function shellmenu () {
+function installandsetshell {
+options=("zsh" "fish" "csh")
+
+prompt="Check a shell (again to uncheck, ENTER when done): "
+msg=""
+
+shellmenu () {
     echo "The default shell in WLinux is bash. You may select additional shells to install here."
     for i in ${!options[@]}; do 
         printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
@@ -99,17 +106,12 @@ function shellmenu () {
     [[ "$msg" ]] && echo "$msg"; :
 }
 
-function installandsetshell {
-options=("zsh" "fish" "csh")
-
-prompt="Check a shell (again to uncheck, ENTER when done): "
-while shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
+while clear && shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
     [[ "$num" != *[![:digit:]]* ]] &&
     (( num > 0 && num <= ${#options[@]} )) ||
     { msg="Invalid option: $num"; continue; }
     ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
     [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
-    clear
 done
 
 toselect=("bash")
@@ -317,8 +319,6 @@ then
 fi
 }
 
-}
-
 ### enhancements
 
 function fzfinstall {
@@ -395,11 +395,10 @@ then
   installpackages
 else
   welcomeprompt
+  updatescriptprompt
   continueprompt
   languageprompt
-  updatescriptprompt
   updateupgrade
-  installandsetshell
   securitypatches
   installpackages
 fi
