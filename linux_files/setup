@@ -36,7 +36,7 @@ then
     curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
     cleantmp
     clear
-    echo "You may run the script again now by running: bash /etc/setup"
+    bash /etc/setup -u
     exit 0
 else
     echo "Continuing with setup..."
@@ -275,6 +275,8 @@ then
 
     # implement a hard-coded sha check here for security
 
+        # sha256sum e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8
+
     # create windows pulseaudio installation folder
     cmd.exe /C 'mkdir C:\PulseAudio'
 
@@ -411,7 +413,7 @@ then
   byemessage
 else
   welcomeprompt
-  #updatescriptprompt       # let's get the rest of the script working flawlessly and then work this out
+  updatescriptprompt       
   continueprompt
   languageprompt
   updateupgrade
