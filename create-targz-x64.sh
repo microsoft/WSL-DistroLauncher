@@ -53,6 +53,11 @@ sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
 sudo chroot $DIST apt update
 sudo chroot $DIST apt -y install wslu
 
+# the sudoers lecture is one of the first things users see when they run /etc/setup, it is a bit jarring, and a bit out of place on WSL, so let's make it a bit more friendly
+
+sudo chroot $DIST /bin/bash -c "echo 'Defaults lecture_file = /etc/sudoers.lecture' >> /etc/sudoers"
+sudo chroot $DIST /bin/bash -c "echo 'Enter your UNIX password below. This is not your Windows password.' >> /etc/sudoers.lecture"
+
 # remove unnecessary apt packages
 sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
 
