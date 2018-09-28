@@ -292,7 +292,7 @@ read -r -p "Would you like to download and install python 3.7, IDLE, and pip pac
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
-    apt update
+    sudo apt update
     sudo apt -t testing install build-essential python3.7 idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user
