@@ -29,7 +29,7 @@ rm $BUILDIR/wslu.gpg
 
 # copy custom files to image
 sudo cp $BUILDIR/linux_files/profile $TMPDIR/$DIST/etc/profile
-sudo cp $BUILDIR/linux_files/environment $TMPDIR/$DIST/etc/profile
+sudo cp $BUILDIR/linux_files/environment $TMPDIR/$DIST/etc/environment
 sudo cp $BUILDIR/linux_files/os-release $TMPDIR/$DIST/etc/os-release
 sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
