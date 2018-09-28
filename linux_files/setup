@@ -334,7 +334,7 @@ fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response
+read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response       # this says it defaults to N, which I think is correct, but hitting [enter] still attempts install
 if [[ "$response" =~ ^[yY]$ ]]
 then
     cmd.exe /C 'mkdir C:\Temp\'
