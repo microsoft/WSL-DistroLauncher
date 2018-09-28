@@ -256,9 +256,7 @@ then
 
     wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
 
-    # this is a just cygwin32 installation zipped up with pulseaudio and a variety of audio codecs installed
-
-    # implement a sha check here for security
+    # implement a hard-coded sha check here for security
 
     # create windows pulseaudio installation folder
     cmd.exe /C 'mkdir C:\PulseAudio'
