@@ -18,7 +18,7 @@ echo
 }
 
 function continueprompt {
-read -r -p "Would you like to continue with this setup script? [y/N] " response         # this says it defaults to N but when I hit enter to exit it continues the script anyways
+read -r -p "Would you like to continue with this setup script? [Y/n] " response        
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     echo "Continuing with setup..."
