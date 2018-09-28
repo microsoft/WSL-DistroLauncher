@@ -33,8 +33,9 @@ read -r -p "Would you like to download and run an updated version of this setup 
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     createtmp
-    curl -o -s https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
     cleantmp
+    clear
     echo "You may run the script again now by running: bash /etc/setup"
     exit 0
 else
