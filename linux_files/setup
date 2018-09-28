@@ -33,7 +33,7 @@ read -r -p "Would you like to download and run an updated version of this setup 
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     TMPDIR=$(mktemp -d)
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/oobe-staging/linux_files/setup | sudo tee /etc/setup
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
     echo "You may run the script again now by running: bash /etc/setup"
     exit 0
 else
