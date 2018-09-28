@@ -307,7 +307,7 @@ function powershellinstall {
 read -r -p "Would you like to download and install Powershell? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    createmp
+    createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > $BUILDIR/microsoft.gpg
     sudo cp $BUILDIR/microsoft.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/microsoft.gpg
     rm $BUILDIR/microsoft.gpg
