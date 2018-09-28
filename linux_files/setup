@@ -252,6 +252,10 @@ then
 
     createtmp
 
+    # install unzip
+
+    sudo apt-get install unzip -y
+
     # wget zip
 
     wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
