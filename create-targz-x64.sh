@@ -35,6 +35,7 @@ sudo cp $BUILDIR/linux_files/sources.list $TMPDIR/$DIST/etc/apt/sources.list
 sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
 sudo cp $BUILDIR/linux_files/wsl.conf $TMPDIR/$DIST/etc/wsl.conf
 sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
+sudo mkdir $TMPDIR/$DIST/etc/fonts
 sudo cp $BUILDIR/linux_files/local.conf $TMPDIR/$DIST/etc/fonts/local.conf
 sudo cp $BUILDIR/linux_files/helpme $TMPDIR/$DIST/etc/helpme
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
