@@ -13,7 +13,7 @@ DIST="stable"
 cd $TMPDIR
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,xclip,gnome-themes-standard,gtk2-engines-murrine,dbus-x11,zsh,neovim,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
@@ -36,18 +36,16 @@ sudo cp $BUILDIR/linux_files/preferences $TMPDIR/$DIST/etc/apt/preferences
 sudo cp $BUILDIR/linux_files/wsl.conf $TMPDIR/$DIST/etc/wsl.conf
 sudo cp $BUILDIR/linux_files/default $TMPDIR/$DIST/etc/dpkg/origins/default
 sudo cp $BUILDIR/linux_files/local.conf $TMPDIR/$DIST/etc/fonts/local.conf
+sudo cp $BUILDIR/linux_files/helpme $TMPDIR/$DIST/etc/helpme
+sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 
-# copy app installer scripts to image
-sudo cp $BUILDIR/linux_files/installchrome.sh $TMPDIR/$DIST/opt/installchrome.sh
-sudo cp $BUILDIR/linux_files/installcode.sh $TMPDIR/$DIST/opt/installcode.sh
+sudo mkdir $TMPDIR/$DIST/opt/ShellIntegration
+sudo cp $BUILDIR/linux_files/ShellIntegration/Install.reg $TMPDIR/$DIST/opt/ShellIntegration/Install.reg
+sudo cp $BUILDIR/linux_files/ShellIntegration/Uninstall.reg $TMPDIR/$DIST/opt/ShellIntegration/Uninstall.reg
 
-# make app installer scripts executable
-sudo chroot $DIST chmod u+x /opt/installchrome.sh
-sudo chroot $DIST chmod u+x /opt/installcode.sh
-
-# install python 3.7 from testing
-sudo chroot $DIST apt update
-sudo chroot $DIST apt -t testing install python3.7 build-essential -y
+#make helpme and setup executable
+sudo chroot $DIST chmod 755 /etc/helpme
+sudo chroot $DIST chmod 755 /etc/setup
 
 # set up the latest wslu app and n npm management tool
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg

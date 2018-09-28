@@ -41,3 +41,9 @@ export DISPLAY=:0
 
 # enable external libgl 
 export LIBGL_ALWAYS_INDIRECT=1
+
+# does .firstrun exist? if not, run setup and touch .firstrun
+if [ ! -f ~/.firstrun ]; then
+    /bin/bash /etc/setup
+    touch ~/.firstrun
+fi
