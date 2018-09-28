@@ -56,6 +56,17 @@ function cleantmp {
     rm -r $TMPDIR
 }
 
+function byemessage {
+    echo "Setup is complete."
+    echo
+    echo "You may run the script again any time by running: $ bash /etc/setup"
+    echo 
+    echo "To install other packages from Debian repos, type $ sudo apt install <package name>"
+    echo
+    echo "Enjoy"
+    exit 0
+}
+
 ## internationalization
 
 function languageprompt {
@@ -389,6 +400,7 @@ then
   updateupgrade
   securitypatches
   installpackages
+  byemessage
 else
   welcomeprompt
   #updatescriptprompt       # let's get the rest of the script working flawlessly and then work this out
@@ -397,6 +409,7 @@ else
   updateupgrade
   securitypatches
   installpackages
+  byemessage
 fi
 
 exit 0
