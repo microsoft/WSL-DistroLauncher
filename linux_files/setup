@@ -45,6 +45,17 @@ function securitypatches {
 echo "Security up to date."
 }
 
+function createtmp {
+    CURDIR=$(pwd)
+    TMPDIR=$(mktemp -d)
+    cd $TMPDIR
+}
+
+function cleantmp {
+    cd $CURDIR
+    rm -r $TMPDIR
+}
+
 ## internationalization
 
 function languageprompt {
@@ -185,8 +196,7 @@ function codeinstall {
 read -r -p "Would you like to download and install optional editor Microsoft Code? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
+    createtmp
     cd $TMPDIR
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg 
@@ -194,8 +204,7 @@ then
     sudo apt upgrade -y 
     sudo apt update
     sudo apt install code libxss1 libasound2 -y
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi  
 }
 
@@ -213,16 +222,13 @@ function chromeinstall {
 read -r -p "Would you like to download and install Google Chrome? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
-    cd $TMPDIR
+    createtmp
     wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
     sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main " > /etc/apt/sources.list.d/googlechrome.list' 
     sudo apt update
     sudo apt upgrade -y
     sudo apt install google-chrome-stable -y
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi
 }
 
@@ -244,9 +250,7 @@ then
 
     # download and install pulseaudio server on c:\
 
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
-    cd $TMPDIR
+    createtmp
 
     # wget zip
 
@@ -276,6 +280,8 @@ then
 
     sudo echo 'bash -c 'cmd.exe /mnt/c/Temp/PulseAudio/bin/pulseaudio.exe -D' &' >> /etc/profile # still trying to find a way to launch this silently, any ideas?
 
+    cleantmp
+
 fi
 }
 
@@ -285,9 +291,7 @@ function pythoninstall {
 read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
-    cd $TMPDIR
+    createtmp
     apt update
     sudo apt -t testing install build-essential python3.7 idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -295,8 +299,7 @@ then
     export PATH="$PATH:/home/~/.local/bin"
     echo 'export PATH="$PATH:/home/~/.local/bin"' >> ~/.bashrc
     pip install -U pip
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi
 }
 
@@ -304,9 +307,7 @@ function powershellinstall {
 read -r -p "Would you like to download and install Powershell? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
-    cd $TMPDIR
+    createmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > $BUILDIR/microsoft.gpg
     sudo cp $BUILDIR/microsoft.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/microsoft.gpg
     rm $BUILDIR/microsoft.gpg
@@ -314,8 +315,7 @@ then
     sudo apt update
     sudo apt upgrade -y
     sudo apt install powershell -y
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi
 }
 
@@ -325,14 +325,11 @@ function fzfinstall {
 read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mktemp -d)
-    cd $TMPDIR
+    createmp
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
     ./install
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi
 }
 
@@ -360,9 +357,7 @@ function azurecliinstall {
 read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    CURDIR=$(pwd)
-    TMPDIR=$(mkdir -d)
-    cd $TMPDIR
+    createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     sudo chmod 644 /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -371,8 +366,7 @@ then
     sudo apt upgrade -y
     echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
     sudo apt install azure-cli -y
-    cd $CURDIR
-    rm -r $TMPDIR
+    cleantmp
 fi
 }
 
