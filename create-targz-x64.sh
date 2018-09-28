@@ -48,10 +48,10 @@ sudo cp $BUILDIR/linux_files/ShellIntegration/Uninstall.reg $TMPDIR/$DIST/opt/Sh
 sudo chroot $DIST chmod 755 /etc/helpme
 sudo chroot $DIST chmod 755 /etc/setup
 
-# set up the latest wslu app and n npm management tool
+# set up the latest wslu app
 sudo chroot $DIST chmod 644 /etc/apt/trusted.gpg.d/wslu.gpg
 sudo chroot $DIST apt update
-sudo chroot $DIST apt -y install wslu n
+sudo chroot $DIST apt -y install wslu
 
 # remove unnecessary apt packages
 sudo chroot $DIST apt remove systemd dmidecode -y --allow-remove-essential
