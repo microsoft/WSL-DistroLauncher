@@ -395,7 +395,7 @@ then
   installpackages
 else
   welcomeprompt
-  updatescriptprompt
+  #updatescriptprompt       # let's get the rest of the script working flawlessly and then work this out
   continueprompt
   languageprompt
   updateupgrade
