@@ -308,10 +308,9 @@ then
     sudo apt update
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-    python3 get-pip.py --user
+    python3 get-pip.py --user --no-warn-script-location
     export PATH="$PATH:/home/~/.local/bin"
-    echo 'export PATH="$PATH:/home/~/.local/bin"' >> ~/.bashrc
-    pip install -U pip
+    pip3 install -U pip
     cleantmp
 fi
 }
