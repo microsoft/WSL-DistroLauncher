@@ -346,15 +346,17 @@ fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response       # this says it defaults to N, which I think is correct, but hitting [enter] still attempts install
+read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
 if [[ "$response" =~ ^[yY]$ ]]
 then
+    echo "Enabling Windows Explorer shell integration."
     cmd.exe /C 'mkdir C:\Temp\'
     cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
     cmd.exe /C 'Reg import C:\Temp\Install.reg'
     cmd.exe /C 'del C:\Temp\Install.reg'
     cmd.exe /C 'rmdir C:\Temp'
 else
+    echo "Disabling Windows Explorer shell integration."
     cmd.exe /C 'mkdir C:\Temp\'
     cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
     cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
