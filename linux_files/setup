@@ -35,11 +35,11 @@ fi
 }
 
 function updatescriptprompt {
-read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response
+read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response       # when I pressed <return> here it did it anyways
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     createtmp
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup  # the sudo is obscured by the curl stats, see screenshot
     cleantmp
     clear
     bash /etc/setup -u
