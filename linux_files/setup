@@ -295,15 +295,15 @@ then
     sudo apt install pulseaudio -y
 
     export PULSE_SERVER=tcp:127.0.0.1;
-    sudo sh -c 'echo 'export PULSE_SERVER=tcp:127.0.0.1;' >> /etc/profile'
+    sudo sh -c 'echo "export PULSE_SERVER=tcp:127.0.0.1;"" >> /etc/profile'
 
     # add command launching pulse audio server to /etc/profile
 
     sudo  # kill existing daemon if one exists
 
-    sudo sh -c 'echo 'taskkill.exe /IM pulseaudio.exe /T /F' >> /etc/profile'
+    sudo sh -c 'echo "taskkill.exe /IM pulseaudio.exe /T /F" >> /etc/profile'
 
-    sudo sh -c 'echo 'bash -c "cmd.exe /mnt/c/PulseAudio/bin/pulseaudio.exe -D" >> /etc/profile
+    sudo sh -c 'echo bash -c 'cmd.exe /mnt/c/PulseAudio/bin/pulseaudio.exe -D' >> /etc/profile
 
     cleantmp
 
