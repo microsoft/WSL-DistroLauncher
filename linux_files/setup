@@ -246,6 +246,7 @@ then
     sudo apt update
     sudo apt upgrade -y
     sudo apt install google-chrome-stable -y
+    sudo rm /etc/apt/sources.list.d/googlechrome.list #chrome handles it's own apt settings
     cleantmp
 fi
 }
