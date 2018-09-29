@@ -20,8 +20,31 @@ A clear and concise description of what you expected to happen.
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
 
-**Info**
-Windows Build:
-
 **Additional context**
 Add any other context about the problem here.
+
+**Basic Troubleshooting Checklist**
+
+[ ] I have confirmed WSL is enabled: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#confirm-wsl-is-enabled.
+[ ] I have searched Google for the error message.
+[ ] I have searched the official Microsoft WSL issues page: https://github.com/Microsoft/WSL/issues.
+[ ] I have searched the WLinux issues page: https://github.com/WhitewaterFoundry/WLinux/issues.
+[ ] I have reset WLinux: Settings->Apps->Apps & features->WLinux->Advanced Options->Reset. 
+[ ] I have disabled and re-enabled WSL in Windows Features.
+[ ] I have run Windows 10 updates and restarted.
+
+What other troubleshooting have you attempted?
+
+Insert here:
+
+**WLinux Version**
+
+Find: Settings->Apps->Apps & features->WLinux->Advanced Options->Version.
+
+Insert here:
+
+**Windows Build**
+
+Run 'systeminfo | findstr /C:"OS"' in Command Prompt and insert here:
+
+For help on retrieving: https://docs.microsoft.com/en-us/windows/wsl/troubleshooting#check-your-build-number

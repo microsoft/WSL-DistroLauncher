@@ -14,17 +14,17 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 ## Features
 
 - A fast Linux terminal and development environment for developers and pro-users built on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL) (WSL) on Windows 10.
-- Support for most Linux graphical apps with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
-- Support for PulseAudio audio playback and optional HiDPI configuration.
-- Optional Windows Explorer shell integration.
+- A new out-of-the-box experience for users to get started on the Linux terminal.
 - Choice of terminal shells: bash, csh, zsh (with oh-my-zsh), and fish (with oh-my-fish).
 - Choice of editors: emacs, neovim, nano, and Visual Studio Code.
+- Ships with [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
 - Optional packages: PowerShell, Azure tools, and Google Chrome.
-- Pre-installed with [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
-- Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party Debian-compatible repos.
-- A handful of unnecessary packages on WSL, such as systemd, have been removed to improve stability and security.
-- New features are actively added based on community interest, including [bug bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
-- WLinux offers faster patching for WSL-specific bugs than any upstream Linux distro on WSL.
+- Optional Windows Explorer shell integration and support for HiDPI displays.
+- Support for many Linux graphical apps with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
+- Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party apt-based repos.
+- A handful of unnecessary packages, such as systemd, have been are removed from the base image to reduce size and increase stability.
+- New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community interest](https://github.com/WhitewaterFoundry/WLinux/issues).
+- WLinux features faster patching for WSL-specific bugs than any upstream Linux distro on WSL.
 - WLinux users can re-run `$ bash /etc/setup` at any time to get access to latest WLinux features and customizations for WSL.
 
 Note: The features above refer to the current GitHub version slated for release as 1.1.20 on the Store in early October. Build WLinux yourself and help us test and debug new features. 
