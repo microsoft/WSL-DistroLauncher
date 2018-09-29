@@ -11,17 +11,23 @@ VERSION="1.1.20"
 ## core functions
 
 function welcomeprompt {
-echo "Welcome to WLinux. Thank you for supporting sustainable indepdendent open source development."
 echo
-echo "WLinux comes with a core set of packages. This script allows you to install additional sets of curated packages."
+echo "Welcome to WLinux."
+echo "Thank you for supporting sustainable indepdendent open-source development."
+echo
+echo "WLinux comes with a core set of packages installed. This setup tool allows"
+echo "you to install selected packages for WLinux and configure optional settings."
+echo
+echo "Additional packages are available via the apt package management system."
+echo "To learn more about apt you should use man, try typing $ man apt"
 echo
 }
 
 function continueprompt {
-read -r -p "Would you like to continue with this setup script? [Y/n] " response        
+read -r -p "Would you like to continue this setup tool? [Y/n] " response        
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
-    echo "Continuing with setup..."
+    echo "Let's get started."
 else
     echo "You may run the script again any time by running: bash /etc/setup"
     exit 0
@@ -32,9 +38,11 @@ function updatescriptprompt {
 read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
-    TMPDIR=$(mktemp -d)
+    createtmp
     curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
-    echo "You may run the script again now by running: bash /etc/setup"
+    cleantmp
+    clear
+    bash /etc/setup -u
     exit 0
 else
     echo "Continuing with setup..."
@@ -53,15 +61,15 @@ function createtmp {
 
 function cleantmp {
     cd $CURDIR
-    rm -r $TMPDIR
+    sudo rm -r $TMPDIR  # need to add sudo here because git clones leaves behind write-protected files
 }
 
 function byemessage {
     echo "Setup is complete."
     echo
     echo "You may run the script again any time by running: $ bash /etc/setup"
-    echo 
-    echo "To install other packages from Debian repos, type $ sudo apt install <package name>"
+    echo
+    echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
     echo
     echo "Enjoy"
     exit 0
@@ -147,12 +155,17 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
+        createtmp
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
+        createtmp
+        echo "After fish is installed, type 'exit' and [Enter] to return to the WLinux setup script."
 	    curl -L https://get.oh-my.fish | fish
+        cleantmp
     fi    
             
     msg="0"
@@ -222,6 +235,21 @@ fi
 ### gui apps
 
 function basicguiinstall {
+
+echo "Use of GUI applications on WLinux requires an X server running on Windows."
+
+read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
+fi
+
+read -r -p "Would you like to make sure X410 is running when you open WLinux? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    sudo sh -c 'echo "x410.exe" >> /etc/profile'
+fi
+
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
@@ -239,12 +267,34 @@ then
     sudo apt update
     sudo apt upgrade -y
     sudo apt install google-chrome-stable -y
+    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome handles it's own apt settings
+    cleantmp
+fi
+}
+
+function addrepos {
+read -r -p "Would you like to download and install additional non-free repos? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+
+    #non-free
+    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
+
+    #spotify
+    # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
+    # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
+
+    #opera
+    # wget -O - https://deb.opera.com/archive.key | sudo apt-key add -
+    # sudo sh -c 'echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list'
+
     cleantmp
 fi
 }
 
 function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays (set scaling factor to 2)? [y/N] " response
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
@@ -258,43 +308,64 @@ function soundconfig {
 read -r -p "Would you like to configure sound playback for WSL? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-
-    # download and install pulseaudio server on c:\
-
+    # create temp environment
     createtmp
 
     # install unzip
-
     sudo apt-get install unzip -y
 
-    # wget zip
-
+    # wget pulseaudio zip
     wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
 
-    # implement a hard-coded sha check here for security
+    # implement a hard-coded sha check here for security, can you think of an elegant way to do so?
 
-    # create windows pulseaudio installation folder
+        # sha256sum e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8
+
+    # create pulseaudio on windows installation folder
     cmd.exe /C 'mkdir C:\PulseAudio'
 
-    # extract to windows pulseaudio folder
-    sudo apt install zip -yes
+    # extract to pulseaudio into place
     unzip pulseaudio-for-wsl.zip -d /mnt/c/PulseAudio/
 
-    # install and configure pulse audio WLinux
+    # wget winsw
+    wget http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.1.2/winsw-2.1.2-bin.exe
 
+    # sha check on winsw for security
+
+        # sha256sum 9f35cdfa6e2204df9a250454aea6c2c45d745168f99425d5236b1d30efdae01f  winsw-2.1.2-bin.exe 
+
+    # copy winsw into place
+    cp winsw-2.1.2-bin.exe /mnt/c/PulseAudio/pulseaudio.exe
+
+    # create winsw service xml file
+    echo "<service>" >> pulseaudio.xml
+    echo "  <id>PulseAudio</id>" >> pulseaudio.xml
+    echo "  <name>PulseAudio</name>" >> pulseaudio.xml
+    echo "  <description>This service supports sound playback in Windows Subsystem for Linux.</description>" >> pulseaudio.xml
+    echo "  <executable>C:\PulseAudio\bin\pulseaudio.exe</executable>" >> pulseaudio.xml
+    echo "  <arguments>-D</arguments>" >> pulseaudio.xml
+    echo "  <startmode>Automatic</startmode>" >> pulseaudio.xml
+    echo "</service>" >> pulseaudio.xml
+    sudo cp pulseaudio.xml /mnt/c/PulseAudio/
+
+    # wget elevate
+    wget https://github.com/jpassing/elevate/releases/download/1.0/elevate.zip
+
+    # extract elevate into place
+    unzip elevate.zip -d /mnt/c/PulseAudio/
+    
+    # register pulse audio service
+    cmd.exe /C "C:\PulseAudio\bin\x64\Release\Elevate.exe C:\PulseAudio\pulseaudio.exe install C:\PulseAudio\pulseaudio.xml"
+
+    # install and configure pulseaudio on WLinux
     sudo apt install pulseaudio -y
-
     export PULSE_SERVER=tcp:127.0.0.1;
-    sudo echo 'export PULSE_SERVER=tcp:127.0.0.1;' >> /etc/profile
-
-    # add command launching pulse audio server to /etc/profile
-
-    sudo echo 'taskkill.exe /IM pulseaudio.exe /T /F' >> /etc/profile # kill existing daemon if one exists
-
-    sudo echo 'bash -c 'cmd.exe /mnt/c/Temp/PulseAudio/bin/pulseaudio.exe -D' &' >> /etc/profile # still trying to find a way to launch this silently, any ideas?
-
+    sudo sh -c 'echo "export PULSE_SERVER=tcp:127.0.0.1;" >> /etc/profile'
+    sudo sh -c 'echo "export PULSE_SERVER=tcp:127.0.0.1;" >> /etc/environment'
+    
     cleantmp
-
+else
+    cmd.exe /C "C:\PulseAudio\bin\x64\Release\Elevate.exe C:\PulseAudio\pulseaudio.exe uninstall C:\PulseAudio\pulseaudio.xml"
 fi
 }
 
@@ -320,9 +391,9 @@ read -r -p "Would you like to download and install Powershell? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
-    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > $BUILDIR/microsoft.gpg
-    sudo cp $BUILDIR/microsoft.gpg $TMPDIR/$DIST/etc/apt/trusted.gpg.d/microsoft.gpg
-    rm $BUILDIR/microsoft.gpg
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    rm microsoft.gpg
     sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/powershell.list' 
     sudo apt update
     sudo apt upgrade -y
@@ -389,7 +460,7 @@ fi
 ## process update command line flag to detect if running from update script
 while [ $1 ]; do
 	case $1 in
-		-u) $updateflag="0";shift;;
+		-u) $updateflag="0";shift;;         ## bash setup -u throws: "setup: line 401: 0=0: command not found"
 	esac
 done
 
@@ -404,7 +475,7 @@ then
   byemessage
 else
   welcomeprompt
-  #updatescriptprompt       # let's get the rest of the script working flawlessly and then work this out
+  updatescriptprompt       
   continueprompt
   languageprompt
   updateupgrade
