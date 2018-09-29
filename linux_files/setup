@@ -109,7 +109,7 @@ basicguiinstall
 codeinstall
 chromeinstall
 hidpiconfig
-soundconfig
+# soundconfig 
 }
 
 function updateupgrade {
@@ -281,13 +281,15 @@ then
     #non-free
     sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
 
-    #spotify
+    # spotify
     # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
     # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
 
-    #opera
+    # opera
     # wget -O - https://deb.opera.com/archive.key | sudo apt-key add -
     # sudo sh -c 'echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list'
+
+    sudo apt-get update -y
 
     cleantmp
 fi
