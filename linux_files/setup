@@ -319,7 +319,14 @@ then
 
     # implement a hard-coded sha check here for security, can you think of an elegant way to do so?
 
-        # sha256sum e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8
+    checker=`sha256sum pulseaudio-for-wsl.zip | cut -d" " -f1`
+    if [[ "$checker" != "e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8" ]]
+    then
+        echo "sha256sum does not match for pulseaudio-for-wsl.zip. Aborted."
+        exit 1
+    else
+        echo "sha256sum matched for pulseaudio-for-wsl.zip. Proceed with Installation..."
+    fi
 
     # create pulseaudio on windows installation folder
     cmd.exe /C 'mkdir C:\PulseAudio'
@@ -331,7 +338,14 @@ then
     wget http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.1.2/winsw-2.1.2-bin.exe
 
     # sha check on winsw for security
-
+    checker=`sha256sum winsw-2.1.2-bin.exe | cut -d" " -f1`
+    if [[ "$checker" != "9f35cdfa6e2204df9a250454aea6c2c45d745168f99425d5236b1d30efdae01f" ]]
+    then
+        echo "sha256sum does not match for winsw-2.1.2-bin.exe. Aborted."
+        exit 1
+    else
+        echo "sha256sum matched for winsw-2.1.2-bin.exe. Proceed with Installation..."
+    fi
         # sha256sum 9f35cdfa6e2204df9a250454aea6c2c45d745168f99425d5236b1d30efdae01f  winsw-2.1.2-bin.exe 
 
     # copy winsw into place
@@ -460,7 +474,7 @@ fi
 ## process update command line flag to detect if running from update script
 while [ $1 ]; do
 	case $1 in
-		-u) $updateflag="0";shift;;         ## bash setup -u throws: "setup: line 401: 0=0: command not found"
+		-u) updateflag="0";shift;;         ## bash setup -u throws: "setup: line 401: 0=0: command not found"
 	esac
 done
 

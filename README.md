@@ -20,7 +20,7 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - Choice of terminal shells: bash, csh, zsh (with oh-my-zsh), and fish (with oh-my-fish).
 - Choice of editors: emacs, neovim, nano, and Visual Studio Code.
 - Optional packages: PowerShell, Azure tools, and Google Chrome.
-- Pre-installed with [wslu](https://github.com/patrick330602/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
+- Pre-installed with [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
 - Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party Debian-compatible repos.
 - A handful of unnecessary packages on WSL, such as systemd, have been removed to improve stability and security.
 - New features are actively added based on community interest, including [bug bounties](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty).
