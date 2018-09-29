@@ -266,43 +266,63 @@ function soundconfig {
 read -r -p "Would you like to configure sound playback for WSL? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-
-    # download and install pulseaudio server on c:\
-
+    # create temp environment
     createtmp
 
     # install unzip
-
     sudo apt-get install unzip -y
 
-    # wget zip
-
+    # wget pulseaudio zip
     wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
 
     # implement a hard-coded sha check here for security, can you think of an elegant way to do so?
 
         # sha256sum e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8
 
-    # create windows pulseaudio installation folder
+    # create pulseaudio on windows installation folder
     cmd.exe /C 'mkdir C:\PulseAudio'
 
-    # extract to windows pulseaudio folder
-    sudo apt install zip -yes
+    # extract to pulseaudio into place
     unzip pulseaudio-for-wsl.zip -d /mnt/c/PulseAudio/
 
-    # install and configure pulse audio WLinux
+    # wget winsw
+    wget http://repo.jenkins-ci.org/releases/com/sun/winsw/winsw/2.1.2/winsw-2.1.2-bin.exe
 
+    # sha check on winsw for security
+
+        # sha256sum 9f35cdfa6e2204df9a250454aea6c2c45d745168f99425d5236b1d30efdae01f  winsw-2.1.2-bin.exe 
+
+    # copy winsw into place
+    cp winsw-2.1.2-bin.exe /mnt/c/PulseAudio/pulseaudio.exe
+
+    # create winsw service xml file
+    echo "<service>" >> pulseaudio.xml
+    echo "  <id>PulseAudio</id>" >> pulseaudio.xml
+    echo "  <name>PulseAudio</name>" >> pulseaudio.xml
+    echo "  <description>This service supports sound playback in Windows Subsystem for Linux.</description>" >> pulseaudio.xml
+    echo "  <executable>C:\PulseAudio\bin\pulseaudio.exe</executable>" >> pulseaudio.xml
+    echo "  <arguments>-D</arguments>" >> pulseaudio.xml
+    echo "  <startmode>Auto</startmode>" >> pulseaudio.xml
+    echo "</service>" >> pulseaudio.xml
+    sudo cp pulseaudio.xml /mnt/c/PulseAudio/
+
+    # wget elevate
+    wget https://github.com/jpassing/elevate/releases/download/1.0/elevate.zip
+
+
+    # extract elevate into place
+    unzip 1.0.zip -d /mnt/c/PulseAudio/
+    
+    # register pulse audio service
+    cmd.exe /C "C:\PulseAudio\bin\x64\Release\Elevate.exe C:\PulseAudio\pulseaudio.exe install C:\PulseAudio\pulseaudio.xml"
+
+    # install and configure pulseaudio on WLinux
     sudo apt install pulseaudio -y
-
     export PULSE_SERVER=tcp:127.0.0.1;
     sudo sh -c 'echo "export PULSE_SERVER=tcp:127.0.0.1;"" >> /etc/profile'
-
-    # add command launching pulse audio server to /etc/profile
-
-    sudo sh -c 'echo bash -c 'cmd.exe /mnt/c/PulseAudio/bin/pulseaudio.exe -D' >> /etc/profile
-
+    sudo sh -c 'echo "export PULSE_SERVER=tcp:127.0.0.1;"" >> /etc/environment'  
+    
     cleantmp
-
 fi
 }
 
