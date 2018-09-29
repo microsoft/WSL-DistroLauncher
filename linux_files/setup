@@ -45,7 +45,7 @@ then
     bash /etc/setup -u
     exit 0
 else
-    echo "Continuing with setup..."
+    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
 fi
 }
 
@@ -129,7 +129,7 @@ prompt="Check a shell (again to uncheck, ENTER when done): "
 msg=""
 
 shellmenu () {
-    echo "The default shell in WLinux is bash. You may select additional shells to install here."
+    echo "bash is the default shell included in WLinux. You may select additional shells to install here."
     for i in ${!options[@]}; do 
         printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
     done
@@ -242,12 +242,6 @@ read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] 
 if [[ "$response" =~ ^[yY]$ ]]
 then
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
-fi
-
-read -r -p "Would you like to make sure X410 is running when you open WLinux? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    sudo sh -c 'echo "x410.exe" >> /etc/profile'
 fi
 
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
