@@ -71,7 +71,7 @@ function byemessage {
     echo
     echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
     echo
-    echo "Enjoy"
+    echo "Enjoy!"
     exit 0
 }
 
