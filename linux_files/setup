@@ -114,8 +114,10 @@ hidpiconfig
 
 function updateupgrade {
 echo "Checking for and applying updates. Please wait."
+sudo apt-get clean
 sudo apt update
 sudo apt upgrade -y
+sudo apt-get autormove -y
 }
 
 ## package set functions
