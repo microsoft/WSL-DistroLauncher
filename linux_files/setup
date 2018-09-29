@@ -299,10 +299,6 @@ then
 
     # add command launching pulse audio server to /etc/profile
 
-    sudo  # kill existing daemon if one exists
-
-    sudo sh -c 'echo "taskkill.exe /IM pulseaudio.exe /T /F" >> /etc/profile'
-
     sudo sh -c 'echo bash -c 'cmd.exe /mnt/c/PulseAudio/bin/pulseaudio.exe -D' >> /etc/profile
 
     cleantmp
