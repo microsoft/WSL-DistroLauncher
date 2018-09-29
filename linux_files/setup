@@ -273,7 +273,7 @@ then
 
     wget https://api.patrickwu.ml/wlinux/pulseaudio-for-wsl.zip
 
-    # implement a hard-coded sha check here for security
+    # implement a hard-coded sha check here for security, can you think of an elegant way to do so?
 
         # sha256sum e3c915ee428071b16804fff1662a7523b64216c437f4bfa3814de117df58faa8
 
