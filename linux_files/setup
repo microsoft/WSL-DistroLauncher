@@ -156,14 +156,15 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	    echo "After zsh is installed, type 'exit' and [Enter] to return to setup ."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-        echo "After fish is installed, type 'exit' and [Enter] to return to the WLinux setup script."
+        echo "After fish is installed, type 'exit' and [Enter] to return to setup."
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
     fi    
