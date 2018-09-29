@@ -20,7 +20,7 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - Ships with [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
 - Optional packages: PowerShell, Azure tools, and Google Chrome.
 - Optional Windows Explorer shell integration and support for HiDPI displays.
-- Support for many Linux graphical apps with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
+- Support for [many Linux graphical apps](https://github.com/ethanhs/WSL-Programs) with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
 - Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party apt-based repos.
 - A handful of unnecessary packages, such as systemd, have been are removed from the base image to reduce size and increase stability.
 - New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community interest](https://github.com/WhitewaterFoundry/WLinux/issues).
