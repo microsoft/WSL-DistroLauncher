@@ -55,7 +55,7 @@ function createtmp {
 
 function cleantmp {
     cd $CURDIR
-    rm -r $TMPDIR
+    sudo rm -r $TMPDIR  # need to add sudo here because git clones leaves behind write-protected files
 }
 
 function byemessage {
@@ -352,7 +352,6 @@ then
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
     ./install
-    sudo rm -r $TMPDIR/fzf/.git/* # remove write-protected files git leaves behind
     cleantmp
 fi
 }
