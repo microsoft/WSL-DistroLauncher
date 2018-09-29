@@ -70,8 +70,6 @@ function byemessage {
     echo "You may run the script again any time by running: $ bash /etc/setup"
     echo
     echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
-    echo 
-    echo "To install other packages from Debian repos, type $ sudo apt install <package name>"
     echo
     echo "Enjoy"
     exit 0
@@ -279,19 +277,19 @@ then
     sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
 
     #spotify
-    gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
-    sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
+    # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
+    # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
 
     #opera
-    wget -O - https://deb.opera.com/archive.key | sudo apt-key add -
-    sudo sh -c 'echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/spotify.list'
+    # wget -O - https://deb.opera.com/archive.key | sudo apt-key add -
+    # sudo sh -c 'echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list'
 
     cleantmp
 fi
 }
 
 function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays (set scaling factor to 2)? [y/N] " response
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
