@@ -158,6 +158,7 @@ for i in ${!options[@]}; do
         createtmp
 	    echo "After zsh is installed, type 'exit' and [Enter] to return to setup ."
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
         cleantmp
 	fi
 	
@@ -315,7 +316,8 @@ then
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user --no-warn-script-location
-    export PATH="$PATH:/home/~/.local/bin"
+    export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+    export PATH=$PY_USER_BIN:$PATH
     pip3 install -U pip
     cleantmp
 fi
@@ -343,11 +345,11 @@ function fzfinstall {
 read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    createtmp
+    # fzf install just works infinitely better from ~, not very good support for installing from elsewhere
+    cd ~
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
-    ./install
-    cleantmp
+    ./install --
 fi
 }
 
