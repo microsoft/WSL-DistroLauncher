@@ -16,7 +16,8 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - A fast Linux terminal and development environment for developers and pro-users built on [Windows® Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL) (WSL) on Windows 10.
 - Support for most Linux graphical apps with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
 - Support for PulseAudio audio playback and optional HiDPI configuration.
-- Choice of terminal hells: bash, csh, zsh (with oh-my-zsh), and fish (with oh-my-fish).
+- Optional Windows Explorer shell integration.
+- Choice of terminal shells: bash, csh, zsh (with oh-my-zsh), and fish (with oh-my-fish).
 - Choice of editors: emacs, neovim, nano, and Visual Studio Code.
 - Optional packages: PowerShell, Azure tools, and Google Chrome.
 - Pre-installed with [wslu](https://github.com/patrick330602/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
