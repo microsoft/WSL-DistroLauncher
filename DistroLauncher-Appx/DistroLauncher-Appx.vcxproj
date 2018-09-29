@@ -77,7 +77,7 @@
     <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
-    <PackageCertificateThumbprint>70FCD0DE56997AC5E090E3CE0C4225BAE9198461</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>7DD9859710951028E82EEDB51B39FB286C5829DD</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
@@ -185,6 +185,5 @@
   <ItemGroup>
     <None Include="DistroLauncher-Appx_StoreKey.pfx" />
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
-    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
 </Project>
