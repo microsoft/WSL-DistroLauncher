@@ -390,15 +390,12 @@ then
 fi
 }
 
-
-
-
 # main
 
 ## process update command line flag to detect if running from update script
 while [ $1 ]; do
 	case $1 in
-		-u) $updateflag="0";shift;;
+		-u) $updateflag="0";shift;;         ## bash setup -u throws: "setup: line 401: 0=0: command not found"
 	esac
 done
 
