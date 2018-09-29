@@ -255,7 +255,6 @@ if [[ "$response" =~ ^[yY]$ ]]
 then
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
 fi
-
 }
 
 function chromeinstall {
