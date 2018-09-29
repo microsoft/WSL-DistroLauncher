@@ -45,7 +45,7 @@ then
     bash /etc/setup -u
     exit 0
 else
-    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
+    echo "Continuing with built-in setup. If you encounter problems, try updating setup from the GitHub."
 fi
 }
 
