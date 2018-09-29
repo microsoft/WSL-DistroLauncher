@@ -244,6 +244,12 @@ then
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
 fi
 
+read -r -p "Would you like to make sure X410 is running when you open WLinux? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    sudo sh -c 'echo "x410.exe" >> /etc/profile'
+fi
+
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
