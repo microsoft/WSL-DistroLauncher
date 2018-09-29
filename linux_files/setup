@@ -154,6 +154,7 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "fish" ]
 	then
+        echo "After fish is installed, type 'exit' and [Enter] to return to the WLinux setup script."
 	    curl -L https://get.oh-my.fish | fish
     fi    
             
