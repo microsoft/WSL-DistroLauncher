@@ -21,7 +21,7 @@ function continueprompt {
 read -r -p "Would you like to continue with this setup script? [Y/n] " response        
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
-    echo "Continuing with setup..."
+    echo "Let's get started."
 else
     echo "You may run the script again any time by running: bash /etc/setup"
     exit 0
@@ -246,7 +246,7 @@ then
     sudo apt update
     sudo apt upgrade -y
     sudo apt install google-chrome-stable -y
-    sudo rm /etc/apt/sources.list.d/googlechrome.list #chrome handles it's own apt settings
+    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome handles it's own apt settings
     cleantmp
 fi
 }
@@ -308,7 +308,6 @@ then
 
     # wget elevate
     wget https://github.com/jpassing/elevate/releases/download/1.0/elevate.zip
-
 
     # extract elevate into place
     unzip 1.0.zip -d /mnt/c/PulseAudio/
