@@ -21,7 +21,6 @@ echo
 echo "Additional packages are available via the apt package management system."
 echo "To learn more about apt you should use man, try typing $ man apt"
 echo
-fi
 }
 
 function continueprompt {
