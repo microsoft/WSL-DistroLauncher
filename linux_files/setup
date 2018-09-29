@@ -281,6 +281,8 @@ then
     #non-free
     sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
 
+    # the below packages need to be tweaked to run properly on WSL before being pre-packaged
+
     #spotify
     # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
     # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
@@ -303,6 +305,8 @@ then
     sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
 fi
 }
+
+# the below is a work in progress
 
 function soundconfig {
 read -r -p "Would you like to configure sound playback for WSL? [y/N] " response
@@ -480,22 +484,24 @@ done
 
 ## setup script
 
-if [[ "$updateflag" == "1" ]]
-then
-  echo "Continuing with updated script from GitHub."
-  updateupgrade
-  securitypatches
-  installpackages
-  byemessage
-else
-  welcomeprompt
-  updatescriptprompt       
-  continueprompt
-  languageprompt
-  updateupgrade
-  securitypatches
-  installpackages
-  byemessage
-fi
+# if [[ "$updateflag" == "1" ]]
+# then
+ # echo "Continuing with updated script from GitHub."
+ # updateupgrade
+ # securitypatches
+ # installpackages
+ # byemessage
+# else
+
+welcomeprompt
+updatescriptprompt       
+continueprompt
+languageprompt
+updateupgrade
+securitypatches
+installpackages
+byemessage
+
+# fi
 
 exit 0
