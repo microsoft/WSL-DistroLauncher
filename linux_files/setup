@@ -401,24 +401,22 @@ done
 
 ## setup script
 
-# if [[ "$updateflag" == "1" ]]
-# then
- # echo "Continuing with updated script from GitHub."
- # updateupgrade
- # securitypatches
- # installpackages
- # byemessage
-# else
-
-welcomeprompt
-updatescriptprompt       
-continueprompt
-languageprompt
-updateupgrade
-securitypatches
-installpackages
-byemessage
-
-# fi
+if [[ "$updateflag" == "1" ]]
+ then
+  echo "Continuing with updated script from GitHub."
+  updateupgrade
+  securitypatches
+  installpackages
+  byemessage
+ else
+  welcomeprompt
+  updatescriptprompt       
+  continueprompt
+  languageprompt
+  updateupgrade
+  securitypatches
+  installpackages
+  byemessage
+fi
 
 exit 0
