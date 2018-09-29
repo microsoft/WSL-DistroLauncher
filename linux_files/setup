@@ -45,7 +45,7 @@ then
     bash /etc/setup -u
     exit 0
 else
-    echo "Continuing with setup..."
+    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
 fi
 }
 
@@ -129,7 +129,7 @@ prompt="Check a shell (again to uncheck, ENTER when done): "
 msg=""
 
 shellmenu () {
-    echo "The default shell in WLinux is bash. You may select additional shells to install here."
+    echo "bash is the default shell included in WLinux. You may select additional shells to install here."
     for i in ${!options[@]}; do 
         printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
     done
@@ -275,7 +275,9 @@ then
     #non-free
     sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
 
-    # spotify
+    # the below packages need to be tweaked to run properly on WSL before being pre-packaged
+
+    #spotify
     # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
     # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
 
@@ -299,6 +301,7 @@ then
     sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
 fi
 }
+
 
 ### dev environments
 
@@ -397,22 +400,24 @@ done
 
 ## setup script
 
-if [[ "$updateflag" == "1" ]]
-then
-  echo "Continuing with updated script from GitHub."
-  updateupgrade
-  securitypatches
-  installpackages
-  byemessage
-else
-  welcomeprompt
-  updatescriptprompt       
-  continueprompt
-  languageprompt
-  updateupgrade
-  securitypatches
-  installpackages
-  byemessage
-fi
+# if [[ "$updateflag" == "1" ]]
+# then
+ # echo "Continuing with updated script from GitHub."
+ # updateupgrade
+ # securitypatches
+ # installpackages
+ # byemessage
+# else
+
+welcomeprompt
+updatescriptprompt       
+continueprompt
+languageprompt
+updateupgrade
+securitypatches
+installpackages
+byemessage
+
+# fi
 
 exit 0
