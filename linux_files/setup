@@ -36,7 +36,7 @@ fi
 
 function updatescriptprompt {
 read -r -p "Would you like to download and run an updated version of this setup? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
+if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
 then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
@@ -45,10 +45,10 @@ then
     wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
     sudo cp setup /etc/setup
     echo "Cleaning up."
-    cleantmp
-    clear
     rm ~/.firstrun
+    clear
     echo "Please exit and re-open wLinux."
+    quit
     exit 0
 else
     echo "Continuing with built-in setup. If you encounter problems, try an updated setup."
