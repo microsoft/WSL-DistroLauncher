@@ -35,16 +35,10 @@ Status: Testing.
 - Interactive setup script:
   - Choice of shell: bash, csh, zsh (with oh-my-zsh), fish (with oh-my-fish)
   - Choice of additional editors: neovim, emacs
-  - Optional packages:
-    - fzf
-    - visual studio code
-    - chrome
-    - azure cloud tools
-    - powershell
+  - New optional packages.
   - International language/keyboard selection.
-- Audio playback support.
 - HiDPI support.
-- 50% file size reduction in default package.
+- ~50% file size reduction in default package.
 
 ## Release 1.2
 
