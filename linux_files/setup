@@ -62,6 +62,13 @@ echo "Checking for emergency hotfixes."
 
     # echo "Ensuring that WLinux hotfix package is installed: $ sudo apt install wlinux-patches -y"
     # sudo apt install wlinux-patches -y
+    createtmp
+    echo "Backing up old /etc/profile to /etc/profile.old"
+    sudo cp /etc/profile /etc/profile.old
+    echo "Getting fresh profile from GitHub and copying over /etc/profile"
+    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/profile
+    sudo cp profile /etc/profile
+    cleantmp
 
 }
 
