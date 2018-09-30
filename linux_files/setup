@@ -252,11 +252,11 @@ read -r -p "Would you like to download and install Microsoft Code? [y/N] " respo
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
-    echo "Downloading and unpacking Microsoft's apt repo key"
+    echo "Downloading and unpacking Microsoft's apt repo key with curl and gpg"
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
-    echo "Moving Microsoft's apt repo key into place"
+    echo "Moving Microsoft's apt repo key into place with mv"
     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg 
-    echo "Adding Microsoft apt repo to /etc/apt/sources.list.d/vscode.list"
+    echo "Adding Microsoft apt repo to /etc/apt/sources.list.d/vscode.list with echo"
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' 
     updateupgrade
     echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
@@ -287,7 +287,7 @@ fi
 }
 
 function chromeinstall {
-read -r -p "Would you like to download and install Google Chrome? [y/N] " response
+read -r -p "Would you like to download and install Google Chrome? (Note: Experimental) [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -302,7 +302,7 @@ fi
 }
 
 function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays? [y/N] " response
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
@@ -316,7 +316,7 @@ fi
 ### dev environments
 
 function pythoninstall {
-read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
+read -r -p "Would you like to download and install Python 3.7, IDLE, and the pip package manager? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -331,7 +331,7 @@ fi
 }
 
 function nodeinstall {
-read -r -p "Would you like to download and install nodejs (includes npm package manager)? [y/N] " response
+read -r -p "Would you like to download and install nodejs and the npm package manager? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp

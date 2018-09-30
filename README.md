@@ -1,8 +1,6 @@
 # WLinux
 
-The first Linux® distribution optimized for WSL.
-
-Based on Debian®.
+The first Linux® distribution optimized for WSL. Based on Debian®.
 
 From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com
 ).
@@ -17,11 +15,12 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - A new out-of-the-box experience for users to get started on the Linux terminal.
 - Choice of terminal shells: bash, csh, zsh (with oh-my-zsh), and fish (with oh-my-fish).
 - Choice of editors: emacs, neovim, nano, and Visual Studio Code.
+- Choice of development environments: nodejs, python 3.7, and go.
+- Choice of cloud and administration tools: PowerShell and Azure-cli.
 - Ships with [wslu](https://github.com/wslutilities/wslu), a set of useful open-source utilities for interacting between WSL and Windows 10.
-- Optional packages: PowerShell, Azure tools, and Google Chrome.
 - Optional Windows Explorer shell integration and support for HiDPI displays.
 - Support for [many Linux graphical apps](https://github.com/ethanhs/WSL-Programs) with no need to configure display or libGL settings. Requires a Windows-based X client, such as [X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q).
-- Additional packages can be easily installed via the apt package management system (e.g. `$ sudo apt install nodejs`) from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party apt-based repos.
+- Additional packages can be easily installed via the apt package management system from the [expansive Debian repos](https://packages.debian.org/stable/) and third-party apt-based repos.
 - A handful of unnecessary packages, such as systemd, have been are removed from the base image to reduce size and increase stability.
 - New features are [actively developed](https://github.com/WhitewaterFoundry/WLinux/pulls) based on [community interest](https://github.com/WhitewaterFoundry/WLinux/issues).
 - WLinux features faster patching for WSL-specific bugs than any upstream Linux distro on WSL.
