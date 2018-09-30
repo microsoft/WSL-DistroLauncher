@@ -46,10 +46,13 @@ Status: Tentantive
 
 - Improvements and additions to setup script.
 
-### Release 1.5
-
-Status: Tentantive
+### Features Under Consideration
 
 - Add arm64 support.
 - Snap support.
 - Flatpak support.
+- PulseAudio support.
+
+See https://github.com/WhitewaterFoundry/WLinux/pulls for features under active developmment.
+
+See https://github.com/WhitewaterFoundry/WLinux/issues to suggest new features.
