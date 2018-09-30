@@ -36,7 +36,7 @@ fi
 
 function updatescriptprompt {
 read -r -p "First, would you like to download and run an updated version of this setup? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
+if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
@@ -67,7 +67,7 @@ function createtmp {
     CURDIR=$(pwd)
     echo "Creating temporary working directory and saving location as TMPDIR: $ TMPDIR=$(mktemp -d)"
     TMPDIR=$(mktemp -d)
-    echo "Going to temporary working directory: $ cd $TMPDIR which is " + $TMPDIR
+    echo "Going to temporary working directory: $ cd \$TMPDIR which is" $TMPDIR
     cd $TMPDIR
 }
 
@@ -129,9 +129,9 @@ hidpiconfig
 }
 
 function updateupgrade {
-echo "Updating apt package repository: $ sudo apt update"
+echo "Updating apt package index from repositories: $ sudo apt update"
 sudo apt update
-echo "Applying available package upgrades: $ sudo apt upgrade -y"
+echo "Applying available package upgrades from repositories: $ sudo apt upgrade -y"
 sudo apt upgrade -y
 }
 
