@@ -47,8 +47,10 @@ then
     echo "Cleaning up."
     rm ~/.firstrun
     clear
-    echo "Please exit and re-open wLinux."
-    quit
+    echo "WLinux will now close. Please re-open and the updated script will begin."
+    echo
+    read -p "Press ENTER to continue.
+    taskkill.exe /IM WLinux.exe
     exit 0
 else
     echo "Continuing with built-in setup. If you encounter problems, try an updated setup."
