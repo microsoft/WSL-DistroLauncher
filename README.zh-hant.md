@@ -12,19 +12,19 @@ WLinux 可以從[微軟商店](https://afflnk.microsoft.com/c/1291904/433017/759
 
 ## 功能
 
-- 一款專門為開發者和資深使用者設計的在[Windows 10 Linux 子系統](https://github.com/sirredbeard/Awesome-WSL)(WSL)上使用的Linux開發環境。
-- 開箱即用的GUI支援！注：需要安裝Windows下的X伺服器，如[X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q)。
-- 支援PulseAudio音訊播放和HiDPI。
-- 可選的Windows檔案管理器右鍵選單支援。
+- 一款專門為開發者和資深使用者設計的在[Windows 10 Linux 子系統](https://github.com/sirredbeard/Awesome-WSL)(WSL)上執行的Linux開發環境。
+- 全新的開箱體驗，帶你無痛設定WLinux。
 - 可選的terminal shells: bash, csh, zsh (帶oh-my-zsh), fish (帶oh-my-fish)。
 - 可選的編輯器: emacs, neovim, nano, Visual Studio Code。
-- 可選的程式: PowerShell, Azure tools, Google Chrome。
+- 可選的開發工具: nodejs, python 3.7, go。
+- 可選的雲工具和管理工具: PowerShell, Azure-cli。
 - 預裝[wslu](https://github.com/wslutilities/wslu)，一個為WSL而設計的工具包。
-- 預裝[n](https://github.com/tj/n)，一款nodejs版本管理器。
+- 可選的Windows檔案管理器右鍵選單支援和高解析度支援。
+- 開箱即用的[GUI應用支援](https://github.com/ethanhs/WSL-Programs)！注：需要安裝Windows下的X伺服器，如[X410](http://afflnk.microsoft.com/c/1291904/459838/7593?prodsku=9NLP712ZMN9Q&u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fstore%2Fp%2Fx410%2F9NLP712ZMN9Q)。
 - 一些不必要或者不支援的應用如`systemd`已被移除。
 - 新功能會不斷的新增，包括我們的[功能&Bug賞金計劃](https://github.com/WhitewaterFoundry/WLinux/issues?q=is%3Aissue+is%3Aopen+label%3ABounty)。
 - WLinux提供更快的Bug修復。
-- WLinux使用者可以隨時執行/etc/setup獲取最新功能。
+- WLinux使用者可以隨時執行`$ bash /etc/setup`獲取最新功能。
 
 注：以上功能為1.1.20版本的商店版本更新內容。你也可以自行編譯WLinux來幫我們測試新功能。  
 
