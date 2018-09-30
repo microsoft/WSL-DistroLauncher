@@ -24,11 +24,11 @@ Status: Released on store
 - Minor bug fixes for python 3.7.
 - Documentation translations.
 
-## Release 1.1.18-1.1.19.
+# Release 1.1.18-1.1.19.
 
-Status: Reserved for bug fixes, if needed.
+*Status: Reserved for bug fixes, if needed.*
 
-# Release 1.1.20 - Currently in Master.
+# Release 1.1.20
 
 Status: Testing.
 
@@ -40,15 +40,20 @@ Status: Testing.
 - HiDPI support.
 - ~50% file size reduction in default package.
 
-## Release 1.2
+## Release 1.1.21
 
 Status: Tentantive
 
-- Improvements and additions to setup script.
+- Improvements, fixes, and additions to setup script.
+
+## Release 1.5
+
+Status: Tentantive
+
+- arm64 support.
 
 ### Features Under Consideration
 
-- Add arm64 support.
 - Snap support.
 - Flatpak support.
 - PulseAudio support.
