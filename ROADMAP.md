@@ -14,9 +14,9 @@ Status: Released on Store
 - Added python 3.7 from Debian testing.
 - Minor bug fixes.
 
-# Release 1.1.17 - Master branch.
+# Release 1.1.17.
 
-Status: Final Testing (Push to Store September 29)
+Status: Released on store
 
 - Dark tile.
 - Better support for fish and non-bash shells.
@@ -28,9 +28,9 @@ Status: Final Testing (Push to Store September 29)
 
 Status: Reserved for bug fixes, if needed.
 
-# Release 1.1.20 - Currently in branch oobe-staging.
+# Release 1.1.20 - Currently in Master.
 
-Status: Feature Freeze (Push to Store Early-Mid October)
+Status: Testing.
 
 - Interactive setup script:
   - Choice of shell: bash, csh, zsh (with oh-my-zsh), fish (with oh-my-fish)
@@ -50,10 +50,12 @@ Status: Feature Freeze (Push to Store Early-Mid October)
 
 Status: Tentantive
 
-- Snap and Flatpak support.
+- Improvements and additions to setup script.
 
 ### Release 1.5
 
 Status: Tentantive
 
 - Add arm64 support.
+- Snap support.
+- Flatpak support.
