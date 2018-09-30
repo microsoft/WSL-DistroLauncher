@@ -74,10 +74,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>DistroLauncher-Appx_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
-    <PackageCertificateThumbprint>A777A896D4F467DD0E846EC7067C69F0D743E633</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>A0C8C23CC1F951B9DD8F056E719BDF880624EDEF</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
@@ -185,5 +185,8 @@
   <ItemGroup>
     <None Include="DistroLauncher-Appx_StoreKey.pfx" />
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
 </Project>
