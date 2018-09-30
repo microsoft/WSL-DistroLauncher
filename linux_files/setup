@@ -49,7 +49,7 @@ then
     clear
     echo "WLinux will now close. Please re-open and the updated script will begin."
     echo
-    read -p "Press ENTER to continue.
+    read -p "Press ENTER to continue."
     taskkill.exe /IM WLinux.exe
     exit 0
 else
