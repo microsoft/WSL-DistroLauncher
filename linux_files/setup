@@ -41,8 +41,9 @@ then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
-    echo "Getting setup from GitHub and saving to /etc/setup"
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
+    echo "Getting fresh setup from GitHub and copying over /etc/setup"
+    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
+    sudo cp setup /etc/setup
     echo "Cleaning up."
     cleantmp
     clear
@@ -50,7 +51,7 @@ then
     echo "Please exit and re-open wLinux."
     exit 0
 else
-    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
+    echo "Continuing with built-in setup. If you encounter problems, try an updated setup."
 fi
 }
 
