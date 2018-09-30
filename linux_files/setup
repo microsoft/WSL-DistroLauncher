@@ -42,7 +42,7 @@ then
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
     echo "Getting fresh setup from GitHub and copying over /etc/setup"
-    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/patches/linux_files/setup
+    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
     sudo cp setup /etc/setup
     echo "Cleaning up."
     rm ~/.firstrun
