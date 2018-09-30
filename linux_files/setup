@@ -285,8 +285,12 @@ fi
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y"
-    sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
+    echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
+    sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
+    echo "Configuring dbus."
+    sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
+    sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
+    sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
 fi
 }
 
