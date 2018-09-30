@@ -35,6 +35,7 @@ fi
 }
 
 function updatescriptprompt {
+response = ""
 read -r -p "First, would you like to download and run an updated version of this setup? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
