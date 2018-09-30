@@ -3,7 +3,6 @@
 response=""
 CURDUR=""
 TMPDIR=""
-updateflag="0"
 VERSION="1.1.20"
 
 # functions
@@ -39,18 +38,23 @@ read -r -p "Would you like to download and run an updated version of this setup 
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     createtmp
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
+    sudo touch touchfile # get sudo before curl is run because curl 
+    sudo rm touchfile
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup  # the sudo is obscured by the curl stats, see screenshot
     cleantmp
     clear
-    bash /etc/setup -u
+    bash /etc/setup
     exit 0
 else
-    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
+    echo "Continuing with built-in setup. If you encounter problems, try updating setup from the GitHub."
 fi
 }
 
 function securitypatches {
-echo "Security up to date."
+
+    # sudo apt install wlinux-patches -y
+
+echo "WLinux hotpatching enabled."
 }
 
 function createtmp {
@@ -61,7 +65,7 @@ function createtmp {
 
 function cleantmp {
     cd $CURDIR
-    sudo rm -r $TMPDIR  # need to add sudo here because git clones leaves behind write-protected files
+    sudo rm -r $TMPDIR  # added sudo here because git clones leaves behind write-protected files
 }
 
 function byemessage {
@@ -71,7 +75,7 @@ function byemessage {
     echo
     echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
     echo
-    echo "Enjoy"
+    echo "Enjoy!"
     exit 0
 }
 
@@ -109,13 +113,14 @@ basicguiinstall
 codeinstall
 chromeinstall
 hidpiconfig
-# soundconfig 
 }
 
 function updateupgrade {
 echo "Checking for and applying updates. Please wait."
+sudo apt-get clean
 sudo apt update
 sudo apt upgrade -y
+sudo apt-get autormove -y
 }
 
 ## package set functions
@@ -156,14 +161,16 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	    echo "After zsh is installed, type 'exit' and [Enter] to return to setup ."
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
         cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-        echo "After fish is installed, type 'exit' and [Enter] to return to the WLinux setup script."
+        echo "After fish is installed, type 'exit' and [Enter] to return to setup."
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
     fi    
@@ -275,16 +282,6 @@ then
     #non-free
     sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
 
-    # the below packages need to be tweaked to run properly on WSL before being pre-packaged
-
-    #spotify
-    # gpg --keyserver keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 && gpg --export --armor  931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90 | sudo apt-key add -
-    # sudo sh -c 'echo "deb http://repository.spotify.com stable non-free" > /etc/apt/sources.list.d/spotify.list'
-
-    # opera
-    # wget -O - https://deb.opera.com/archive.key | sudo apt-key add -
-    # sudo sh -c 'echo "deb http://deb.opera.com/opera-stable/ stable non-free" > /etc/apt/sources.list.d/opera.list'
-
     sudo apt-get update -y
 
     cleantmp
@@ -292,7 +289,7 @@ fi
 }
 
 function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays? [y/N] " response
+read -r -p "Would you like to configure Qt and GDK display settings for HiDPI displays? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
@@ -306,7 +303,7 @@ fi
 ### dev environments
 
 function pythoninstall {
-read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
+read -r -p "Would you like to download and install Python 3.7, IDLE, and pip package manager? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -314,7 +311,8 @@ then
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user --no-warn-script-location
-    export PATH="$PATH:/home/~/.local/bin"
+    export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+    export PATH=$PY_USER_BIN:$PATH
     pip3 install -U pip
     cleantmp
 fi
@@ -339,19 +337,19 @@ fi
 ### enhancements
 
 function fzfinstall {
-read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
+read -r -p "Would you like to download and install the command line finder fzf? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    createtmp
+    # fzf install just works infinitely better from ~, not very good support for installing from elsewhere
+    cd ~
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
-    ./install
-    cleantmp
+    ./install --
 fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
+read -r -p "Would you like to enable Windows Explorer right-click shell integration? [y/N] " response     
 if [[ "$response" =~ ^[yY]$ ]]
 then
     echo "Enabling Windows Explorer shell integration."
@@ -373,7 +371,7 @@ fi
 ### cloud tools
 
 function azurecliinstall {
-read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
+read -r -p "Would you like to download and install Azure cloud command line tools? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -391,33 +389,13 @@ fi
 
 # main
 
-## process update command line flag to detect if running from update script
-while [ $1 ]; do
-	case $1 in
-		-u) updateflag="0";shift;;         ## bash setup -u throws: "setup: line 401: 0=0: command not found"
-	esac
-done
-
-## setup script
-
-# if [[ "$updateflag" == "1" ]]
-# then
- # echo "Continuing with updated script from GitHub."
- # updateupgrade
- # securitypatches
- # installpackages
- # byemessage
-# else
-
 welcomeprompt
-updatescriptprompt       
 continueprompt
+updatescriptprompt       
 languageprompt
 updateupgrade
 securitypatches
 installpackages
 byemessage
-
-# fi
 
 exit 0
