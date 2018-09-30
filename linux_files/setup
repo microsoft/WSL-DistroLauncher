@@ -26,46 +26,56 @@ function continueprompt {
 read -r -p "Would you like to continue this setup tool? [Y/n] " response        
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
-    echo "Let's get started."
+    echo "Let's get started setting up WLinux."
 else
+    echo "Exiting..."
     echo "You may run the script again any time by running: bash /etc/setup"
     exit 0
 fi
 }
 
 function updatescriptprompt {
-read -r -p "Would you like to download and run an updated version of this setup from GitHub? [y/N] " response
+read -r -p "First, would you like to download and run an updated version of this setup? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
 then
     createtmp
-    sudo touch touchfile # get sudo before curl is run because curl 
-    sudo rm touchfile
-    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup  # the sudo is obscured by the curl stats, see screenshot
+    echo "Backing up old /etc/setup to /etc/setup.old"
+    sudo cp /etc/setup /etc/setup.old
+    echo "Getting setup from GitHub and saving to /etc/setup"
+    curl https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup | sudo tee /etc/setup
+    echo "Cleaning up."
     cleantmp
     clear
+    echo "Running new /etc/setup"
     bash /etc/setup
     exit 0
 else
-    echo "Continuing with built-in setup. If you encounter problems, try updating setup from the GitHub."
+    echo "Continuing with built-in setup. If you encounter problems, try upgrading setup."
 fi
 }
 
 function securitypatches {
+echo "Checking for emergency hotfixes."
 
+    # echo "Ensuring that WLinux hotfix package is installed: $ sudo apt install wlinux-patches -y"
     # sudo apt install wlinux-patches -y
 
-echo "WLinux hotpatching enabled."
 }
 
 function createtmp {
+    echo "Saving current directory as CURDIR: $ CURDIR=$(pwd)"
     CURDIR=$(pwd)
+    echo "Creating temporary working directory and saving location as TMPDIR: $ TMPDIR=$(mktemp -d)"
     TMPDIR=$(mktemp -d)
+    echo "Going to temporary working directory: $ cd $TMPDIR which is " + $TMPDIR
     cd $TMPDIR
 }
 
 function cleantmp {
+    echo "Returning to our original directory: $ cd $CURDIR"
     cd $CURDIR
-    sudo rm -r $TMPDIR  # added sudo here because git clones leaves behind write-protected files
+    echo "Cleaning up temporary working directory: $ sudo rm -r $TMPDIR"
+    sudo rm -r $TMPDIR  # need to add sudo here because git clones leave behind write-protected files
 }
 
 function byemessage {
@@ -85,6 +95,7 @@ function languageprompt {
 read -r -p "Would you like to configure additional languages? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
+    echo "Running $ dpkg-reconfigure locales"
     sudo dpkg-reconfigure locales
 fi
 }
@@ -105,6 +116,8 @@ explorerintegration
 ## package set functions
 echo "Development Environment:"
 pythoninstall
+nodeinstall
+goinstall
 powershellinstall
 echo "Cloud Tools:"
 azurecliinstall
@@ -116,21 +129,32 @@ hidpiconfig
 }
 
 function updateupgrade {
-echo "Checking for and applying updates. Please wait."
-sudo apt-get clean
+echo "Updating apt package repository: $ sudo apt update"
 sudo apt update
+echo "Applying available package upgrades: $ sudo apt upgrade -y"
 sudo apt upgrade -y
-sudo apt-get autormove -y
 }
 
-## package set functions
+# additional repos
+
+function addrepos {
+read -r -p "Would you like to enable the non-free and contrib Debian package repos? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Adding the non-free and contrib Debian repos to /etc/apt/sources.list"
+    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
+    sudo apt-get update -y
+fi
+}
+
+## package sets
 
 ### shells
 
 function installandsetshell {
 options=("zsh" "fish" "csh")
 
-prompt="Check a shell (again to uncheck, ENTER when done): "
+prompt="Check a shell by entering it's number (again to uncheck, ENTER when done): "
 msg=""
 
 shellmenu () {
@@ -161,16 +185,14 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-	    echo "After zsh is installed, type 'exit' and [Enter] to return to setup ."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
+	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-        echo "After fish is installed, type 'exit' and [Enter] to return to setup."
+        echo "After fish is installed, type 'exit' and ENTER to return to the WLinux setup script."
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
     fi    
@@ -180,7 +202,7 @@ for i in ${!options[@]}; do
 done
 if [[ "$msg" == "1" ]]
 then
-    echo "No extra shell is selected, continuing setup..."
+    echo "No additional shell selected, continuing setup..."
 else
     echo "Set default shell:"
     for i in ${!toselect[@]}; do 
@@ -195,12 +217,12 @@ else
             echo "Invalid option: $opt"
         elif [[ "$opt" == "" ]]
         then
-            echo "Value should not be empty."
+            echo "You must select a default shell."
         else
             passed="0"
         fi
     done
-    echo "Setting ${toselect[$opt]} as default..."
+    echo "Setting ${toselect[$opt]} as default using chsh."
     chsh -s $(which ${toselect[$opt]})
 fi
 }
@@ -208,38 +230,42 @@ fi
 ### editors
 
 function neoviminstall {
-read -r -p "Would you like to download and install optional editor neovim? [y/N] " response
+read -r -p "Would you like to download and install neovim? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    sudo apt install neovim -y
+    echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
+    sudo apt -t testing install neovim build-essential -y
 fi
 }
 
 function emacsinstall {
-read -r -p "Would you like to download and install optional editor emacs? [y/N] " response
+read -r -p "Would you like to download and install emacs? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
+    echo "Installing emacs: $ sudo apt install emacs -y"
     sudo apt install emacs -y
 fi
 }
 
 function codeinstall {
-read -r -p "Would you like to download and install optional editor Microsoft Code? [y/N] " response
+read -r -p "Would you like to download and install Microsoft Code? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
-    cd $TMPDIR
+    echo "Downloading and unpacking Microsoft's apt repo key"
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
+    echo "Moving Microsoft's apt repo key into place"
     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg 
+    echo "Adding Microsoft apt repo to /etc/apt/sources.list.d/vscode.list"
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' 
-    sudo apt upgrade -y 
-    sudo apt update
+    updateupgrade
+    echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
     sudo apt install code libxss1 libasound2 -y
     cleantmp
 fi  
 }
 
-### gui apps
+### gui apps and related
 
 function basicguiinstall {
 
@@ -248,12 +274,14 @@ echo "Use of GUI applications on WLinux requires an X server running on Windows.
 read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
+    echo "Running wslview <link>"
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
 fi
 
 read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
+    echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y"
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus-x11 -y
 fi
 }
@@ -268,28 +296,13 @@ then
     sudo apt update
     sudo apt upgrade -y
     sudo apt install google-chrome-stable -y
-    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome handles it's own apt settings
-    cleantmp
-fi
-}
-
-function addrepos {
-read -r -p "Would you like to download and install additional non-free repos? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    createtmp
-
-    #non-free
-    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
-
-    sudo apt-get update -y
-
+    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome takes over it's own apt settings
     cleantmp
 fi
 }
 
 function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK display settings for HiDPI displays? [y/N] " response
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     export QT_SCALE_FACTOR=2
@@ -303,7 +316,7 @@ fi
 ### dev environments
 
 function pythoninstall {
-read -r -p "Would you like to download and install Python 3.7, IDLE, and pip package manager? [y/N] " response
+read -r -p "Would you like to download and install python 3.7, IDLE, and pip package manager? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -311,9 +324,52 @@ then
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user --no-warn-script-location
-    export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
-    export PATH=$PY_USER_BIN:$PATH
+    export PATH="$PATH:/home/~/.local/bin"
     pip3 install -U pip
+    cleantmp
+fi
+}
+
+function nodeinstall {
+read -r -p "Would you like to download and install nodejs (includes npm package manager)? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt install -t testing nodejs build-essential -y 
+    cleantmp
+
+        read -r -p "Would you like to download and install the optional Yarn package manager? [y/N] " response
+        if [[ "$response" =~ ^[yY]$ ]]
+        then
+            createtmp
+            curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            sudo apt-get update && sudo apt-get install yarn
+            cleantmp
+        fi
+fi
+}
+
+function goinstall {
+read -r -p "Would you like to download and install the latest Go from Google? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    echo "Downloading Go using wget."
+    wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+    echo "Unpacking tar binaries to /usr/local/go."
+    sudo tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
+    echo "Creating ~/go/ for your projects."
+    mkdir ~/go/
+    echo "Setting Go environment variables GOROOT, GOPATH, and adding Go to PATH with export."
+    export GOROOT=/usr/local/go
+    export GOPATH=$HOME/go/
+    export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH
+    echo "Saving Go environment variables to /etc/profile so they will persist."
+    sudo sh -c 'echo "export GOROOT=/usr/local/go" >> /etc/profile'
+    sudo sh -c 'export GOPATH=$HOME/go/" >> /etc/profile'
+    sudo sh -c 'export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
     cleantmp
 fi
 }
@@ -337,19 +393,19 @@ fi
 ### enhancements
 
 function fzfinstall {
-read -r -p "Would you like to download and install the command line finder fzf? [y/N] " response
+read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    # fzf install just works infinitely better from ~, not very good support for installing from elsewhere
-    cd ~
+    createtmp
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
-    ./install --
+    ./install
+    cleantmp
 fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer right-click shell integration? [y/N] " response     
+read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
 if [[ "$response" =~ ^[yY]$ ]]
 then
     echo "Enabling Windows Explorer shell integration."
@@ -371,7 +427,7 @@ fi
 ### cloud tools
 
 function azurecliinstall {
-read -r -p "Would you like to download and install Azure cloud command line tools? [y/N] " response
+read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
@@ -390,12 +446,13 @@ fi
 # main
 
 welcomeprompt
-continueprompt
 updatescriptprompt       
+continueprompt
 languageprompt
 updateupgrade
 securitypatches
 installpackages
+addrepos
 byemessage
 
 exit 0
