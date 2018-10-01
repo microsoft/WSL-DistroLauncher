@@ -12,7 +12,7 @@ VERSION="1.1.20"
 function welcomeprompt {
 echo
 echo "Welcome to WLinux."
-echo "Thank you for supporting sustainable indepdendent open-source development."
+echo "Thank you for supporting sustainable independent open-source development."
 echo
 echo "WLinux comes with a core set of packages installed. This setup tool allows"
 echo "you to install selected packages for WLinux and configure optional settings."
@@ -58,10 +58,7 @@ fi
 }
 
 function securitypatches {
-echo "Checking for emergency hotfixes."
-
-    # echo "Ensuring that WLinux hotfix package is installed: $ sudo apt install wlinux-patches -y"
-    # sudo apt install wlinux-patches -y
+echo "No WSL hotfixes required."
 
 }
 
