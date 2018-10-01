@@ -26,7 +26,7 @@ WLinux can be downloaded from the [Microsoft Store](https://afflnk.microsoft.com
 - WLinux features faster patching for WSL-specific bugs than any upstream Linux distro on WSL.
 - WLinux users can re-run `$ bash /etc/setup` at any time to get access to latest WLinux features and customizations for WSL.
 
-Note: The features above refer to the current GitHub version slated for release as 1.1.20 on the Store in early October. Build WLinux yourself and help us test and debug new features. 
+Note: The features above refer to the current GitHub version slated for release as 1.1.20 on the Microsoft Store in early October. Build WLinux yourself and help us test and debug new features. 
 
 ## Obtaining Support
 
