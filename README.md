@@ -30,11 +30,8 @@ Note: The features above refer to the current GitHub version slated for release 
 
 ## Obtaining Support
 
-**[Official WLinux Wiki](https://github.com/WhitewaterFoundry/WLinux/wiki)**
-
-Please check the Wiki first. It has a guide for getting started, guides for installing packages, and more.
-
-**GitHub**: First search for your issue [here](https://github.com/sirredbeard/WLinux/issues). If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
+- First search for your issue [here](https://github.com/sirredbeard/WLinux/issues).
+- If you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
 
 ## Additional Documentation
 
