@@ -373,8 +373,8 @@ then
     export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH
     echo "Saving Go environment variables to /etc/profile so they will persist."
     sudo sh -c 'echo "export GOROOT=/usr/local/go" >> /etc/profile'
-    sudo sh -c 'export “GOPATH=$HOME/go/" >> /etc/profile'
-    sudo sh -c 'export “PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
+    sudo sh -c 'echo "export GOPATH=$HOME/go/" >> /etc/profile'
+    sudo sh -c 'echo "export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
     cleantmp
 fi
 }
