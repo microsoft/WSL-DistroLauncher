@@ -48,3 +48,4 @@ Please check the Wiki first. It has a guide for getting started, guides for inst
 
 - [Awesome Windows Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
+- [wslutilities](https://github.com/wslutilities/wslu)
