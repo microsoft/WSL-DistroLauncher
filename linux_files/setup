@@ -19,7 +19,7 @@ To learn more about apt you should use man, try typing $ man apt\
 }
 
 function continueprompt {
-if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 30) then
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 35) then
     echo "Starting setup."
 else
     echo "Exiting..."
@@ -100,7 +100,7 @@ echo "installmenu"
 whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
 "Explorer" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
 "Shells" "Install and configure default shells from bash, zsh, csh, and fish" off \
-"Editors" "Install text editors neovim, emacs, or Visual Studio Code" off \
+"Editors" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
 "PythonPi" "Install Python 3.7 and download and install latest PyPi" off \
 "NodeJS" "Install Node.js and npm" off \
 "Go" "Install the latest Go" off \
@@ -113,11 +113,13 @@ whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 1
 while read choice
 do
         case $choice in
-                Explorer) ShellIntegration
+                Explorer) explorerintegration
                 ;;
-                Shells) shellmenu
+                Shells) installandsetshell
                 ;;
-                Editors) editors
+                Editors) neoviminstall
+                emacsinstall
+                codeinstall
                 ;;
                 PythonPi) pythoninstall
                 ;;
