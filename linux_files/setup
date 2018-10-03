@@ -19,10 +19,8 @@ To learn more about apt you should use man, try typing $ man apt\
 }
 
 function continueprompt {
-read -r -p "Would you like to continue this setup tool? [Y/n] " response
-if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
-then
-    echo "Let's get started setting up WLinux."
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 30) then
+    echo "Starting setup."
 else
     echo "Exiting..."
     echo "You may run the script again any time by running: bash /etc/setup"
