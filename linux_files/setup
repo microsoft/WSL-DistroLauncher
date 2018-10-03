@@ -97,10 +97,47 @@ fi
 function installmenu {
 echo "installmenu"
 
-whiptail --title "WLinux Setup TOol" --checklist "Choose:" 15 60 9 \
-"John" "John Stuff" off \
-"Glen" "" off \
-"Adam" "" off
+whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
+"Explorer" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+"Shells" "Install and configure default shells from bash, zsh, csh, and fish" off \
+"Editors" "Install text editors neovim, emacs, or Visual Studio Code" off \
+"PythonPi" "Install Python 3.7 and download and install latest PyPi" off \
+"NodeJS" "Install Node.js and npm" off \
+"Go" "Install the latest Go" off \
+"PowerShell" "Install PowerShell for Linux and Azure CLI tools" off \
+"GUI" "Install the basic libraries needed for most GUI apps" off \
+"Language" "Change language set in WSL-Experimental" off \
+"HiDPI" "Set HiDPI settings-Experimental" off \
+2>results
+
+while read choice
+do
+        case $choice in
+                Explorer) ShellIntegration
+                ;;
+                Shells) shellmenu
+                ;;
+                Editors) editors
+                ;;
+                PythonPi) pythoninstall
+                ;;
+                NodeJS) nodeinstall
+                ;;
+                Go) goinstall
+                ;;
+                PowerShell) powershellinstall
+                azurecliinstall
+                ;;
+                GUI) basicguiinstall
+                ;;
+                Language) languageprompt
+                ;;
+                HiDPI) hidpiconfig
+                ;;
+                *)
+                ;;
+        esac
+done < results
 
 }
 
@@ -349,7 +386,7 @@ if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
     echo "Downloading Go using wget."
-    wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+    wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
     sudo tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
