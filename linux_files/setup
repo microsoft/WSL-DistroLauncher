@@ -46,9 +46,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and ru
     taskkill.exe /IM WLinux.exe
     exit 0
 else
-
     whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating setup." 10 40
-
 fi
 
 }
@@ -88,17 +86,13 @@ function byemessage {
 ## internationalization
 
 function languageprompt {
-read -r -p "Would you like to configure additional languages? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "Language" --yesno "Would you like to configure for international languages?" 8 45) then
     echo "Running $ dpkg-reconfigure locales"
     sudo dpkg-reconfigure locales
 fi
 }
 
-## package meta functions
-
-    # list all package sets and the order they should be presented for optional install here
+## package index
 
 function installpackages {
 echo "Shells:"
@@ -120,7 +114,7 @@ azurecliinstall
 echo "GUI Applications:"
 basicguiinstall
 codeinstall
-chromeinstall
+#chromeinstall
 hidpiconfig
 }
 
