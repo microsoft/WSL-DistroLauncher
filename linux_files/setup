@@ -108,7 +108,6 @@ echo "Enhancements:"
 fzfinstall
 explorerintegration
 addrepos
-## package set functions
 echo "Development Environment:"
 pythoninstall
 nodeinstall
@@ -119,8 +118,10 @@ azurecliinstall
 echo "GUI Applications:"
 basicguiinstall
 codeinstall
-#chromeinstall
 hidpiconfig
+updateupgrade
+languageprompt
+
 }
 
 function updateupgrade {
@@ -286,21 +287,6 @@ then
 fi
 }
 
-function chromeinstall {
-read -r -p "Would you like to download and install Google Chrome? (Note: Experimental) [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    createtmp
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main " > /etc/apt/sources.list.d/googlechrome.list' 
-    sudo apt update
-    sudo apt upgrade -y
-    sudo apt install google-chrome-stable -y
-    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome takes over it's own apt settings
-    cleantmp
-fi
-}
-
 function hidpiconfig {
 read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
@@ -449,8 +435,6 @@ welcomeprompt
 continueprompt
 updatescriptprompt
 securitypatches
-languageprompt
-updateupgrade
 installmenu
 byemessage
 
