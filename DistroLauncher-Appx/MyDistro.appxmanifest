@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp uap2 uap3 rescap desktop">
-  <Identity Name="DistroName.1.0" Version="1.0.0.0" Publisher="CN=DistroOwner" ProcessorArchitecture="x64" />
-  <mp:PhoneIdentity PhoneProductId="00000000-0000-0000-0000-000000000000" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="WhitewaterFoundryLtd.Co.16571368D6CFF" Version="1.1.20.0" Publisher="CN=9879127B-9E92-4DE5-9C32-0B1F09F95DCF" ProcessorArchitecture="x64" />
+  <mp:PhoneIdentity PhoneProductId="cdaff79b-6e07-4f5f-93b0-df4e9588183d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>My Linux Distro</DisplayName>
-    <PublisherDisplayName>DistroOwner</PublisherDisplayName>
+    <DisplayName>WLinux</DisplayName>
+    <PublisherDisplayName>Whitewater Foundry, Ltd. Co.</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -17,16 +17,21 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="mydistro" Executable="mydistro.exe" EntryPoint="Windows.FullTrustApplication">
-      <uap:VisualElements DisplayName="My Linux Distro" Description="My Own Distro Launcher" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+    <Application Id="wlinux" Executable="wlinux.exe" EntryPoint="Windows.FullTrustApplication">
+      <uap:VisualElements DisplayName="WLinux" Description="WLinux Distro Launcher" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" BackgroundColor="#2d2d30">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png" ShortName="WLinux">
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="square150x150Logo" />
+            <uap:ShowOn Tile="wide310x150Logo" />
+            <uap:ShowOn Tile="square310x310Logo" />
+          </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#2d2d30" />
       </uap:VisualElements>
       <Extensions>
-        <uap3:Extension Category="windows.appExecutionAlias" Executable="mydistro.exe" EntryPoint="Windows.FullTrustApplication">
+        <uap3:Extension Category="windows.appExecutionAlias" Executable="wlinux.exe" EntryPoint="Windows.FullTrustApplication">
           <uap3:AppExecutionAlias>
-            <desktop:ExecutionAlias Alias="mydistro.exe" />
+            <desktop:ExecutionAlias Alias="wlinux.exe" />
           </uap3:AppExecutionAlias>
         </uap3:Extension>
       </Extensions>

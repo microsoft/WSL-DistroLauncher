@@ -1,0 +1,453 @@
+#!/bin/bash
+
+RESPONSE=""
+CURDUR=""
+TMPDIR=""
+VERSION="1.1.21pre"
+
+# functions
+
+## core functions
+
+function welcomeprompt {
+whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open-source development.\n
+WLinux comes with a core set of packages installed. This setup allows\
+you to install some selected packages for WLinux and configure optional settings.\
+Many more packages are available via the apt package management system.\n
+To learn more about apt you should use man, try typing $ man apt\
+" 15 80
+}
+
+function continueprompt {
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 35) then
+    echo "Starting setup."
+else
+    echo "Exiting..."
+    echo "You may run the script again any time by running: bash /etc/setup"
+    exit 0
+fi
+}
+
+function updatescriptprompt {
+
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and run an updated version of this setup?" 8 75) then
+    createtmp
+    echo "Backing up old /etc/setup to /etc/setup.old"
+    sudo cp /etc/setup /etc/setup.old
+    echo "Getting fresh setup from GitHub and copying over /etc/setup"
+    wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
+    sudo cp setup /etc/setup
+    echo "Cleaning up."
+    rm ~/.firstrun
+    clear
+    echo "WLinux will now attempt to close. Please re-open and the updated script will begin."
+    echo
+    read -p "Press ENTER to continue."
+    taskkill.exe /IM WLinux.exe
+    exit 0
+else
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating setup." 10 40
+fi
+
+}
+
+function securitypatches {
+echo "No WSL hotfixes required."
+
+}
+
+function createtmp {
+    echo "Saving current directory as CURDIR: $ CURDIR=\$(pwd)"
+    CURDIR=$(pwd)
+    echo "Creating temporary working directory and saving location as TMPDIR: $ TMPDIR=$(mktemp -d)"
+    TMPDIR=$(mktemp -d)
+    echo "Going to temporary working directory: $ cd \$TMPDIR which is" $TMPDIR
+    cd $TMPDIR
+}
+
+function cleantmp {
+    echo "Returning to our original directory: $ cd $CURDIR"
+    cd $CURDIR
+    echo "Cleaning up temporary working directory: $ sudo rm -r $TMPDIR"
+    sudo rm -r $TMPDIR  # need to add sudo here because git clones leave behind write-protected files
+}
+
+function byemessage {
+    echo "Setup is complete."
+    echo
+    echo "You may run the script again any time by running: $ bash /etc/setup"
+    echo
+    echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
+    echo
+    echo "Enjoy!"
+    exit 0
+}
+
+## internationalization
+
+function languageprompt {
+if (whiptail --title "Language" --yesno "Would you like to configure for international languages?" 8 45) then
+    echo "Running $ dpkg-reconfigure locales"
+    sudo dpkg-reconfigure locales
+fi
+}
+
+## package index
+
+function installmenu {
+
+choice=$(whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
+"EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+"SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
+"EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
+"PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
+"NODEJS" "Install Node.js and npm" off \
+"GO" "Install the latest Go" off \
+"POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
+"GUI" "Install the basic libraries needed for most GUI apps" off \
+"LANGUAGE" "Change language default languane and keyboard set in WSL" off \
+3>&1 1>&2 2>&3)
+
+while read choice
+do
+        case $choice in
+                Explorer) explorerintegration
+                ;;
+                Shells) installandsetshell
+                ;;
+                Editors) neoviminstall
+                emacsinstall
+                codeinstall
+                ;;
+                PythonPi) pythoninstall
+                ;;
+                NodeJS) nodeinstall
+                ;;
+                Go) goinstall
+                ;;
+                PowerShell) powershellinstall
+                azurecliinstall
+                ;;
+                GUI) basicguiinstall
+                ;;
+                Language) languageprompt
+                ;;
+                *)
+                ;;
+        esac
+done < results
+}
+
+function updateupgrade {
+echo "Updating apt package index from repositories: $ sudo apt update"
+sudo apt update
+echo "Applying available package upgrades from repositories: $ sudo apt upgrade -y"
+sudo apt upgrade -y
+}
+
+# additional repos
+
+function addrepos {
+read -r -p "Would you like to enable the non-free and contrib Debian package repos? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Enabling the non-free and contrib Debian repos in /etc/apt/sources.list"
+    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" >> /etc/apt/sources.list'
+    sudo apt-get update -y
+fi
+}
+
+## package sets
+
+### shells
+
+function installandsetshell () {
+options=("zsh" "fish" "csh")
+
+prompt="Check a shell by entering it's corresponding number (again to uncheck, ENTER when done): "
+msg=""
+
+shellmenu () {
+    echo "bash is the default shell included in WLinux. You may select additional shells to install here."
+    for i in ${!options[@]}; do 
+        printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
+    done
+    [[ "$msg" ]] && echo "$msg"; :
+}
+
+while clear && shellmenu && read -rp "$prompt" num && [[ "$num" ]]; do
+    [[ "$num" != *[![:digit:]]* ]] &&
+    (( num > 0 && num <= ${#options[@]} )) ||
+    { msg="Invalid option: $num"; continue; }
+    ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
+    [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
+done
+
+toselect=("bash")
+msg="1"
+for i in ${!options[@]}; do 
+    if [[ "${choices[i]}" ]]
+    then
+        toselect+=("${options[i]}")
+        echo "Installing ${options[i]}..."
+        sudo apt install ${options[i]} -y	
+	
+	if [ ${options[i]} = "zsh" ]
+	then
+        createtmp
+        echo "NOTE: After zsh is installed, type 'exit' and ENTER to return to the WLinux setup script."
+	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        cleantmp
+	fi
+	
+	if [ ${options[i]} = "fish" ]
+	then
+        createtmp
+        echo "NOTE: After fish is installed, type 'exit' and ENTER to return to the WLinux setup script."
+	    curl -L https://get.oh-my.fish | fish
+        cleantmp
+    fi    
+            
+    msg="0"
+    fi
+done
+if [[ "$msg" == "1" ]]
+then
+    echo "No additional shell selected, continuing setup..."
+else
+    echo "Set default shell:"
+    for i in ${!toselect[@]}; do 
+        printf "%3d) %s\n" $((i)) "${toselect[i]}"
+    done
+    passed="1"
+    while [[ "$passed" == "1" ]]
+    do
+        read -rp "Type a number and enter: " opt
+        if [[ "$opt" != *[![:digit:]]* ]] && (( opt < 0 && opt >= ${#toselect[@]} ))
+        then
+            echo "Invalid option: $opt"
+        elif [[ "$opt" == "" ]]
+        then
+            echo "You must select a default shell."
+        else
+            passed="0"
+        fi
+    done
+    echo "Setting ${toselect[$opt]} as default using chsh."
+    chsh -s $(which ${toselect[$opt]})
+fi
+}
+
+### editors
+
+function neoviminstall {
+read -r -p "Would you like to download and install neovim? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
+    sudo apt -t testing install neovim build-essential -y
+fi
+}
+
+function emacsinstall {
+read -r -p "Would you like to download and install emacs? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Installing emacs: $ sudo apt install emacs -y"
+    sudo apt install emacs -y
+fi
+}
+
+function codeinstall {
+read -r -p "Would you like to download and install Microsoft Code? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    echo "Downloading and unpacking Microsoft's apt repo key with curl and gpg"
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
+    echo "Moving Microsoft's apt repo key into place with mv"
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg 
+    echo "Adding Microsoft apt repo to /etc/apt/sources.list.d/vscode.list with echo"
+    sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' 
+    updateupgrade
+    echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
+    sudo apt install code libxss1 libasound2 -y
+    cleantmp
+fi  
+}
+
+### gui apps and related
+
+function basicguiinstall {
+
+echo "Use of GUI applications on WLinux requires an X server running on Windows."
+
+read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Running wslview <link>"
+    wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
+fi
+
+read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
+    sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
+    echo "Configuring dbus."
+    sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
+    sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
+    sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
+fi
+
+read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    export QT_SCALE_FACTOR=2
+    export GDK_SCALE=2
+    sudo sh -c 'echo "QT_SCALE_FACTOR=2" >> /etc/profile'
+    sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
+fi
+}
+
+
+### dev environments
+
+function pythoninstall {
+read -r -p "Would you like to download and install Python 3.7, IDLE, and the pip package manager? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    sudo apt update
+    sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+    python3 get-pip.py --user --no-warn-script-location
+    export PATH="$PATH:/home/~/.local/bin"
+    pip3 install -U pip
+    cleantmp
+fi
+}
+
+function nodeinstall {
+read -r -p "Would you like to download and install nodejs and the npm package manager? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt install -t testing nodejs build-essential -y 
+    cleantmp
+
+        read -r -p "Would you like to download and install the optional Yarn package manager? [y/N] " response
+        if [[ "$response" =~ ^[yY]$ ]]
+        then
+            createtmp
+            curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+            sudo apt-get update && sudo apt-get install yarn
+            cleantmp
+        fi
+fi
+}
+
+function goinstall {
+read -r -p "Would you like to download and install the latest Go from Google? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    echo "Downloading Go using wget."
+    wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+    echo "Unpacking tar binaries to /usr/local/go."
+    sudo tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
+    echo "Creating ~/go/ for your projects."
+    mkdir ~/go/
+    echo "Setting Go environment variables GOROOT, GOPATH, and adding Go to PATH with export."
+    export GOROOT=/usr/local/go
+    export GOPATH=$HOME/go/
+    export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH
+    echo "Saving Go environment variables to /etc/profile so they will persist."
+    sudo sh -c 'echo "export GOROOT=/usr/local/go" >> /etc/profile'
+    sudo sh -c 'echo "export GOPATH=$HOME/go/" >> /etc/profile'
+    sudo sh -c 'echo "export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
+    cleantmp
+fi
+}
+
+function powershellinstall {
+read -r -p "Would you like to download and install Powershell? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    rm microsoft.gpg
+    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/powershell.list' 
+    sudo apt update
+    sudo apt upgrade -y
+    sudo apt install powershell -y
+    cleantmp
+fi
+}
+
+### enhancements
+
+function fzfinstall {
+read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    git clone --depth 1 https://github.com/junegunn/fzf.git
+    cd fzf
+    ./install
+    cleantmp
+fi
+}
+
+function explorerintegration {
+read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    echo "Enabling Windows Explorer shell integration."
+    cmd.exe /C 'mkdir C:\Temp\'
+    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
+    cmd.exe /C 'Reg import C:\Temp\Install.reg'
+    cmd.exe /C 'del C:\Temp\Install.reg'
+    cmd.exe /C 'rmdir C:\Temp'
+else
+    echo "Disabling Windows Explorer shell integration."
+    cmd.exe /C 'mkdir C:\Temp\'
+    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
+    cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
+    cmd.exe /C 'del C:\Temp\Uninstall.reg'
+    cmd.exe /C 'rmdir C:\Temp'
+fi
+}
+
+### cloud tools
+
+function azurecliinstall {
+read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
+if [[ "$response" =~ ^[yY]$ ]]
+then
+    createtmp
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo chmod 644 /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo bash -c "echo 'deb https://packages.microsoft.com/repos/azure-cli/ stretch main' >> /etc/apt/sources.list.d/azurecli.list"
+    sudo apt update 
+    sudo apt upgrade -y
+    echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
+    sudo apt install azure-cli -y
+    cleantmp
+fi
+}
+
+# main
+
+welcomeprompt
+continueprompt
+updatescriptprompt
+securitypatches
+installmenu
+byemessage
+
+exit 0
