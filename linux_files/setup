@@ -94,6 +94,11 @@ fi
 
 ## package index
 
+function mainmenu {
+
+
+}
+
 function installpackages {
 echo "Shells:"
 installandsetshell
@@ -103,6 +108,7 @@ emacsinstall
 echo "Enhancements:"
 fzfinstall
 explorerintegration
+addrepos
 ## package set functions
 echo "Development Environment:"
 pythoninstall
@@ -442,12 +448,11 @@ fi
 
 welcomeprompt
 continueprompt
-updatescriptprompt       
+updatescriptprompt
+securitypatches
 languageprompt
 updateupgrade
-securitypatches
-installpackages
-addrepos
+mainmenu
 byemessage
 
 exit 0
