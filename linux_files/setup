@@ -94,9 +94,8 @@ fi
 
 ## package index
 
-function mainmenu {
-
-
+function installmenu {
+echo "installmenu"
 }
 
 function installpackages {
@@ -452,7 +451,7 @@ updatescriptprompt
 securitypatches
 languageprompt
 updateupgrade
-mainmenu
+installmenu
 byemessage
 
 exit 0
