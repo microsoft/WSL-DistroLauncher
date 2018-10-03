@@ -1,25 +1,21 @@
 #!/bin/bash
 
-response=""
+RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.20"
+VERSION="1.1.21pre"
 
 # functions
 
 ## core functions
 
 function welcomeprompt {
-echo
-echo "Welcome to WLinux."
-echo "Thank you for supporting sustainable independent open-source development."
-echo
-echo "WLinux comes with a core set of packages installed. This setup tool allows"
-echo "you to install selected packages for WLinux and configure optional settings."
-echo
-echo "Additional packages are available via the apt package management system."
-echo "To learn more about apt you should use man, try typing $ man apt"
-echo
+whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open-source development.\n
+WLinux comes with a core set of packages installed. This setup allows\
+you to install some selected packages for WLinux and configure optional settings.\
+Many more packages are available via the apt package management system.\n
+To learn more about apt you should use man, try typing $ man apt\
+" 15 80
 }
 
 function continueprompt {
