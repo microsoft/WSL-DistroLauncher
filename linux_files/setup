@@ -142,7 +142,7 @@ read -r -p "Would you like to enable the non-free and contrib Debian package rep
 if [[ "$response" =~ ^[yY]$ ]]
 then
     echo "Enabling the non-free and contrib Debian repos in /etc/apt/sources.list"
-    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" > /etc/apt/sources.list'
+    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" >> /etc/apt/sources.list'
     sudo apt-get update -y
 fi
 }
