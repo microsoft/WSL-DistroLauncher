@@ -106,8 +106,7 @@ whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 1
 "Go" "Install the latest Go" off \
 "PowerShell" "Install PowerShell for Linux and Azure CLI tools" off \
 "GUI" "Install the basic libraries needed for most GUI apps" off \
-"Language" "Change language set in WSL-Experimental" off \
-"HiDPI" "Set HiDPI settings-Experimental" off \
+"Language" "Change language default languane and keyboard set in WSL" off \
 2>results
 
 while read choice
@@ -134,39 +133,10 @@ do
                 ;;
                 Language) languageprompt
                 ;;
-                HiDPI) hidpiconfig
-                ;;
                 *)
                 ;;
         esac
 done < results
-
-}
-
-function installpackages {
-echo "Shells:"
-installandsetshell
-echo "Editors:"
-neoviminstall
-emacsinstall
-echo "Enhancements:"
-fzfinstall
-explorerintegration
-addrepos
-echo "Development Environment:"
-pythoninstall
-nodeinstall
-goinstall
-powershellinstall
-echo "Cloud Tools:"
-azurecliinstall
-echo "GUI Applications:"
-basicguiinstall
-codeinstall
-hidpiconfig
-updateupgrade
-languageprompt
-
 }
 
 function updateupgrade {
@@ -192,7 +162,7 @@ fi
 
 ### shells
 
-function installandsetshell {
+function installandsetshell () {
 options=("zsh" "fish" "csh")
 
 prompt="Check a shell by entering it's corresponding number (again to uncheck, ENTER when done): "
@@ -330,9 +300,7 @@ then
     sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
     sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
 fi
-}
 
-function hidpiconfig {
 read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
