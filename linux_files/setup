@@ -95,19 +95,18 @@ fi
 ## package index
 
 function installmenu {
-echo "installmenu"
 
-whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
-"Explorer" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
-"Shells" "Install and configure default shells from bash, zsh, csh, and fish" off \
-"Editors" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
-"PythonPi" "Install Python 3.7 and download and install latest PyPi" off \
-"NodeJS" "Install Node.js and npm" off \
-"Go" "Install the latest Go" off \
-"PowerShell" "Install PowerShell for Linux and Azure CLI tools" off \
+choice=$(whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
+"EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+"SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
+"EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
+"PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
+"NODEJS" "Install Node.js and npm" off \
+"GO" "Install the latest Go" off \
+"POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
 "GUI" "Install the basic libraries needed for most GUI apps" off \
-"Language" "Change language default languane and keyboard set in WSL" off \
-2>results
+"LANGUAGE" "Change language default languane and keyboard set in WSL" off \
+3>&1 1>&2 2>&3)
 
 while read choice
 do
