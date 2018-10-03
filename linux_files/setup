@@ -96,6 +96,12 @@ fi
 
 function installmenu {
 echo "installmenu"
+
+whiptail --title "WLinux Setup TOol" --checklist "Choose:" 15 60 9 \
+"John" "John Stuff" off \
+"Glen" "" off \
+"Adam" "" off
+
 }
 
 function installpackages {
