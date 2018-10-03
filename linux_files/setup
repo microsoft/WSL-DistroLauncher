@@ -445,8 +445,8 @@ fi
 # main
 
 welcomeprompt
-updatescriptprompt       
 continueprompt
+updatescriptprompt       
 languageprompt
 updateupgrade
 securitypatches
