@@ -12,7 +12,7 @@ VERSION="1.1.21pre"
 function welcomeprompt {
 whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open-source development.\n
 WLinux comes with a core set of packages installed. This setup allows\
-you to install some selected packages for WLinux and configure optional settings.\
+you to install some selected packages for WLinux and configure optional settings. \
 Many more packages are available via the apt package management system.\n
 To learn more about apt you should use man, try typing $ man apt\
 " 15 80
@@ -111,6 +111,9 @@ whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 1
 
 echo "Selected:" $CHOICE
 
+if [ $CHOICE ?? 'EXPLORER' ]; then
+  echo "EXPLORER IS there!"
+fi
 
         case $CHOICE in
                 EXPLORER) echo "explorerintegration"
