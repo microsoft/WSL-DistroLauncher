@@ -108,9 +108,9 @@ choice=$(whiptail --title "WLinux Setup" --checklist --separate-output "Choose:"
 "LANGUAGE" "Change language default languane and keyboard set in WSL" off \
 3>&1 1>&2 2>&3)
 
-echo $choice
+echo "Selected:" $choice
 
-while read choice
+while read $choice
 do
         case $choice in
                 EXPLORER) echo "explorerintegration"
