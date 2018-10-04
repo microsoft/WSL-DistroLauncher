@@ -111,9 +111,17 @@ whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 1
 
 echo "Selected:" $CHOICE
 
-if [ $CHOICE ?? 'EXPLORER' ]; then
-  echo "EXPLORER IS there!"
+if [[ $CHOICE == *"EXPLORER"* ]] ; then
+  echo "EXPLORER is there!"
 fi
+
+if [[ $CHOICE == *"SHELLS"* ]] ; then
+  echo "SHELLS is there!"
+fi
+
+if [[ $CHOICE == *"EDITORS"* ]] ; then
+  echo "EDITORS is there!"
+fi 
 
         case $CHOICE in
                 EXPLORER) echo "explorerintegration"
