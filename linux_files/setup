@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 10 70) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 70) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -46,7 +46,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     taskkill.exe /IM WLinux.exe
     exit 0
 else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating setup." 10 70
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try re-running setup and updating." 10 70
 fi
 
 }
@@ -107,50 +107,50 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
 echo "Selected:" $CHOICE
 
 if [[ $CHOICE == *"EXPLORER"* ]] ; then
-  echo "EXPLORER is there!"
+  echo "EXPLORER"
   explorerintegration
 fi
 
 if [[ $CHOICE == *"SHELLS"* ]] ; then
-  echo "SHELLS is there!"
+  echo "SHELLS"
   installandsetshell
 fi
 
 if [[ $CHOICE == *"EDITORS"* ]] ; then
-  echo "EDITORS is there!"
+  echo "EDITORS"
   neoviminstall
   emacsinstall
 fi 
 
 if [[ $CHOICE == *"PYTHON"* ]] ; then
-  echo "PYTHON is there!"
+  echo "PYTHON"
   pythoninstall
 fi
 
 if [[ $CHOICE == *"NODE"* ]] ; then
-  echo "NODE is there!"
+  echo "NODE"
   nodeinstall
 fi
 
 if [[ $CHOICE == *"GO"* ]] ; then
-  echo "GO is there!"
+  echo "GO"
   goinstall
 fi
 
 if [[ $CHOICE == *"RUBY"* ]] ; then
-  echo "RUBY is there!"
+  echo "RUBY"
   rubyinstall
 fi
 
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
-  echo "POWERSELL is there!"
+  echo "POWERSELL"
   powershellinstall
   azurecli
 fi
 
 if [[ $CHOICE == *"GUI"* ]] ; then
-    echo "GUI is there!"
+    echo "GUI"
     basicguiinstall
 fi
 }
@@ -326,7 +326,6 @@ then
     sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
 fi
 }
-
 
 ### dev environments
 
