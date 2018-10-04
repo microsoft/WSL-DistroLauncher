@@ -130,6 +130,7 @@ do
                 ;;
                 GUI) echo "basicguiinstall"
                 ;;
+                LANGUAGE) echo "languageprompt"
                 ;;
                 *)
                 ;;
