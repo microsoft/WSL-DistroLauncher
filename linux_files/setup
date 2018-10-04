@@ -19,7 +19,7 @@ To learn more about apt you should use man, try typing $ man apt\
 }
 
 function continueprompt {
-if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 45) then
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 10 45) then
     echo "Starting setup."
 else
     echo "Exiting..."
@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 8 90) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 10 70) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -46,7 +46,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     taskkill.exe /IM WLinux.exe
     exit 0
 else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating setup." 10 40
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating setup." 10 70
 fi
 
 }
@@ -457,16 +457,16 @@ fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
-if [[ "$response" =~ ^[yY]$ ]]
-then
+ read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
+ if [[ "$response" =~ ^[yY]$ ]]
+  then
     echo "Enabling Windows Explorer shell integration."
     cmd.exe /C 'mkdir C:\Temp\'
     cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
     cmd.exe /C 'Reg import C:\Temp\Install.reg'
     cmd.exe /C 'del C:\Temp\Install.reg'
     cmd.exe /C 'rmdir C:\Temp'
-else
+ else
     echo "Disabling Windows Explorer shell integration."
     cmd.exe /C 'mkdir C:\Temp\'
     cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
