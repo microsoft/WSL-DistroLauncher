@@ -73,7 +73,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 15 75
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 8 100
     exit 0
 }
 
@@ -391,7 +391,7 @@ fi
 
 function rubyinstall {
 
-if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 90) then
+if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 70) then
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
 
