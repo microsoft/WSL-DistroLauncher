@@ -106,6 +106,11 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
 
 echo "Selected:" $CHOICE
 
+if [[ $CHOICE == *"LANGUAGE"* ]] ; then
+    echo "LANGUAGE"
+    language
+fi
+
 if [[ $CHOICE == *"EXPLORER"* ]] ; then
   echo "EXPLORER"
   explorerintegration
@@ -141,7 +146,6 @@ if [[ $CHOICE == *"RUBY"* ]] ; then
   echo "RUBY"
   rubyinstall
 fi
-
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
   echo "POWERSELL"
