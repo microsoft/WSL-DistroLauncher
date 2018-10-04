@@ -19,7 +19,7 @@ To learn more about apt you should use man, try typing $ man apt\
 }
 
 function continueprompt {
-if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 35) then
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 8 45) then
     echo "Starting setup."
 else
     echo "Exiting..."
@@ -111,31 +111,30 @@ choice=$(whiptail --title "WLinux Setup" --checklist --separate-output "Choose:"
 while read choice
 do
         case $choice in
-                EXPLORER) explorerintegration
+                EXPLORER) echo "explorerintegration"
                 ;;
-                SHELLS) installandsetshell
+                SHELLS) echo "installandsetshell"
                 ;;
-                EDITORS) neoviminstall
-                emacsinstall
-                codeinstall
+                EDITORS) echo "neoviminstall"
+                #emacsinstall
+                #codeinstall
                 ;;
-                PYTHONPI) pythoninstall
+                PYTHONPI) echo "pythoninstall"
                 ;;
-                NODEJS) nodeinstall
+                NODEJS) echo "nodeinstall"
                 ;;
-                GO) goinstall
+                GO) echo "goinstall"
                 ;;
-                POWERSHELL) powershellinstall
-                azurecliinstall
+                POWERSHELL) echo "powershellinstall"
+                #azurecliinstall
                 ;;
-                GUI) basicguiinstall
+                GUI) echo "basicguiinstall"
                 ;;
-                LANGUAGE) languageprompt
                 ;;
                 *)
                 ;;
         esac
-done < results
+done < choice
 }
 
 function updateupgrade {
