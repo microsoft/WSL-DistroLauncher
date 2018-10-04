@@ -42,9 +42,12 @@ Status: Testing.
 
 ## Release 1.1.21
 
-Status: Tentantive
+Status: ETA 
 
-- Improvements, fixes, and additions to setup script.
+- GUI setup
+- Ruby and, optionally, rails
+- Latest Debian build
+- Fixes
 
 ## Release 1.5
 
