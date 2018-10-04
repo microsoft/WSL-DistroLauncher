@@ -96,48 +96,57 @@ fi
 
 function installmenu {
 
-choice=$(whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
-"EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
-"SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
-"EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
-"PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
-"NODEJS" "Install Node.js and npm" off \
-"GO" "Install the latest Go" off \
-"POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
-"GUI" "Install the basic libraries needed for most GUI apps" off \
-"LANGUAGE" "Change language default languane and keyboard set in WSL" off \
-3>&1 1>&2 2>&3)
+CHOICE=$(
+whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
+    "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+    "SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
+    "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
+    "PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
+    "NODEJS" "Install Node.js and npm" off \
+    "GO" "Install the latest Go" off \
+    "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
+    "GUI" "Install the basic libraries needed for most GUI apps" off \
+    "LANGUAGE" "Change language default languane and keyboard set in WSL" off 3>&1 1>&2 2>&3
+)
 
-echo "Selected:" $choice
+echo "Selected:" $CHOICE
 
-while read $choice
-do
-        case $choice in
+
+        case $CHOICE in
                 EXPLORER) echo "explorerintegration"
                 ;;
+
                 SHELLS) echo "installandsetshell"
                 ;;
+                
                 EDITORS) echo "neoviminstall"
                 #emacsinstall
                 #codeinstall
                 ;;
+                
                 PYTHONPI) echo "pythoninstall"
                 ;;
+                
                 NODEJS) echo "nodeinstall"
                 ;;
+                
                 GO) echo "goinstall"
                 ;;
+                
                 POWERSHELL) echo "powershellinstall"
                 #azurecliinstall
                 ;;
+                
                 GUI) echo "basicguiinstall"
                 ;;
+                
                 LANGUAGE) echo "languageprompt"
                 ;;
+                
                 *)
                 ;;
         esac
-done < choice
+
 }
 
 function updateupgrade {
