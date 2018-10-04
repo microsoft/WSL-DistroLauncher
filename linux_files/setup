@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and run an updated version of this setup?" 8 75) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 8 75) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -73,13 +73,7 @@ function cleantmp {
 }
 
 function byemessage {
-    echo "Setup is complete."
-    echo
-    echo "You may run the script again any time by running: $ bash /etc/setup"
-    echo
-    echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
-    echo
-    echo "Enjoy!"
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 10 40
     exit 0
 }
 
@@ -97,7 +91,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 12 \
+whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons:" 20 100 12 \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
     "SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
     "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
@@ -106,7 +100,7 @@ whiptail --title "WLinux Setup" --checklist --separate-output "Choose:" 20 100 1
     "GO" "Install the latest Go" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
-    "LANGUAGE" "Change language default languane and keyboard set in WSL" off 3>&1 1>&2 2>&3
+    "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
 )
 
 echo "Selected:" $CHOICE
@@ -122,6 +116,26 @@ fi
 if [[ $CHOICE == *"EDITORS"* ]] ; then
   echo "EDITORS is there!"
 fi 
+
+if [[ $CHOICE == *"PYTHON"* ]] ; then
+  echo "PYTHON is there!"
+fi
+
+if [[ $CHOICE == *"NODE"* ]] ; then
+  echo "NODE is there!"
+fi
+
+if [[ $CHOICE == *"GO"* ]] ; then
+  echo "GO is there!"
+fi
+
+if [[ $CHOICE == *"POWERSHELL"* ]] ; then
+  echo "POWERSELL is there!"
+fi
+
+if [[ $CHOICE == *"GUI"* ]] ; then
+  echo "GUI is there!"
+fi
 
         case $CHOICE in
                 EXPLORER) echo "explorerintegration"
