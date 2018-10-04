@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 8 75) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup?" 8 90) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -73,7 +73,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 10 40
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 15 75
     exit 0
 }
 
@@ -98,6 +98,7 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
     "PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
     "NODEJS" "Install Node.js and npm" off \
     "GO" "Install the latest Go" off \
+    "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
     "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
@@ -107,71 +108,51 @@ echo "Selected:" $CHOICE
 
 if [[ $CHOICE == *"EXPLORER"* ]] ; then
   echo "EXPLORER is there!"
+  explorerintegration
 fi
 
 if [[ $CHOICE == *"SHELLS"* ]] ; then
   echo "SHELLS is there!"
+  installandsetshell
 fi
 
 if [[ $CHOICE == *"EDITORS"* ]] ; then
   echo "EDITORS is there!"
+  neoviminstall
+  emacsinstall
 fi 
 
 if [[ $CHOICE == *"PYTHON"* ]] ; then
   echo "PYTHON is there!"
+  pythoninstall
 fi
 
 if [[ $CHOICE == *"NODE"* ]] ; then
   echo "NODE is there!"
+  nodeinstall
 fi
 
 if [[ $CHOICE == *"GO"* ]] ; then
   echo "GO is there!"
+  goinstall
 fi
+
+if [[ $CHOICE == *"RUBY"* ]] ; then
+  echo "RUBY is there!"
+  rubyinstall
+fi
+
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
   echo "POWERSELL is there!"
+  powershellinstall
+  azurecli
 fi
 
 if [[ $CHOICE == *"GUI"* ]] ; then
-  echo "GUI is there!"
+    echo "GUI is there!"
+    basicguiinstall
 fi
-
-        case $CHOICE in
-                EXPLORER) echo "explorerintegration"
-                ;;
-
-                SHELLS) echo "installandsetshell"
-                ;;
-                
-                EDITORS) echo "neoviminstall"
-                #emacsinstall
-                #codeinstall
-                ;;
-                
-                PYTHONPI) echo "pythoninstall"
-                ;;
-                
-                NODEJS) echo "nodeinstall"
-                ;;
-                
-                GO) echo "goinstall"
-                ;;
-                
-                POWERSHELL) echo "powershellinstall"
-                #azurecliinstall
-                ;;
-                
-                GUI) echo "basicguiinstall"
-                ;;
-                
-                LANGUAGE) echo "languageprompt"
-                ;;
-                
-                *)
-                ;;
-        esac
-
 }
 
 function updateupgrade {
@@ -406,6 +387,53 @@ then
     sudo sh -c 'echo "export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
     cleantmp
 fi
+}
+
+function rubyinstall {
+
+if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 90) then
+    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    createtmp
+
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+    exec $SHELL
+
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+    exec $SHELL
+
+    rbenv install 2.5.1
+    rbenv global 2.5.1
+    ruby -v
+    cleantemp
+else
+    echo "Skipping RUBY"
+fi
+
+if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails" 8 90) then
+    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    createtmp
+
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+    exec $SHELL
+
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+    exec $SHELL
+
+    rbenv install 2.5.1
+    rbenv global 2.5.1
+    ruby -v
+    cleantemp
+else
+    echo "Skipping RAILS"
+fi
+
+
 }
 
 function powershellinstall {
