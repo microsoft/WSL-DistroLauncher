@@ -215,7 +215,7 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-        echo "NOTE: After zsh is installed, type 'exit' and ENTER to return to the WLinux setup script."
+        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to the WLinux setup script." 10 60
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
         cleantmp
 	fi
@@ -223,7 +223,8 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-        echo "NOTE: After fish is installed, type 'exit' and ENTER to return to the WLinux setup script."
+	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to the WLinux setup script." 10 60
+        echo "NOTE: "
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
     fi    
