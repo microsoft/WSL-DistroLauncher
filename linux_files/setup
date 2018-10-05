@@ -314,7 +314,7 @@ if [[ "$response" =~ ^[yY]$ ]]
 then
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
-    echo "Configuring dbus if you already had it installed."
+    echo "Configuring dbus if you already had it installed. If not, you might see some errors, and that is okay."
     sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
     sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
     sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
