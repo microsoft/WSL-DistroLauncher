@@ -395,19 +395,19 @@ fi
 function rubyinstall {
 
 if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 70) then
-    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
     createtmp
 
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-    exec $SHELL
+    source ~/.bashrc
 
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
-    exec $SHELL
+    source ~/.bashrc
 
-    rbenv install 2.5.1
+    rbenv install 2.5.1 --verbose
     rbenv global 2.5.1
     ruby -v
     gem install bundler
@@ -464,15 +464,31 @@ function explorerintegration {
  if [[ "$response" =~ ^[yY]$ ]]
   then
     echo "Enabling Windows Explorer shell integration."
+    cat << 'EOF' >> Install.reg
+    Windows Registry Editor Version 5.00
+    [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
+    @="Open with WLinux"
+    [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
+    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
+    @="Open with WLinux"
+    [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
+    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+EOF
     cmd.exe /C 'mkdir C:\Temp\'
-    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
+    cp Install.reg /mnt/c/Temp/Install.reg
     cmd.exe /C 'Reg import C:\Temp\Install.reg'
     cmd.exe /C 'del C:\Temp\Install.reg'
     cmd.exe /C 'rmdir C:\Temp'
  else
     echo "Disabling Windows Explorer shell integration."
+    cat << 'EOF' >> Uninstall.reg
+    Windows Registry Editor Version 5.00
+    [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
+    [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
+EOF
     cmd.exe /C 'mkdir C:\Temp\'
-    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
+    cp Uninstall.reg /mnt/c/Temp/Uninstall.reg
     cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
     cmd.exe /C 'del C:\Temp\Uninstall.reg'
     cmd.exe /C 'rmdir C:\Temp'
