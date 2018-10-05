@@ -72,7 +72,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by running: $ bash /etc/setup \n You may open a browser link to get help any time by running: $ bash /etc/helpm" 8 100
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing: $ setup\n\n You may open a browser link to get help any time by typing: $ helpme" 8 100
     exit 0
 }
 
