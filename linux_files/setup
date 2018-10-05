@@ -59,7 +59,6 @@ echo "No WSL hotfixes required."
 function createtmp {
     echo "Saving current directory as CURDIR: $ CURDIR=\$(pwd)"
     CURDIR=$(pwd)
-    echo "Creating temporary working directory and saving location as TMPDIR: $ TMPDIR=$(mktemp -d)"
     TMPDIR=$(mktemp -d)
     echo "Going to temporary working directory: $ cd \$TMPDIR which is" $TMPDIR
     cd $TMPDIR
@@ -412,7 +411,7 @@ if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby
     ruby -v
     gem install bundler
     rbenv rehash
-    cleantemp
+    cleantmp
 else
     echo "Skipping RUBY"
 fi
@@ -423,7 +422,7 @@ if (whiptail --title "RAILS" --yesno "Would you like to download and install Rai
     nodeinstall
     gem install rails -v 5.2.0
     rbenv rehash
-    cleantemp
+    cleantmp
 else
     echo "Skipping RAILS"
 fi
