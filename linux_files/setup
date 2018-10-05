@@ -149,7 +149,7 @@ fi
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
   echo "POWERSELL"
   powershellinstall
-  azurecli
+  azurecliinstall
 fi
 
 if [[ $CHOICE == *"GUI"* ]] ; then
