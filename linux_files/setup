@@ -466,6 +466,7 @@ fi
 function explorerintegration {
 if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 75) then
     echo "Enabling Windows Explorer shell integration."
+    createtmp
     cat << 'EOF' >> Install.reg
     Windows Registry Editor Version 5.00
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
@@ -482,8 +483,10 @@ EOF
     cmd.exe /C 'Reg import C:\Temp\Install.reg'
     cmd.exe /C 'del C:\Temp\Install.reg'
     cmd.exe /C 'rmdir C:\Temp'
+    cleantmp
  else
     echo "Disabling Windows Explorer shell integration."
+    createtmp
     cat << 'EOF' >> Uninstall.reg
     Windows Registry Editor Version 5.00
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
@@ -494,6 +497,7 @@ EOF
     cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
     cmd.exe /C 'del C:\Temp\Uninstall.reg'
     cmd.exe /C 'rmdir C:\Temp'
+    cleantmp
 fi
 }
 
