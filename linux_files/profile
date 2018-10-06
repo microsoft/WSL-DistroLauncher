@@ -46,11 +46,11 @@ export LIBGL_ALWAYS_INDIRECT=1
 export NO_AT_BRIDGE=1
 
 # alias our helper apps
-alias setup='bash /etc/setup'
-alias helpme='bash /etc/setup'
+alias wlinux-setup='bash /etc/setup'
+alias wlinux-help='bash /etc/helpme'
 
 # does .firstrun exist? if not, run setup and touch .firstrun
 if [ ! -f ~/.firstrun ]; then
-    /bin/bash /etc/setup
+    echo "Welcome to WLinux. Type 'wlinux-setup' to run the setup tool. You will only see this message once."
     touch ~/.firstrun
 fi
