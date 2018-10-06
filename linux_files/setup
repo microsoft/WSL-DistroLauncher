@@ -107,7 +107,7 @@ echo "Selected:" $CHOICE
 
 if [[ $CHOICE == *"LANGUAGE"* ]] ; then
     echo "LANGUAGE"
-    language
+    languageprompt
 fi
 
 if [[ $CHOICE == *"EXPLORER"* ]] ; then
@@ -147,7 +147,7 @@ if [[ $CHOICE == *"RUBY"* ]] ; then
 fi
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
-  echo "POWERSELL"
+  echo "POWERSHELL"
   powershellinstall
   azurecliinstall
 fi
@@ -461,9 +461,7 @@ fi
 }
 
 function explorerintegration {
- read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
- if [[ "$response" =~ ^[yY]$ ]]
-  then
+if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 70) then
     echo "Enabling Windows Explorer shell integration."
     cat << 'EOF' >> Install.reg
     Windows Registry Editor Version 5.00
