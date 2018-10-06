@@ -372,9 +372,7 @@ fi
 }
 
 function goinstall {
-read -r -p "Would you like to download and install the latest Go from Google? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GO" --yesno "Would you like to download and install the latest Go from Google?" 8 70) then
     createtmp
     echo "Downloading Go using wget."
     wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
@@ -391,6 +389,8 @@ then
     sudo sh -c 'echo "export GOPATH=$HOME/go/" >> /etc/profile'
     sudo sh -c 'echo "export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
     cleantmp
+else
+    echo "Skipping GO"
 fi
 }
 
