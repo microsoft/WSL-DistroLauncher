@@ -57,17 +57,17 @@ echo "No WSL hotfixes required."
 }
 
 function createtmp {
-    echo "Saving current directory as CURDIR: $ CURDIR=\$(pwd)"
+    echo "Saving current directory as \$CURDIR"
     CURDIR=$(pwd)
     TMPDIR=$(mktemp -d)
-    echo "Going to temporary working directory: $ cd \$TMPDIR which is" $TMPDIR
+    echo "Going to \$TMPDIR: $TMPDIR"
     cd $TMPDIR
 }
 
 function cleantmp {
-    echo "Returning to our original directory: $ cd $CURDIR"
+    echo "Returning to $CURDIR"
     cd $CURDIR
-    echo "Cleaning up temporary working directory: $ sudo rm -r $TMPDIR"
+    echo "Cleaning up $TMPDIR"
     sudo rm -r $TMPDIR  # need to add sudo here because git clones leave behind write-protected files
 }
 
