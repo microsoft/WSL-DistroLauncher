@@ -20,10 +20,10 @@ To learn more about apt you should use man, try typing $ man apt\
 
 function continueprompt {
 if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 10 45) then
-    echo "Starting setup."
+    echo "Starting wlinux-setup."
 else
-    echo "Exiting..."
-    echo "You may run the script again any time by running: bash /etc/setup"
+    echo "Exiting wlinux-setup"
+    echo "You may run the script again any time by running: $ wlinux-setup"
     exit 0
 fi
 }
@@ -170,8 +170,8 @@ sudo apt autoremove -y
 ### shells
 
 function installandsetshell () {
+echo "Entering shell setup"
 options=("zsh" "fish" "csh")
-
 prompt="Check a shell by entering it's corresponding number (again to uncheck, ENTER when done): "
 msg=""
 
@@ -203,7 +203,7 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to the WLinux setup script." 10 60
+        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	cleantmp
 	fi
@@ -211,7 +211,7 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to the WLinux setup script." 10 60
+	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
         echo "NOTE: "
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
@@ -250,27 +250,26 @@ fi
 ### editors
 
 function neoviminstall {
-read -r -p "Would you like to download and install neovim? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 70) then
     echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
     sudo apt -t testing install neovim build-essential -y
+else
+    echo "Skipping NEOVIM"
 fi
 }
 
 function emacsinstall {
-read -r -p "Would you like to download and install emacs? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "EMACS" --yesno "Would you like to download and install emacs?" 8 70) then
     echo "Installing emacs: $ sudo apt install emacs -y"
     sudo apt install emacs -y
+else
+    echo "Skipping EMACS"
 fi
 }
 
 function codeinstall {
-read -r -p "Would you like to download and install Microsoft Code? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "CODE" --yesno "Would you like to download and install Microsoft Code?" 8 70) then
+    echo "Installing CODE"
     createtmp
     echo "Downloading and unpacking Microsoft's apt repo key with curl and gpg"
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
@@ -282,6 +281,8 @@ then
     echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
     sudo apt install code libxss1 libasound2 -y
     cleantmp
+else
+    echo "Skipping CODE"
 fi  
 }
 
