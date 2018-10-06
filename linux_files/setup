@@ -355,7 +355,7 @@ then
     createtmp
     # curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt install n build-essential -y 
-    n latest
+    sudo n latest
     curl -0 -L https://npmjs.com/install.sh | sudo sh
     cleantmp
 
