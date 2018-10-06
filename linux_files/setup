@@ -290,33 +290,35 @@ fi
 
 function basicguiinstall {
 
-echo "Use of GUI applications on WLinux requires an X server running on Windows."
+whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows." 10 60
 
-read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    echo "Running wslview <link>"
+if (whiptail --title "X410" --yesno "Would you like to view a link to X410 on the Microsoft Store?" 8 70) then
+    echo "Running $ wslview <link>"
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
+else
+    echo "Skipping X410"
 fi
 
-read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to view a base set of libraries for GUI applications?" 8 75) then
+    echo "Installing GUILIB"
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
     echo "Configuring dbus if you already had it installed. If not, you might see some errors, and that is okay."
     sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
     sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
     sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
+else
+    echo "Skipping GUILIB"
 fi
 
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental)" 8 75) then
+    echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
     sudo sh -c 'echo "QT_SCALE_FACTOR=2" >> /etc/profile'
     sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
+else
+    echo "Skipping HiDPI"
 fi
 }
 
@@ -340,14 +342,15 @@ fi
 
 function nodeinstall {
 if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS and the npm package manager?" 8 70) then
+    echo "Installing NODE"
     createtmp
-    # curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt install n build-essential -y 
     sudo n latest
     curl -0 -L https://npmjs.com/install.sh | sudo sh
     cleantmp
 
         if (whiptail --title "YARN" --yesno "Would you like to download and install the Yarn package manager? (optional)" 8 80) then
+            echo "Installing YARN"
             createtmp
             curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -387,22 +390,27 @@ fi
 function rubyinstall {
 
 if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 70) then
+    echo "Installing RUBY"
+    echo "Installing Ruby dependencies"
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
     createtmp
-
+    echo "Getting rbenv"
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(rbenv init -)"' >> ~/.bashrc
     source ~/.bashrc
-
+    echo "Getting ruby-build"
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
-
+    echo "Configuring rbenv"
     rbenv install 2.5.1 --verbose
     rbenv global 2.5.1
+    echo "Checking ruby version"
     ruby -v
+    echo "Installing bundler"
     gem install bundler
+    echo "Rehashing rbenv"
     rbenv rehash
     cleantmp
 else
@@ -410,6 +418,7 @@ else
 fi
 
 if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from NodeJS?" 8 90) then
+    echo "Installing RAILS"
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
     nodeinstall
@@ -422,9 +431,9 @@ fi
 }
 
 function powershellinstall {
-read -r -p "Would you like to download and install Powershell? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+
+if (whiptail --title "POWERSHELL" --yesno "Would you like to download and install Powershell?" 8 70) then
+    echo "Installing POWERSHELL"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -434,24 +443,28 @@ then
     sudo apt upgrade -y
     sudo apt install powershell -y
     cleantmp
+else
+    echo "Skipping POWERSHELL"
 fi
 }
 
 ### enhancements
 
 function fzfinstall {
-read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+
+if (whiptail --title "FZF" --yesno "Would you like to download and install command line finder fzf?" 8 80) then
+    echo "Installing FZF"
     cd ~
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
     ./install
+else
+    echo "Skipping FZF"
 fi
 }
 
 function explorerintegration {
-if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 70) then
+if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 75) then
     echo "Enabling Windows Explorer shell integration."
     cat << 'EOF' >> Install.reg
     Windows Registry Editor Version 5.00
@@ -487,9 +500,8 @@ fi
 ### cloud tools
 
 function azurecliinstall {
-read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure cloud command line tools?" 8 80) then
+    echo "Installing AZURECLI"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -500,6 +512,8 @@ then
     echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
     sudo apt install azure-cli -y
     cleantmp
+else
+    echo "Skipping AZURECLI"
 fi
 }
 
