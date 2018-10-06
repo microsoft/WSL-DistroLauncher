@@ -353,8 +353,10 @@ read -r -p "Would you like to download and install nodejs and the npm package ma
 if [[ "$response" =~ ^[yY]$ ]]
 then
     createtmp
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt install -t testing nodejs build-essential -y 
+    # curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    sudo apt install n build-essential -y 
+    n latest
+    curl -0 -L https://npmjs.com/install.sh | sudo sh
     cleantmp
 
         read -r -p "Would you like to download and install the optional Yarn package manager? [y/N] " response
