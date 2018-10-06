@@ -214,9 +214,10 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
-        cd ~
+        createtmp
         whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to the WLinux setup script." 10 60
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
@@ -452,11 +453,10 @@ function fzfinstall {
 read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
 if [[ "$response" =~ ^[yY]$ ]]
 then
-    createtmp
+    cd ~
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
     ./install
-    cleantmp
 fi
 }
 
