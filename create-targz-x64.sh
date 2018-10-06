@@ -40,9 +40,9 @@ sudo cp $BUILDIR/linux_files/local.conf $TMPDIR/$DIST/etc/fonts/local.conf
 sudo cp $BUILDIR/linux_files/helpme $TMPDIR/$DIST/etc/helpme
 sudo cp $BUILDIR/linux_files/setup $TMPDIR/$DIST/etc/setup
 
-sudo mkdir $TMPDIR/$DIST/opt/ShellIntegration
-sudo cp $BUILDIR/linux_files/ShellIntegration/Install.reg $TMPDIR/$DIST/opt/ShellIntegration/Install.reg
-sudo cp $BUILDIR/linux_files/ShellIntegration/Uninstall.reg $TMPDIR/$DIST/opt/ShellIntegration/Uninstall.reg
+# sudo mkdir $TMPDIR/$DIST/opt/ShellIntegration
+# sudo cp $BUILDIR/linux_files/ShellIntegration/Install.reg $TMPDIR/$DIST/opt/ShellIntegration/Install.reg
+# sudo cp $BUILDIR/linux_files/ShellIntegration/Uninstall.reg $TMPDIR/$DIST/opt/ShellIntegration/Uninstall.reg
 
 #make helpme and setup executable
 sudo chroot $DIST chmod 755 /etc/helpme
