@@ -349,9 +349,7 @@ fi
 }
 
 function nodeinstall {
-read -r -p "Would you like to download and install nodejs and the npm package manager? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS and the npm package manager?" 8 70) then
     createtmp
     # curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt install n build-essential -y 
@@ -359,15 +357,17 @@ then
     curl -0 -L https://npmjs.com/install.sh | sudo sh
     cleantmp
 
-        read -r -p "Would you like to download and install the optional Yarn package manager? [y/N] " response
-        if [[ "$response" =~ ^[yY]$ ]]
-        then
+        if (whiptail --title "YARN" --yesno "Would you like to download and install the Yarn package manager? (optional)" 8 80) then
             createtmp
             curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt-get update && sudo apt-get install yarn
             cleantmp
+        else
+            echo "Skipping YARN"
         fi
+else
+    echo "Skipping NODE"
 fi
 }
 
