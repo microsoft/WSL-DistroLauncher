@@ -70,7 +70,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\n You may open a browser link to get help any time by typing: $ wlinux-help" 8 100
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\n You may open a browser link to get help any time by typing: $ wlinux-help" 10 100
     exit 0
 }
 
@@ -161,18 +161,8 @@ echo "Updating apt package index from repositories: $ sudo apt update"
 sudo apt update
 echo "Applying available package upgrades from repositories: $ sudo apt upgrade -y"
 sudo apt upgrade -y
-}
-
-# additional repos
-
-function addrepos {
-read -r -p "Would you like to enable the non-free and contrib Debian package repos? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    echo "Enabling the non-free and contrib Debian repos in /etc/apt/sources.list"
-    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" >> /etc/apt/sources.list'
-    sudo apt-get update -y
-fi
+echo "Removing unnecessary packages: $ sudo apt autoremove -y"
+sudo apt autoremove -y
 }
 
 ## package sets
@@ -332,9 +322,8 @@ fi
 ### dev environments
 
 function pythoninstall {
-read -r -p "Would you like to download and install Python 3.7, IDLE, and the pip package manager? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "PYTHON" --yesno "Would you like to download and install Python 3.7, IDLE, and the pip package manager?" 8 80) then
+    echo "Installing PYTHON"
     createtmp
     sudo apt update
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
@@ -343,6 +332,8 @@ then
     export PATH="$PATH:/home/~/.local/bin"
     pip3 install -U pip
     cleantmp
+else
+    echo "Skipping PYTHON"
 fi
 }
 
