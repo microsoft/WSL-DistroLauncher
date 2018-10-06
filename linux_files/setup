@@ -3,7 +3,7 @@
 RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.21pre"
+VERSION="1.1.21"
 
 # functions
 
@@ -34,19 +34,17 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
-    echo "Getting fresh setup from GitHub and copying over /etc/setup"
+    echo "Getting fresh setup from GitHub"
     wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
     sudo cp setup /etc/setup
     echo "Cleaning up."
     rm ~/.firstrun
     clear
-    echo "WLinux will now attempt to close. Please re-open and the updated script will begin."
-    echo
-    read -p "Press ENTER to continue."
-    taskkill.exe /IM WLinux.exe
+    echo "Running updated wlinux-setup"
+    bash /etc/setup
     exit 0
 else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try re-running setup and updating." 10 70
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 10 70
 fi
 
 }
@@ -72,7 +70,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing: $ setup\n\n You may open a browser link to get help any time by typing: $ helpme" 8 100
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\n You may open a browser link to get help any time by typing: $ wlinux-help" 8 100
     exit 0
 }
 
