@@ -42,12 +42,13 @@ Status: Testing.
 
 ## Release 1.1.21
 
-Status: ETA 
+Status: Pending.
 
-- GUI setup
-- Ruby and, optionally, rails
-- Latest Debian build
-- Fixes
+- New GUI setup tool.
+- Ruby and Rails.
+- Latest Debian build.
+- Last Go build.
+- Minor fixes and improvements.
 
 ## Release 1.5
 
