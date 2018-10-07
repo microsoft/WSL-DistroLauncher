@@ -1,60 +1,52 @@
 #!/bin/bash
 
-response=""
+RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.20"
+VERSION="1.1.21"
 
 # functions
 
 ## core functions
 
 function welcomeprompt {
-echo
-echo "Welcome to WLinux."
-echo "Thank you for supporting sustainable independent open-source development."
-echo
-echo "WLinux comes with a core set of packages installed. This setup tool allows"
-echo "you to install selected packages for WLinux and configure optional settings."
-echo
-echo "Additional packages are available via the apt package management system."
-echo "To learn more about apt you should use man, try typing $ man apt"
-echo
+whiptail --title "Welcome to WLinux" --msgbox "Thank you for supporting sustainable independent open-source development.\n
+WLinux comes with a core set of packages installed. This setup allows\
+you to install some selected packages for WLinux and configure optional settings. \
+Many more packages are available via the apt package management system.\n
+To learn more about apt you should use man, try typing $ man apt\
+" 15 80
 }
 
 function continueprompt {
-read -r -p "Would you like to continue this setup tool? [Y/n] " response
-if [[ "$response" =~ ^[yY]$ ]] || [[ -z $response ]]
-then
-    echo "Let's get started setting up WLinux."
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue wlinux-setup?" 8 50) then
+    echo "Starting wlinux-setup."
 else
-    echo "Exiting..."
-    echo "You may run the script again any time by running: bash /etc/setup"
+    echo "Exiting wlinux-setup"
+    echo "You may run the script again any time by running: $ wlinux-setup"
     exit 0
 fi
 }
 
 function updatescriptprompt {
-read -r -p "Would you like to download and run an updated version of this setup? [y/N] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
-then
+
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 75) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
-    echo "Getting fresh setup from GitHub and copying over /etc/setup"
+    echo "Getting fresh setup from GitHub"
     wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
     sudo cp setup /etc/setup
     echo "Cleaning up."
     rm ~/.firstrun
     clear
-    echo "WLinux will now close. Please re-open and the updated script will begin."
-    echo
-    read -p "Press ENTER to continue."
-    taskkill.exe /IM WLinux.exe
+    echo "Running updated wlinux-setup"
+    bash /etc/setup
     exit 0
 else
-    echo "Continuing with built-in setup. If you encounter problems, try an updated setup."
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
 fi
+
 }
 
 function securitypatches {
@@ -63,69 +55,104 @@ echo "No WSL hotfixes required."
 }
 
 function createtmp {
-    echo "Saving current directory as CURDIR: $ CURDIR=\$(pwd)"
+    echo "Saving current directory as \$CURDIR"
     CURDIR=$(pwd)
-    echo "Creating temporary working directory and saving location as TMPDIR: $ TMPDIR=$(mktemp -d)"
     TMPDIR=$(mktemp -d)
-    echo "Going to temporary working directory: $ cd \$TMPDIR which is" $TMPDIR
+    echo "Going to \$TMPDIR: $TMPDIR"
     cd $TMPDIR
 }
 
 function cleantmp {
-    echo "Returning to our original directory: $ cd $CURDIR"
+    echo "Returning to $CURDIR"
     cd $CURDIR
-    echo "Cleaning up temporary working directory: $ sudo rm -r $TMPDIR"
+    echo "Cleaning up $TMPDIR"
     sudo rm -r $TMPDIR  # need to add sudo here because git clones leave behind write-protected files
 }
 
 function byemessage {
-    echo "Setup is complete."
-    echo
-    echo "You may run the script again any time by running: $ bash /etc/setup"
-    echo
-    echo "You may open a browser link to get help any time by running: $ bash /etc/helpme"
-    echo
-    echo "Enjoy!"
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\nYou may open a browser link to get help any time by typing: $ wlinux-help" 10 100
     exit 0
 }
 
 ## internationalization
 
 function languageprompt {
-read -r -p "Would you like to configure additional languages? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "Language" --yesno "Would you like to configure for international languages?" 8 45) then
     echo "Running $ dpkg-reconfigure locales"
     sudo dpkg-reconfigure locales
 fi
 }
 
-## package meta functions
+## package index
 
-    # list all package sets and the order they should be presented for optional install here
+function installmenu {
 
-function installpackages {
-echo "Shells:"
-installandsetshell
-echo "Editors:"
-neoviminstall
-emacsinstall
-echo "Enhancements:"
-fzfinstall
-explorerintegration
-## package set functions
-echo "Development Environment:"
-pythoninstall
-nodeinstall
-goinstall
-powershellinstall
-echo "Cloud Tools:"
-azurecliinstall
-echo "GUI Applications:"
-basicguiinstall
-codeinstall
-chromeinstall
-hidpiconfig
+CHOICE=$(
+whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons:" 20 100 12 \
+    "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+    "SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
+    "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
+    "PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
+    "NODEJS" "Install Node.js and npm" off \
+    "GO" "Install the latest Go" off \
+    "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
+    "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
+    "GUI" "Install the basic libraries needed for most GUI apps" off \
+    "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
+)
+
+echo "Selected:" $CHOICE
+
+if [[ $CHOICE == *"LANGUAGE"* ]] ; then
+    echo "LANGUAGE"
+    languageprompt
+fi
+
+if [[ $CHOICE == *"EXPLORER"* ]] ; then
+  echo "EXPLORER"
+  explorerintegration
+fi
+
+if [[ $CHOICE == *"SHELLS"* ]] ; then
+  echo "SHELLS"
+  installandsetshell
+fi
+
+if [[ $CHOICE == *"EDITORS"* ]] ; then
+  echo "EDITORS"
+  editormenu
+fi 
+
+if [[ $CHOICE == *"PYTHON"* ]] ; then
+  echo "PYTHON"
+  pythoninstall
+fi
+
+if [[ $CHOICE == *"NODE"* ]] ; then
+  echo "NODE"
+  nodeinstall
+fi
+
+if [[ $CHOICE == *"GO"* ]] ; then
+  echo "GO"
+  goinstall
+fi
+
+if [[ $CHOICE == *"RUBY"* ]] ; then
+  echo "RUBY"
+  rubyinstall
+fi
+
+if [[ $CHOICE == *"POWERSHELL"* ]] ; then
+  echo "POWERSHELL"
+  powershellinstall
+  azurecliinstall
+fi
+
+if [[ $CHOICE == *"GUI"* ]] ; then
+    echo "GUI"
+    basicguiinstall
+fi
 }
 
 function updateupgrade {
@@ -133,27 +160,44 @@ echo "Updating apt package index from repositories: $ sudo apt update"
 sudo apt update
 echo "Applying available package upgrades from repositories: $ sudo apt upgrade -y"
 sudo apt upgrade -y
+echo "Removing unnecessary packages: $ sudo apt autoremove -y"
+sudo apt autoremove -y
 }
 
-# additional repos
 
-function addrepos {
-read -r -p "Would you like to enable the non-free and contrib Debian package repos? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    echo "Enabling the non-free and contrib Debian repos in /etc/apt/sources.list"
-    sudo sh -c 'echo "deb https://deb.debian.org/debian/ stable non-free contrib" >> /etc/apt/sources.list'
-    sudo apt-get update -y
+## submenus
+
+function editormenu {
+
+EDITORCHOICE=$(
+whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included):" 12 55 5 \
+    "NEOVIM" "Neovim" off \
+    "EMACS" "Emacs" off \
+    "CODE" "Visual Studio Code (requires X)" off 3>&1 1>&2 2>&3
+)
+
+if [[ $EDITORCHOICE == *"NEOVIM"* ]] ; then
+    neoviminstall
 fi
+
+if [[ $EDITORCHOICE == *"EMACS"* ]] ; then
+  emacsinstall
+fi
+
+if [[ $EDITORCHOICE == *"CODE"* ]] ; then
+  codeinstall
+fi
+
 }
+
 
 ## package sets
 
 ### shells
 
-function installandsetshell {
+function installandsetshell () {
+echo "Entering shell setup"
 options=("zsh" "fish" "csh")
-
 prompt="Check a shell by entering it's corresponding number (again to uncheck, ENTER when done): "
 msg=""
 
@@ -185,15 +229,16 @@ for i in ${!options[@]}; do
 	if [ ${options[i]} = "zsh" ]
 	then
         createtmp
-        echo "NOTE: After zsh is installed, type 'exit' and ENTER to return to the WLinux setup script."
+        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
 	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        cleantmp
+	cleantmp
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
         createtmp
-        echo "NOTE: After fish is installed, type 'exit' and ENTER to return to the WLinux setup script."
+	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+        echo "NOTE: "
 	    curl -L https://get.oh-my.fish | fish
         cleantmp
     fi    
@@ -231,27 +276,26 @@ fi
 ### editors
 
 function neoviminstall {
-read -r -p "Would you like to download and install neovim? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 70) then
     echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
     sudo apt -t testing install neovim build-essential -y
+else
+    echo "Skipping NEOVIM"
 fi
 }
 
 function emacsinstall {
-read -r -p "Would you like to download and install emacs? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "EMACS" --yesno "Would you like to download and install emacs?" 8 70) then
     echo "Installing emacs: $ sudo apt install emacs -y"
     sudo apt install emacs -y
+else
+    echo "Skipping EMACS"
 fi
 }
 
 function codeinstall {
-read -r -p "Would you like to download and install Microsoft Code? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "CODE" --yesno "Would you like to download and install Microsoft Code?" 8 70) then
+    echo "Installing CODE"
     createtmp
     echo "Downloading and unpacking Microsoft's apt repo key with curl and gpg"
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg 
@@ -263,6 +307,8 @@ then
     echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
     sudo apt install code libxss1 libasound2 -y
     cleantmp
+else
+    echo "Skipping CODE"
 fi  
 }
 
@@ -270,60 +316,43 @@ fi
 
 function basicguiinstall {
 
-echo "Use of GUI applications on WLinux requires an X server running on Windows."
+whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows.\n\nExamples:\n\nX410\nVcXsrv\nXming" 15 60
 
-read -r -p "Would you like to view a link to X410 on the Microsoft Store? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    echo "Running wslview <link>"
+if (whiptail --title "X410" --yesno "Would you like to view a link to X410 on the Microsoft Store?" 8 70) then
+    echo "Running $ wslview <link>"
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
+else
+    echo "Skipping X410"
 fi
 
-read -r -p "Would you like to download and install a base set of libraries for GUI packages? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to view a base set of libraries for GUI applications?" 8 75) then
+    echo "Installing GUILIB"
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
-    echo "Configuring dbus."
+    echo "Configuring dbus if you already had it installed. If not, you might see some errors, and that is okay."
     sudo sed -i 's$<listen>.*</listen>$<listen>tcp:host=localhost,port=0</listen>$' /etc/dbus-1/session.conf
     sudo sed -i 's$<auth>EXTERNAL</auth>$<auth>ANONYMOUS</auth>$' /etc/dbus-1/session.conf
     sudo sed -i 's$</busconfig>$<allow_anonymous/></busconfig>$' /etc/dbus-1/session.conf
+else
+    echo "Skipping GUILIB"
 fi
-}
 
-function chromeinstall {
-read -r -p "Would you like to download and install Google Chrome? (Note: Experimental) [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    createtmp
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
-    sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main " > /etc/apt/sources.list.d/googlechrome.list' 
-    sudo apt update
-    sudo apt upgrade -y
-    sudo apt install google-chrome-stable -y
-    sudo rm /etc/apt/sources.list.d/googlechrome.list   #chrome takes over it's own apt settings
-    cleantmp
-fi
-}
-
-function hidpiconfig {
-read -r -p "Would you like to configure Qt and GDK for HiDPI displays? (Note: Experimental) [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Experimental)" 8 85) then
+    echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
     sudo sh -c 'echo "QT_SCALE_FACTOR=2" >> /etc/profile'
     sudo sh -c 'echo "GDK_SCALE=2" >> /etc/profile'
+else
+    echo "Skipping HiDPI"
 fi
 }
-
 
 ### dev environments
 
 function pythoninstall {
-read -r -p "Would you like to download and install Python 3.7, IDLE, and the pip package manager? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "PYTHON" --yesno "Would you like to download and install Python 3.7, IDLE, and the pip package manager?" 8 90) then
+    echo "Installing PYTHON"
     createtmp
     sudo apt update
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
@@ -332,37 +361,40 @@ then
     export PATH="$PATH:/home/~/.local/bin"
     pip3 install -U pip
     cleantmp
+else
+    echo "Skipping PYTHON"
 fi
 }
 
 function nodeinstall {
-read -r -p "Would you like to download and install nodejs and the npm package manager? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 80) then
+    echo "Installing NODE"
     createtmp
-    curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    sudo apt install -t testing nodejs build-essential -y 
+    sudo apt install n build-essential -y 
+    sudo n latest
+    curl -0 -L https://npmjs.com/install.sh | sudo sh
     cleantmp
 
-        read -r -p "Would you like to download and install the optional Yarn package manager? [y/N] " response
-        if [[ "$response" =~ ^[yY]$ ]]
-        then
+        if (whiptail --title "YARN" --yesno "Would you like to download and install the Yarn package manager? (optional)" 8 80) then
+            echo "Installing YARN"
             createtmp
             curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
             echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
             sudo apt-get update && sudo apt-get install yarn
             cleantmp
+        else
+            echo "Skipping YARN"
         fi
+else
+    echo "Skipping NODE"
 fi
 }
 
 function goinstall {
-read -r -p "Would you like to download and install the latest Go from Google? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "GO" --yesno "Would you like to download and install the latest Go from Google?" 8 70) then
     createtmp
     echo "Downloading Go using wget."
-    wget https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+    wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
     sudo tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
@@ -376,13 +408,68 @@ then
     sudo sh -c 'echo "export GOPATH=$HOME/go/" >> /etc/profile'
     sudo sh -c 'echo "export PATH=$GOPATH/bin:$GOROOT/bin:/usr/local/go/bin:$PATH" >> /etc/profile'
     cleantmp
+else
+    echo "Skipping GO"
+fi
+}
+
+function rubyinstall {
+
+if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 65) then
+    echo "Installing RUBY"
+    echo "Installing Ruby dependencies"
+    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
+    createtmp
+
+    echo "Getting rbenv"
+    git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+    echo "Configuring rbenv"
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+    source ~/.bashrc
+
+    echo "Getting ruby-build"
+    git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+    echo "Configuring ruby-build"
+    export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+    echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+
+    echo "Installing Ruby using rbenv"
+    rbenv install 2.5.1 --verbose
+    rbenv global 2.5.1
+    echo "Checking ruby version"
+    ruby -v
+    echo "Installing bundler using gem"
+    gem install bundler
+    echo "Rehashing rbenv"
+    rbenv rehash
+    cleantmp
+else
+    echo "Skipping RUBY"
+fi
+
+if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from NodeJS?" 8 65) then
+    echo "Installing RAILS"
+    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    createtmp
+    nodeinstall
+    gem install rails -v 5.2.0
+    rbenv rehash
+    cleantmp
+else
+    echo "Skipping RAILS"
 fi
 }
 
 function powershellinstall {
-read -r -p "Would you like to download and install Powershell? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+
+if (whiptail --title "POWERSHELL" --yesno "Would you like to download and install Powershell?" 8 70) then
+    echo "Installing POWERSHELL"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -392,49 +479,63 @@ then
     sudo apt upgrade -y
     sudo apt install powershell -y
     cleantmp
+else
+    echo "Skipping POWERSHELL"
 fi
 }
 
 ### enhancements
 
 function fzfinstall {
-read -r -p "Would you like to download and install optional command line finder fzf? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
-    createtmp
+
+if (whiptail --title "FZF" --yesno "Would you like to download and install command line finder fzf?" 8 80) then
+    echo "Installing FZF"
+    cd ~
     git clone --depth 1 https://github.com/junegunn/fzf.git
     cd fzf
     ./install
-    cleantmp
+else
+    echo "Skipping FZF"
 fi
 }
 
 function explorerintegration {
-read -r -p "Would you like to enable Windows Explorer shell integration? [y/N] " response     
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explorer shell integration?" 8 75) then
     echo "Enabling Windows Explorer shell integration."
-    cmd.exe /C 'mkdir C:\Temp\'
-    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Install.reg
-    cmd.exe /C 'Reg import C:\Temp\Install.reg'
-    cmd.exe /C 'del C:\Temp\Install.reg'
-    cmd.exe /C 'rmdir C:\Temp'
-else
+    createtmp
+    cat << 'EOF' >> Install.reg
+    Windows Registry Editor Version 5.00
+    [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
+    @="Open with WLinux"
+    [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
+    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
+    @="Open with WLinux"
+    [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
+    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+EOF
+    cp Install.reg $(wslupath -T)/Install.reg
+    cmd.exe /C "Reg import %TEMP%\Install.reg"
+    cleantmp
+ else
     echo "Disabling Windows Explorer shell integration."
-    cmd.exe /C 'mkdir C:\Temp\'
-    cp /opt/ShellIntegration/Install.reg /mnt/c/Temp/Uninstall.reg
-    cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
-    cmd.exe /C 'del C:\Temp\Uninstall.reg'
-    cmd.exe /C 'rmdir C:\Temp'
+    createtmp
+    cat << 'EOF' >> Uninstall.reg
+    Windows Registry Editor Version 5.00
+    [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
+    [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
+EOF
+    cp Install.reg $(wslupath -T)/Uninstall.reg
+    cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
+    cleantmp
 fi
 }
 
 ### cloud tools
 
 function azurecliinstall {
-read -r -p "Would you like to download and install optional Azure cloud command line tools? [y/N] " response
-if [[ "$response" =~ ^[yY]$ ]]
-then
+if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure command line tools?" 8 85) then
+    echo "Installing AZURECLI"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
@@ -445,19 +546,18 @@ then
     echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
     sudo apt install azure-cli -y
     cleantmp
+else
+    echo "Skipping AZURECLI"
 fi
 }
 
 # main
 
 welcomeprompt
-updatescriptprompt       
 continueprompt
-languageprompt
-updateupgrade
+updatescriptprompt
 securitypatches
-installpackages
-addrepos
+installmenu
 byemessage
 
 exit 0
