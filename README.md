@@ -31,7 +31,8 @@ Note: The features above refer to the current GitHub version slated for release 
 ## Obtaining Support
 
 - First, search for your issue [here](https://github.com/sirredbeard/WLinux/issues).
-- [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) - Microsoft official docs.
+- Next, search for your issue [here](https://github.com/Microsoft/WSL/issues)
+- Then consult [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) - Microsoft official docs.
 - Only then, if you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
 
 ## Additional Documentation
@@ -47,3 +48,8 @@ Note: The features above refer to the current GitHub version slated for release 
 - [Awesome Windows Subsystem for Linux](https://github.com/sirredbeard/Awesome-WSL)
 - [Awesome UNIX](https://github.com/sirredbeard/Awesome-UNIX)
 - [wslutilities](https://github.com/wslutilities/wslu)
+
+## Credits
+
+- [Hayden Barnes](https://github.com/sirredbeard)
+- [Patrick Wu](https://github.com/patrick330602)
