@@ -120,8 +120,7 @@ fi
 
 if [[ $CHOICE == *"EDITORS"* ]] ; then
   echo "EDITORS"
-  neoviminstall
-  emacsinstall
+  editormenu
 fi 
 
 if [[ $CHOICE == *"PYTHON"* ]] ; then
@@ -164,6 +163,33 @@ sudo apt upgrade -y
 echo "Removing unnecessary packages: $ sudo apt autoremove -y"
 sudo apt autoremove -y
 }
+
+
+## submenus
+
+function editormenu {
+
+EDITORCHOICE=$(
+whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included):" 12 55 5 \
+    "NEOVIM" "Neovim" off \
+    "EMACS" "Emacs" off \
+    "CODE" "Visual Studio Code (requires X)" off 3>&1 1>&2 2>&3
+)
+
+if [[ $EDITORCHOICE == *"NEOVIM"* ]] ; then
+    neoviminstall
+fi
+
+if [[ $EDITORCHOICE == *"EMACS"* ]] ; then
+  emacsinstall
+fi
+
+if [[ $EDITORCHOICE == *"CODE"* ]] ; then
+  codeinstall
+fi
+
+}
+
 
 ## package sets
 
@@ -290,7 +316,7 @@ fi
 
 function basicguiinstall {
 
-whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows." 10 60
+whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows.\n\nExamples:\n\nX410\nVcXsrv\nXming" 15 60
 
 if (whiptail --title "X410" --yesno "Would you like to view a link to X410 on the Microsoft Store?" 8 70) then
     echo "Running $ wslview <link>"
@@ -325,7 +351,7 @@ fi
 ### dev environments
 
 function pythoninstall {
-if (whiptail --title "PYTHON" --yesno "Would you like to download and install Python 3.7, IDLE, and the pip package manager?" 8 80) then
+if (whiptail --title "PYTHON" --yesno "Would you like to download and install Python 3.7, IDLE, and the pip package manager?" 8 90) then
     echo "Installing PYTHON"
     createtmp
     sudo apt update
@@ -341,7 +367,7 @@ fi
 }
 
 function nodeinstall {
-if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS and the npm package manager?" 8 80) then
+if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 80) then
     echo "Installing NODE"
     createtmp
     sudo apt install n build-essential -y 
@@ -389,7 +415,7 @@ fi
 
 function rubyinstall {
 
-if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 70) then
+if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 65) then
     echo "Installing RUBY"
     echo "Installing Ruby dependencies"
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
@@ -427,7 +453,7 @@ else
     echo "Skipping RUBY"
 fi
 
-if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from NodeJS?" 8 90) then
+if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from NodeJS?" 8 65) then
     echo "Installing RAILS"
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
