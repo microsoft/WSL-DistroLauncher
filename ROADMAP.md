@@ -6,7 +6,7 @@ Status: Released on Store
 - Tested and stable on amd64.
 - Snapshot of Debian stretch and code as of 9 Sept 2018.
 
-## Release 1.1.16.
+# Release 1.1.16.
 
 Status: Released on Store
 
@@ -30,7 +30,7 @@ Status: Released on store
 
 # Release 1.1.20
 
-Status: Testing.
+Status: Released.
 
 - Interactive setup script:
   - Choice of shell: bash, csh, zsh (with oh-my-zsh), fish (with oh-my-fish)
@@ -42,13 +42,29 @@ Status: Testing.
 
 ## Release 1.1.21
 
-Status: Pending.
+Status: Submitted.
 
-- New GUI setup tool.
+- New GUI setup tool, $ wlinux-setup.
 - Ruby and Rails.
+- Improvements to NodeJS, npm, and Yarn installation.
+- Simplified Explorer shell integration method.
 - Latest Debian build.
-- Last Go build.
+- Latest Go build.
 - Minor fixes and improvements.
+
+## Release 1.1.21
+
+Status: Preliminary
+
+- Minor fixes and improvements.
+- Latest Debian build.
+
+## Release 1.2
+
+Status: Preliminary
+
+- Switch to WLinux's own repos to serve wslu and wlinux-setup.
+- Package wlinux-setup in .deb in repo and use apt to update instead of GitHub.
 
 ## Release 1.5
 
@@ -58,9 +74,11 @@ Status: Tentantive
 
 ### Features Under Consideration
 
-- Snap support.
+- LAMP stack.
+- Java development environment.
 - Flatpak support.
 - PulseAudio support.
+- Snap support.
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under active developmment.
 
