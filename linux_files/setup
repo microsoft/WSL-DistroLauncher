@@ -478,11 +478,8 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
     @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
-    cmd.exe /C 'mkdir C:\Temp\'
-    cp Install.reg /mnt/c/Temp/Install.reg
-    cmd.exe /C 'Reg import C:\Temp\Install.reg'
-    cmd.exe /C 'del C:\Temp\Install.reg'
-    cmd.exe /C 'rmdir C:\Temp'
+    cp Install.reg $(wslupath -T)/Install.reg
+    cmd.exe /C "Reg import %TEMP%\Install.reg"
     cleantmp
  else
     echo "Disabling Windows Explorer shell integration."
@@ -492,11 +489,8 @@ EOF
     [-HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     [-HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
 EOF
-    cmd.exe /C 'mkdir C:\Temp\'
-    cp Uninstall.reg /mnt/c/Temp/Uninstall.reg
-    cmd.exe /C 'Reg import C:\Temp\Uninstall.reg'
-    cmd.exe /C 'del C:\Temp\Uninstall.reg'
-    cmd.exe /C 'rmdir C:\Temp'
+    cp Install.reg $(wslupath -T)/Uninstall.reg
+    cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
 fi
 }
