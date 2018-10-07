@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 70) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 75) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -44,7 +44,7 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     bash /etc/setup
     exit 0
 else
-    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 10 70
+    whiptail --title "Release setup" --msgbox "Continuing with built-in setup. If you encounter problems, please try updating." 8 85
 fi
 
 }
