@@ -70,7 +70,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\n You may open a browser link to get help any time by typing: $ wlinux-help" 10 100
+    whiptail --title "Setup is complete." --msgbox "You may run the setup script again any time by typing $ wlinux-setup\n\nYou may open a browser link to get help any time by typing: $ wlinux-help" 10 100
     exit 0
 }
 
@@ -311,7 +311,7 @@ else
     echo "Skipping GUILIB"
 fi
 
-if (whiptail --title "GUI Libraries" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Experimental)" 8 75) then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Experimental)" 8 85) then
     echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
@@ -394,21 +394,31 @@ if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby
     echo "Installing Ruby dependencies"
     sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
     createtmp
+
     echo "Getting rbenv"
     git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+    echo "Configuring rbenv"
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
     echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(rbenv init -)"' >> ~/.bashrc
     source ~/.bashrc
+
     echo "Getting ruby-build"
     git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+    echo "Configuring ruby-build"
+    export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
     echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
     source ~/.bashrc
-    echo "Configuring rbenv"
+
+    echo "Installing Ruby using rbenv"
     rbenv install 2.5.1 --verbose
     rbenv global 2.5.1
     echo "Checking ruby version"
     ruby -v
-    echo "Installing bundler"
+    echo "Installing bundler using gem"
     gem install bundler
     echo "Rehashing rbenv"
     rbenv rehash
@@ -498,7 +508,7 @@ fi
 ### cloud tools
 
 function azurecliinstall {
-if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure cloud command line tools?" 8 80) then
+if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure command line tools?" 8 85) then
     echo "Installing AZURECLI"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
