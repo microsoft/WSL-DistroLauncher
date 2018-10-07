@@ -19,7 +19,7 @@ To learn more about apt you should use man, try typing $ man apt\
 }
 
 function continueprompt {
-if (whiptail --title "Continue setup?" --yesno "Would you like to continue setup?" 10 45) then
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue wlinux-setup?" 8 50) then
     echo "Starting wlinux-setup."
 else
     echo "Exiting wlinux-setup"
