@@ -30,7 +30,7 @@ Note: The features above refer to the current GitHub version slated for release 
 
 ## Obtaining Support
 
-- First, search for your issue [here](https://github.com/sirredbeard/WLinux/issues).
+- First, search for your issue [here](https://github.com/whitewaterfoundry/WLinux/issues).
 - Next, search for your issue [here](https://github.com/Microsoft/WSL/issues).
 - Then consult [Troubleshooting Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/troubleshooting) - Microsoft official docs.
 - Only then, if you are unable to find your answer, please open a new issue [here](https://github.com/sirredbeard/WLinux/issues/new).
