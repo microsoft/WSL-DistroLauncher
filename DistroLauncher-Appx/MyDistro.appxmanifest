@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp uap2 uap3 rescap desktop">
-  <Identity Name="WhitewaterFoundryLtd.Co.16571368D6CFF" Version="1.1.20.0" Publisher="CN=9879127B-9E92-4DE5-9C32-0B1F09F95DCF" ProcessorArchitecture="x64" />
+  <Identity Name="WhitewaterFoundryLtd.Co.16571368D6CFF" Version="1.1.21.0" Publisher="CN=9879127B-9E92-4DE5-9C32-0B1F09F95DCF" ProcessorArchitecture="x64" />
   <mp:PhoneIdentity PhoneProductId="cdaff79b-6e07-4f5f-93b0-df4e9588183d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>WLinux</DisplayName>

@@ -1,4 +1,4 @@
-deb https://deb.debian.org/debian stable main
+deb https://deb.debian.org/debian stable main contrib non-free
 # deb-src https://deb.debian.org/debian stable main
 
 deb https://deb.debian.org/debian stable-updates main
@@ -10,7 +10,7 @@ deb http://security.debian.org/debian-security/ stable/updates main
 deb https://deb.debian.org/debian stretch-backports main
 # deb-src https://deb.debian.org/debian stretch-backports main
 
-deb https://deb.debian.org/debian testing main
+deb https://deb.debian.org/debian testing main contrib non-free
 # deb-src https://deb.debian.org/debian testing main
 
 deb https://apt.patrickwu.ml/ stable main
