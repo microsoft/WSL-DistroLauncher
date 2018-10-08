@@ -486,7 +486,7 @@ if (whiptail --title "DOTNET" --yesno "Would you like to download and install th
     sudo apt install dotnet-sdk-2.1 -y
     cleantmp
 
-    if (whiptail --title "NUGET" --yesno "Would you like to download and install nuget?" 8 65) then
+    if (whiptail --title "NUGET" --yesno "Would you like to download and install NuGet?" 8 65) then
         echo "Installing NuGet"
         sudo apt install nuget -y
     else
