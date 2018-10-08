@@ -483,7 +483,7 @@ if (whiptail --title "DOTNET" --yesno "Would you like to download and install th
     sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' 
     sudo apt update
     sudo apt upgrade -y
-    apt-get install dotnet-sdk-2.1 -y
+    sudo apt install dotnet-sdk-2.1 -y
     cleantmp
 
     if (whiptail --title "NUGET" --yesno "Would you like to download and install nuget?" 8 65) then
