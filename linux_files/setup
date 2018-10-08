@@ -3,7 +3,7 @@
 RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.21"
+VERSION="1.1.22a"
 
 # functions
 
@@ -96,6 +96,7 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
     "NODEJS" "Install Node.js and npm" off \
     "GO" "Install the latest Go" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
+    "DOTNET" "Install latest .NET Core SDK from Microsoft and Nuget" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
     "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
@@ -141,6 +142,11 @@ fi
 if [[ $CHOICE == *"RUBY"* ]] ; then
   echo "RUBY"
   rubyinstall
+fi
+
+if [[ $CHOICE == *"DOTNET"* ]] ; then
+  echo "DOTNET"
+  dotnetinstall
 fi
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
@@ -466,6 +472,32 @@ else
 fi
 }
 
+function dotnetinstall {
+
+if (whiptail --title "DOTNET" --yesno "Would you like to download and install the .Net Core SDK for Linux?" 8 75) then
+    echo "Installing DOTNET"
+    createtmp
+    curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+    sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    rm microsoft.gpg
+    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' 
+    sudo apt update
+    sudo apt upgrade -y
+    apt-get install dotnet-sdk-2.1 -y
+    cleantmp
+
+    if (whiptail --title "NUGET" --yesno "Would you like to download and install nuget?" 8 65) then
+        echo "Installing NuGet"
+        sudo apt install nuget -y
+    else
+        echo "Skipping NUGET"
+    fi
+
+else
+    echo "Skipping DOTNET"
+fi
+}
+
 function powershellinstall {
 
 if (whiptail --title "POWERSHELL" --yesno "Would you like to download and install Powershell?" 8 70) then
@@ -474,7 +506,7 @@ if (whiptail --title "POWERSHELL" --yesno "Would you like to download and instal
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     rm microsoft.gpg
-    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/powershell.list' 
+    sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' 
     sudo apt update
     sudo apt upgrade -y
     sudo apt install powershell -y
