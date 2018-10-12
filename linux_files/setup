@@ -402,7 +402,7 @@ if (whiptail --title "GO" --yesno "Would you like to download and install the la
     echo "Downloading Go using wget."
     wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
-    sudo tar -C /usr/local -xzf go1.11.linux-amd64.tar.gz
+    sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
     mkdir ~/go/
     echo "Setting Go environment variables GOROOT, GOPATH, and adding Go to PATH with export."
