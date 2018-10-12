@@ -540,11 +540,11 @@ if (whiptail --title "EXPLORER" --yesno "Would you like to enable Windows Explor
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\Background\shell\WLinux\command]
-    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="wlinux.exe run \"cd \\\"$(wslupath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux]
     @="Open with WLinux"
     [HKEY_CURRENT_USER\Software\Classes\Directory\shell\WLinux\command]
-    @="wlinux.exe run \"cd $(wslupath '%V') && $(getent passwd $LOGNAME | cut -d: -f7)\""
+    @="wlinux.exe run \"cd \\\"$(wslupath \\\"%V\\\")\\\" && $(getent passwd $LOGNAME | cut -d: -f7)\""
 EOF
     cp Install.reg $(wslupath -T)/Install.reg
     cmd.exe /C "Reg import %TEMP%\Install.reg"
