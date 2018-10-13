@@ -19,7 +19,7 @@ Read more about the components from the upstream template by Microsoft [here](ht
 ## Build Process
 1. Open DistroLauncher.sln in Visual Studio Community 2017.
 2. Generate a test certificate:
-    1. In the Solution Explorer, open `DistroLauncher-Appx\DistroLauncher.appxmanifest`
+    1. In the Solution Explorer, open `DistroLauncher-Appx\MyDistro.appxmanifest`
     1. Select the Packaging tab
     1. Select "Choose Certificate"
     1. Click the Configure Certificate drop down and select Create test certificate.
