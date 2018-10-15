@@ -3,7 +3,7 @@
 RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.22a"
+VERSION="1.1.23a"
 
 # functions
 
@@ -343,7 +343,105 @@ else
     echo "Skipping GUILIB"
 fi
 
-if (whiptail --title "GUI Libraries" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Experimental)" 8 85) then
+if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improved non-Latin input? (Experimental)" 8 75) then
+    echo "Installing fcitx"
+
+    echo "sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y"
+    sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y
+
+    FCCHOICE=$(whiptail --title "fcitx engines" --checklist --separate-output "Select fcitx engine:" 12 55 5 \
+    "sunpinyin" "Chinese sunpinyin" off \
+    "libpinyin" "Chinese libpinyin" off \
+    "rime" "Chinese rime" off \
+    "googlepinyin" "Chinese googlepinyin" off \
+    "chewing" "Chinese chewing" off \
+    "mozc" "Japanese mozc" on \
+    "kkc" "Japanese kkc" off \
+    "hangul" "Korean hangul" off \
+    "unikey" "Vietnamese unikey" off \
+    "sayura" "Sinhalese sayura" off \
+    "table" "Tables (Includes all available tables)" off 3>&1 1>&2 2>&3
+)
+
+if [[ $FCCHOICE == *"sunpinyin"* ]] ; then
+    sudo apt install fcitx-sunpinyin -y
+fi
+
+if [[ $FCCHOICE == *"libpinyin"* ]] ; then
+    sudo apt install fcitx-libpinyin -y
+fi
+
+if [[ $FCCHOICE == *"rime"* ]] ; then
+    sudo apt install fcitx-rime -y
+fi
+
+if [[ $FCCHOICE == *"googlepinyin"* ]] ; then
+    sudo apt install fcitx-googlepinyin -y
+fi
+
+if [[ $FCCHOICE == *"chewing"* ]] ; then
+    sudo apt install fcitx-chewing -y
+fi
+
+if [[ $FCCHOICE == *"mozc"* ]] ; then
+    sudo apt install fcitx-mozc -y
+fi
+
+if [[ $FCCHOICE == *"kkc"* ]] ; then
+    sudo apt install fcitx-kkc fcitx-kkc-dev -y
+fi
+
+if [[ $FCCHOICE == *"hangul"* ]] ; then
+    sudo apt install fcitx-hangul -y
+fi
+
+if [[ $FCCHOICE == *"unikey"* ]] ; then
+    sudo apt install fcitx-unikey -y
+fi
+
+if [[ $FCCHOICE == *"sayura"* ]] ; then
+    sudo apt install fcitx-sayura -y
+fi
+
+if [[ $FCCHOICE == *"tables"* ]] ; then
+    sudo apt install fcitx-table fcitx-table-all -y
+fi
+
+   echo "Configuring fcitx to run when WLinux is opened"
+   sudo sh -c 'echo "fcitx-autostart" >> /etc/profile'
+
+   echo "Configuring dbus machine id"
+   sudo sh -c "dbus-uuidgen > /var/lib/dbus/machine-id"
+
+   echo "Setting environmental variables"
+   export GTK_IM_MODULE=fcitx
+   export QT_IM_MODULE=fcitx
+   export XMODIFIERS=@im=fcitx
+   export DefaultIMModule=fcitx
+
+   echo "Saving environmental variables to /etc/profile"
+   sudo sh -c 'echo "QT_IM_MODULE=fcitx" >> /etc/profile'
+   sudo sh -c 'echo "GTK_IM_MODULE=fcitx" >> /etc/profile'
+   sudo sh -c 'echo "XMODIFIERS=@im=fcitx" >> /etc/profile'
+   sudo sh -c 'echo "DefaultIMModule=fcitx" >> /etc/profile'
+
+   echo "Starting fcitx"
+   fcitx-autostart
+
+   if (whiptail --title "fcitx-config-gtk3" --yesno "Would you like to configure fcitx now? (Requires X server, e.g. X410)" 8 70) then
+    echo "Running fcitx-config-gtk3"
+    fcitx-config-gtk3
+   else
+    echo "Skipping fcitx-config-gtk3"
+   fi
+
+   whiptail --title "Note about fcitx-config-gtk3" --msgbox "You can configure fcitx later by running $ fcitx-config-gtk3" 8 70
+
+else
+    echo "Skipping fcitx"
+fi
+
+if (whiptail --title "HiDPI" --yesno "Would you like to configure Qt and GDK for HiDPI displays? (Experimental)" 8 85) then
     echo "Installing HiDPI"
     export QT_SCALE_FACTOR=2
     export GDK_SCALE=2
