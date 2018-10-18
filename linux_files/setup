@@ -343,7 +343,7 @@ else
     echo "Skipping GUILIB"
 fi
 
-if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improved non-Latin input? (Experimental)" 8 75) then
+if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improved non-Latin input? (Experimental)" 8 85) then
     echo "Installing fcitx"
 
     echo "sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y"
