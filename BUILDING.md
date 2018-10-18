@@ -14,8 +14,10 @@ Read more about the components from the upstream template by Microsoft [here](ht
 1. Developer Mode
 	- Windows 10 must be in Developer mode, which can be enabled in Start -> Settings -> Update & Security -> For developers.
 1. Enable WSL
-	- The Windows Subsystem for Linux is not enabled by default, and is required to run the app. You can add the feature to your Windows installation by running `C:\Windows\System32\OptionalFeatures.exe` and selecting it from the list.
-
+	- The Windows Subsystem for Linux is not enabled in Windows 10 by default, and is required to run the built package. You can add the feature to your Windows installation by:
+        - Press Windows+R, type `C:\Windows\System32\OptionalFeatures.exe`, click OK, find and check Windows Subsystem for Linux, click OK, and restart.
+        - Open PowerShell as Administrator and type `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`
+        
 ## Build Process
 1. Open DistroLauncher.sln in Visual Studio Community 2017.
 2. Generate a test certificate:

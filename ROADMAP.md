@@ -16,7 +16,7 @@ Status: Released on Store
 
 ## Release 1.1.17.
 
-Status: Released on store
+Status: Released on Store
 
 - Dark tile.
 - Better support for fish and non-bash shells.
@@ -30,7 +30,7 @@ Status: Released on store
 
 # Release 1.1.20
 
-Status: Released.
+Status: Released on Store.
 
 - Interactive setup script:
   - Choice of shell: bash, csh, zsh (with oh-my-zsh), fish (with oh-my-fish)
@@ -42,7 +42,7 @@ Status: Released.
 
 ## Release 1.1.21
 
-Status: Submitted.
+Status: Released on Store.
 
 - New GUI setup tool, $ wlinux-setup.
 - Ruby and Rails.
@@ -54,8 +54,9 @@ Status: Submitted.
 
 ## Release 1.1.21
 
-Status: Preliminary
+Status: Preliminary.
 
+- Additional input methods for GUI applications.
 - Minor fixes and improvements.
 - Latest Debian build.
 
@@ -63,7 +64,7 @@ Status: Preliminary
 
 Status: Preliminary
 
-- Switch to WLinux's own repos to serve wslu and wlinux-setup.
+- Switch to WLinux's own repos to provide wslu and wlinux-setup.
 - Package wlinux-setup in .deb in repo and use apt to update instead of GitHub.
 
 ## Release 1.5
@@ -72,7 +73,7 @@ Status: Tentantive
 
 - arm64 support.
 
-### Features Under Consideration
+### Features For Future Consideration
 
 - LAMP stack.
 - Java development environment.
