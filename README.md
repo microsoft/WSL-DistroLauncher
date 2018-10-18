@@ -1,7 +1,6 @@
 # WLinux
 
-The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com
-).
+The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com).
 
 <a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='Get it from Microsoft' height=50/></a>
 
