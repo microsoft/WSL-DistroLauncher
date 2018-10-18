@@ -10,17 +10,35 @@ Pull requests are highly encouraged.
 
 ## Grants/Bounties
 
-If you have an idea for a feature you would like to see and can implement, grants are currently available for $50-$250 based on complexity.
+If you have an idea for a new feature you would like to see included and can implement, grants are currently available for $50-$250 based on complexity.
 
-Submit the following to hayden@whitewaterfoundry.com:
-
+Submit a proposal including the following to hayden@whitewaterfoundry.com:
+```
 Name:
+
 Email:
+
 PayPal email address, if different:
+
 Proposed feature:
-Outline of how would implement:
-Estimated delivery date:
+
+Outline of how you plan to implement:
+
+Estimated delivery date of proof of concept:
+
+Estimated delivery date of final tested code:
+
 Link to sample of your work:
+```
+Your proposal will be evaluated for complexity, reasonableness, and whether it fits within scope of WLinux and WSL.
+
+Your work sample will be evaluated to determine if you have the technical competancy to implement the proposed change.
+
+An ideal work sample would be an intermediate bash script performing some administrative task on Linux.
+
+If approved, you will recieve a simple agreement covering the scope of the work which you must acknowledge and return, and then you may commence work.
+
+WLinux and Whitewater Foundry will not pay for feature additions or pull requests that have not first been approved and under the terms of an agreement.
 
 ## Licensing
 
