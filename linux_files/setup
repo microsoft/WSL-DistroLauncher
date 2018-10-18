@@ -446,8 +446,8 @@ if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby
     source ~/.bashrc
 
     echo "Installing Ruby using rbenv"
-    rbenv install 2.5.2 --verbose
-    rbenv global 2.5.2
+    rbenv install 2.5.3 --verbose
+    rbenv global 2.5.3
     echo "Checking ruby version"
     ruby -v
     echo "Installing bundler using gem"
