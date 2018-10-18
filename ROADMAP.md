@@ -54,10 +54,17 @@ Status: Released on Store.
 
 ## Release 1.1.22
 
-Status: Preliminary.
+Status: Released.
+
+- Minor fixes and improvements.
+- Latest Debian build.
+
+## Release 1.1.23
+
+Status: Testing.
 
 - Additional input methods for GUI applications.
-- Minor fixes and improvements.
+- Minor fixes and improvements, particularly to Go.
 - Latest Debian build.
 
 ## Release 1.2
