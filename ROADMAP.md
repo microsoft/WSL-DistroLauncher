@@ -28,7 +28,7 @@ Status: Released on Store
 
 *Status: Reserved for bug fixes, if needed.*
 
-# Release 1.1.20
+## Release 1.1.20
 
 Status: Released on Store.
 
@@ -52,7 +52,7 @@ Status: Released on Store.
 - Latest Go build.
 - Minor fixes and improvements.
 
-## Release 1.1.21
+## Release 1.1.22
 
 Status: Preliminary.
 
