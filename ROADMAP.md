@@ -52,7 +52,7 @@ Status: Released on Store.
 - Latest Go build.
 - Minor fixes and improvements.
 
-## Release 1.1.22
+# Release 1.1.22
 
 Status: Released.
 
@@ -61,10 +61,20 @@ Status: Released.
 
 ## Release 1.1.23
 
-Status: Testing.
+Status: Testing. ETA Late October.
 
 - Additional input methods for GUI applications.
 - Minor fixes and improvements, particularly to Go.
+- Latest Debian build.
+
+## Release 1.1.23
+
+Status: Preliminary. ETA Early November.
+
+- Java development environment.
+- Docker support (Windows host).
+- Refinements to input methods for GUI applications.
+- Minor fixes and improvements.
 - Latest Debian build.
 
 ## Release 1.2
@@ -82,9 +92,8 @@ Status: Tentantive
 
 ### Features For Future Consideration
 
-- LAMP stack.
-- Java development environment.
-- Flatpak support.
+- One-click LAMP stack.
+- Refine Flatpak support.
 - PulseAudio support.
 - Snap support.
 
