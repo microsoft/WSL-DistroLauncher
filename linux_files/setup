@@ -680,6 +680,62 @@ fi
 function dockerinstall {
 if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
     echo "Installing the bridge to Docker."
+
+    set -x
+    docker_version="18.06.1-ce"
+
+    createtmp
+    #cd /tmp
+    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
+    sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
+
+    sudo chmod 755 /usr/bin/docker
+    sudo chown root:root /usr/bin/docker
+
+    #Build the relay
+    wHome=$(wslupath --home)
+    if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
+
+        echo "Downloading Go using wget."
+        wget -c https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+        tar -xzf go*.linux-amd64.tar.gz
+
+        mkdir gohome
+        export GOROOT=$(pwd)/go
+        export GOPATH=$(pwd)/gohome
+        export PATH=${GOROOT}/bin:$PATH
+
+        echo "Building npiperelay.exe."
+        go get -d github.com/jstarks/npiperelay
+
+        GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
+        sudo mkdir -p ${wHome}/go/bin
+        sudo cp npiperelay.exe ${wHome}/go/bin/npiperelay.exe
+        sudo ln --symbolic --force ${wHome}/go/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
+    fi
+
+    sudo apt-get -y -q install socat
+
+    cat << 'EOF' >> docker-relay
+#!/bin/sh
+exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
+EOF
+    sudo cp docker-relay /usr/bin/docker-relay
+    sudo chmod +x /usr/bin/docker-relay
+
+    echo "Running the relay for the first time."
+    sudo killall socat
+    sudo docker-relay &
+
+    sleep 1
+
+    sudo docker version
+
+    sudo addgroup docker
+    sudo adduser ${USER} docker
+    cleantmp
+
+    #cd -
 else
     echo "Skipping Docker"
 
@@ -707,6 +763,9 @@ fi
 }
 
 # main
+#dockerinstall
+
+#exit 0
 
 welcomeprompt
 continueprompt
