@@ -711,13 +711,14 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
         GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
         sudo mkdir -p ${wHome}/go/bin
         sudo cp npiperelay.exe ${wHome}/go/bin/npiperelay.exe
-        sudo ln --symbolic --force ${wHome}/go/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
     fi
 
+    sudo ln --symbolic --force ${wHome}/go/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
     sudo apt-get -y -q install socat
 
     cat << 'EOF' >> docker-relay
 #!/bin/sh
+killall socat
 exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
@@ -727,7 +728,6 @@ EOF
     sudo adduser ${USER} docker
 
     echo "Running the relay for the first time."
-    sudo killall socat
     sudo docker-relay &
 
     sleep 1s
