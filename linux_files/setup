@@ -99,6 +99,7 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
     "DOTNET" "Install latest .NET Core SDK from Microsoft and Nuget" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
+    "DOCKER" "Install the bridge to Docker" off \
     "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
 )
 
@@ -158,6 +159,11 @@ fi
 if [[ $CHOICE == *"GUI"* ]] ; then
     echo "GUI"
     basicguiinstall
+fi
+
+if [[ $CHOICE == *"DOCKER"* ]] ; then
+    echo "DOCKER"
+    dockerinstall
 fi
 }
 
@@ -668,6 +674,15 @@ EOF
     cp Install.reg $(wslupath -T)/Uninstall.reg
     cmd.exe /C "Reg import %TEMP%\Uninstall.reg"
     cleantmp
+fi
+}
+
+function dockerinstall {
+if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
+    echo "Installing the bridge to Docker."
+else
+    echo "Skipping Docker"
+
 fi
 }
 
