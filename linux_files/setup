@@ -718,7 +718,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     cat << 'EOF' >> docker-relay
 #!/bin/sh
-killall socat
+killall --quiet socat
 exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
