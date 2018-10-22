@@ -684,8 +684,8 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
     set -x
     docker_version="18.06.1-ce"
 
-    #createtmp
-    cd /tmp
+    createtmp
+    #cd /tmp
     wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
     sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
 
@@ -718,7 +718,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     cat << 'EOF' >> docker-relay
 #!/bin/sh
-killall --quiet socat
+killall socat
 exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
@@ -741,7 +741,7 @@ EOF
 
     cleantmp
 
-    cd -
+    #cd -
 else
     echo "Skipping Docker"
 
@@ -769,9 +769,9 @@ fi
 }
 
 # main
-dockerinstall
+#dockerinstall
 
-exit 0
+#exit 0
 
 welcomeprompt
 continueprompt
