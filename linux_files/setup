@@ -733,6 +733,12 @@ EOF
     sleep 1s
 
     sudo docker version
+
+    echo "Installing bash-completion"
+    sudo apt-get install -yq bash-completion
+    sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker > /etc/bash_completion.d/docker'
+
+
     cleantmp
 
     #cd -
