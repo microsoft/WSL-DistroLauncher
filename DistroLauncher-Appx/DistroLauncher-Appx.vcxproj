@@ -77,7 +77,7 @@
     <PackageCertificateKeyFile>DistroLauncher-Appx_TemporaryKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Auto</AppxBundle>
-    <PackageCertificateThumbprint>B925CD1CB477AD4E4E14A79631FA4BF7F44E17DF</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>AC1DD68A5E9085A390D405466DFFF6C7296993C0</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxBundlePlatforms>x64</AppxBundlePlatforms>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
@@ -177,8 +177,8 @@
     <CustomBuild Include="$(targetname)">
       <FileType>Document</FileType>
       <ExcludedFromBuild>false</ExcludedFromBuild>
-      <Message>Copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe into $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Message>
-      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Command>
+      <Message>Copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(targetname).exe</Message>
+      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(targetname).exe</Command>
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
   </ItemGroup>
