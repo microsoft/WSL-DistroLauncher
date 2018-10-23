@@ -97,6 +97,7 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
     "GO" "Install the latest Go" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
     "DOTNET" "Install latest .NET Core SDK from Microsoft and Nuget" off \
+    "JAVA" "Install Java SDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
     "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
@@ -147,6 +148,11 @@ fi
 if [[ $CHOICE == *"DOTNET"* ]] ; then
   echo "DOTNET"
   dotnetinstall
+fi
+
+if [[ $CHOICE == *"JAVA"* ]] ; then
+  echo "JAVA"
+  javainstall
 fi
 
 if [[ $CHOICE == *"POWERSHELL"* ]] ; then
@@ -603,6 +609,24 @@ if (whiptail --title "DOTNET" --yesno "Would you like to download and install th
 
 else
     echo "Skipping DOTNET"
+fi
+}
+
+function javainstall {
+
+if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 70) then
+    echo "$ apt install openjdk-8-jre openjdk-8-jdk -y"
+    sudo apt install openjdk-8-jre openjdk-8-jdk -y
+else
+    echo "Skipping OpenJDK"
+fi
+
+if (whiptail --title "Java IDE" --yesno "Would you like to install the Eclipse IDE?" 8 75) then
+    echo "Installing Eclipse"
+    echo "$ apt install eclipse -y"
+    sudo apt install eclipse -y
+else
+    echo "Skipping Eclipse"
 fi
 }
 
