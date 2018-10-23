@@ -748,6 +748,13 @@ EOF
     sudo apt-get install -yq bash-completion
     sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker > /etc/bash_completion.d/docker'
 
+    echo "Installing docker-compose"
+    sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose'
+    sudo chmod +x /usr/bin/docker-compose
+
+    sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose'
+
+    docker-compose version
     cleantmp
 
     #cd -
