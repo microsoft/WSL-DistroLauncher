@@ -693,7 +693,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
     sudo chown root:root /usr/bin/docker
 
     #Build the relay
-    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
+    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
     wHome=$(wslpath -u ${wHomeWinPath})
 
     if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
@@ -727,6 +727,12 @@ EOF
     sudo chmod +x /usr/bin/docker-relay
 
     echo '%sudo   ALL=NOPASSWD: /usr/bin/docker-relay' | sudo EDITOR='tee -a' visudo --quiet --file=/etc/sudoers.d/docker-relay
+
+    cat << 'EOF' >> docker_relay.sh
+sudo docker-relay &
+EOF
+    sudo cp docker_relay.sh /etc/profile.d/docker_relay.sh
+    sudo chmod -w /usr/bin/docker-relay
 
     sudo addgroup docker
     sudo adduser ${USER} docker
