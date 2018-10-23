@@ -724,6 +724,8 @@ EOF
     sudo cp docker-relay /usr/bin/docker-relay
     sudo chmod +x /usr/bin/docker-relay
 
+    echo '%sudo   ALL=NOPASSWD: /usr/bin/docker-relay' | sudo EDITOR='tee -a' visudo --quiet --file=/etc/sudoers.d/docker-relay
+
     sudo addgroup docker
     sudo adduser ${USER} docker
 
@@ -737,7 +739,6 @@ EOF
     echo "Installing bash-completion"
     sudo apt-get install -yq bash-completion
     sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker > /etc/bash_completion.d/docker'
-
 
     cleantmp
 
