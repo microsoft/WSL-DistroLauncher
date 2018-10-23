@@ -61,19 +61,25 @@ Status: Released.
 
 ## Release 1.1.23
 
-Status: Testing. ETA Late October.
+Status: Released.
 
 - Additional input methods for GUI applications.
 - Minor fixes and improvements, particularly to Go.
 - Latest Debian build.
 
-## Release 1.1.23
+## Release 1.1.24
+
+Status: Testing. ETA Late October.
+
+- Java development environment.
+- Minor fixes and improvements.
+- Latest Debian build.
+
+## Release 1.1.25
 
 Status: Preliminary. ETA Early November.
 
-- Java development environment.
-- Docker support (Windows host).
-- Refinements to input methods for GUI applications.
+- Docker support for Windows host.
 - Minor fixes and improvements.
 - Latest Debian build.
 
