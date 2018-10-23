@@ -693,7 +693,9 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
     sudo chown root:root /usr/bin/docker
 
     #Build the relay
-    wHome=$(wslupath --home)
+    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r')
+    wHome=$(wslpath -u ${wHomeWinPath})
+
     if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
 
         echo "Downloading Go using wget."
