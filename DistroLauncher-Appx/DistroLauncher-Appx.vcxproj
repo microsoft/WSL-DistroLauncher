@@ -178,7 +178,7 @@
       <FileType>Document</FileType>
       <ExcludedFromBuild>false</ExcludedFromBuild>
       <Message>Copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe into $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Message>
-      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(targetname).exe</Command>
+      <Command>copy $(SolutionDir)$(platform)\$(Configuration)\launcher.exe $(SolutionDir)$(platform)\$(Configuration)\$(ProjectName)\$(targetname).exe</Command>
       <Outputs>$(targetname).exe</Outputs>
     </CustomBuild>
   </ItemGroup>
