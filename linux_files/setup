@@ -681,11 +681,10 @@ function dockerinstall {
 if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
     echo "Installing the bridge to Docker."
 
-    set -x
     docker_version="18.06.1-ce"
 
     createtmp
-    #cd /tmp
+
     wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
     sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
 
@@ -757,7 +756,6 @@ EOF
     docker-compose version
     cleantmp
 
-    #cd -
 else
     echo "Skipping Docker"
 
@@ -785,10 +783,6 @@ fi
 }
 
 # main
-#dockerinstall
-
-#exit 0
-
 welcomeprompt
 continueprompt
 updatescriptprompt
