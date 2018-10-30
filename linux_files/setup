@@ -685,17 +685,36 @@ function dockerinstall_build_relay {
 
     if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
 
-        echo "Downloading Go using wget."
-        wget -c https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
-        tar -xzf go*.linux-amd64.tar.gz
+        echo "Checking for go"
+        if ! (go version); then
+            echo "Downloading Go using wget."
+            wget -c https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+            tar -xzf go*.linux-amd64.tar.gz
+
+            export GOROOT=$(pwd)/go
+            export PATH=${GOROOT}/bin:$PATH
+
+        fi
 
         mkdir gohome
-        export GOROOT=$(pwd)/go
         export GOPATH=$(pwd)/gohome
-        export PATH=${GOROOT}/bin:$PATH
+
+        echo "Checking for git"
+        if (git version); then
+            git_exists=1
+        else
+            git_exists=0
+
+            sudo apt-get install -yq git
+        fi
 
         echo "Building npiperelay.exe."
         go get -d github.com/jstarks/npiperelay
+
+        if [[ ${git_exists} -eq 0 ]]; then
+            sudo apt-get purge -yq git
+            sudo apt-get autoremove -yq
+        fi
 
         GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
         sudo mkdir -p ${wHome}/go/bin
