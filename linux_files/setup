@@ -677,19 +677,7 @@ EOF
 fi
 }
 
-function dockerinstall {
-if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
-    echo "Installing the bridge to Docker."
-
-    docker_version="18.06.1-ce"
-
-    createtmp
-
-    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
-    sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
-
-    sudo chmod 755 /usr/bin/docker
-    sudo chown root:root /usr/bin/docker
+function dockerinstall_build_relay {
 
     #Build the relay
     wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
@@ -742,6 +730,49 @@ EOF
     sleep 1s
 
     sudo docker version
+
+}
+
+function dockerinstall_conf_tcp {
+
+    echo "Connect docker via TCP"
+
+    cat << 'EOF' >> docker_relay.sh
+export DOCKER_HOST=tcp://0.0.0.0:2375
+EOF
+    sudo cp docker_relay.sh /etc/profile.d/docker_relay.sh
+
+    export DOCKER_HOST=tcp://0.0.0.0:2375
+    connected=$(docker version 2>&1 | grep -c "Cannot connect to the Docker daemon")
+    if [[ ${connected} != 0  ]]; then
+        whiptail --title "DOCKER" \
+        --msgbox "Please go to Docker for Windows -> Settings -> General and enable 'Expose daemon on tcp://localhost:2375 without TLS' or upgrade your Windows version and run this script again." 9 75
+    fi
+}
+
+function dockerinstall {
+if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
+    echo "Installing the bridge to Docker."
+
+    docker_version="18.06.1-ce"
+
+    createtmp
+
+    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
+    sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
+
+    sudo chmod 755 /usr/bin/docker
+    sudo chown root:root /usr/bin/docker
+
+    #Checks if the Windows 10 version supports Unix Sockets and that the tcp port without TLS is not already open
+    connected=$(env DOCKER_HOST=tcp://0.0.0.0:2375 docker version 2>&1 | grep -c "Cannot connect to the Docker daemon")
+    if [[ $(wslsys -B | cut -d ' ' -f 2) -gt 17063 && ${connected} != 0  ]]; then
+        #Connect via Unix Sockets
+        dockerinstall_build_relay
+    else
+        #Connect via TCP
+        dockerinstall_conf_tcp
+    fi
 
     echo "Installing bash-completion"
     sudo apt-get install -yq bash-completion
