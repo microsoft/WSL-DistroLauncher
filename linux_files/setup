@@ -754,6 +754,14 @@ EOF
     sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose'
 
     docker-compose version
+
+    echo "Changing the root from /mnt to /"
+
+    if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
+        sudo sed -i 's$\[automount\]$\0\nroot=/$' /etc/wsl.conf
+
+    fi
+
     cleantmp
 
 else
