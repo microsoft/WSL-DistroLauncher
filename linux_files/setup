@@ -773,6 +773,17 @@ function dockerinstall {
 if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
     echo "Installing the bridge to Docker."
 
+    connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+    while [[ ${connected} != 0  ]]; do
+        if ! (whiptail --title "DOCKER" --yesno "Docker for Windows appears not to be running, please check it and ensure that it is running correctly. Would you like to try again?" 9 75); then
+            return
+
+        fi
+
+        connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+
+    done
+
     docker_version="18.06.1-ce"
 
     createtmp
@@ -805,13 +816,19 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     docker-compose version
 
-    echo "Changing the root from /mnt to /"
+    if [[ $(wslpath 'C:\\') != '/c/' ]]; then
 
-    if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
-        sudo sed -i 's$\[automount\]$\0\nroot=/$' /etc/wsl.conf
+        if (whiptail --title "DOCKER" --yesno "To correctly integrate the volume mounting between docker Linux and Windows, your root mount point must be changed from /mnt/c to /c. Would you like I perform this change?" 10 75); then
+            echo "Changing the root from /mnt to /"
 
+            if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
+                sudo sed -i 's$\[automount\]$\0\nroot=/$' /etc/wsl.conf
+
+            fi
+        fi
     fi
 
+    whiptail --title "DOCKER" --msgbox "Docker bridge is ready. Please leave WLinux and open it again so all the configuration be refreshed" 10 60
     cleantmp
 
 else
