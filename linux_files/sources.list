@@ -13,5 +13,5 @@ deb https://deb.debian.org/debian stretch-backports main
 deb https://deb.debian.org/debian testing main contrib non-free
 # deb-src https://deb.debian.org/debian testing main
 
-deb https://apt.patrickwu.ml/ stable main
+deb https://apt.patrickwu.space/ stable main
 # obtain source from https://github.com/wslutilities/wslu
