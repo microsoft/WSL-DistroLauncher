@@ -88,7 +88,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons:" 20 100 12 \
+whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons [SPACE to select, ENTER to confirm]:" 20 100 12 \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
     "SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
     "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
@@ -182,7 +182,7 @@ sudo apt autoremove -y
 function editormenu {
 
 EDITORCHOICE=$(
-whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included):" 12 55 5 \
+whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included) [SPACE to select, ENTER to confirm]:" 12 55 5 \
     "NEOVIM" "Neovim" off \
     "EMACS" "Emacs" off \
     "CODE" "Visual Studio Code (requires X)" off 3>&1 1>&2 2>&3
