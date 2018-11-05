@@ -100,6 +100,7 @@ whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated 
     "JAVA" "Install Java SDK and JRE" off \
     "POWERSHELL" "Install PowerShell for Linux and Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps" off \
+    "DOCKER" "Install the bridge to Docker" off \
     "LANGUAGE" "Change default language and keyboard setting in WSL" off 3>&1 1>&2 2>&3
 )
 
@@ -164,6 +165,11 @@ fi
 if [[ $CHOICE == *"GUI"* ]] ; then
     echo "GUI"
     basicguiinstall
+fi
+
+if [[ $CHOICE == *"DOCKER"* ]] ; then
+    echo "DOCKER"
+    dockerinstall
 fi
 }
 
@@ -695,6 +701,166 @@ EOF
 fi
 }
 
+function dockerinstall_build_relay {
+
+    #Build the relay
+    wHomeWinPath=$(cmd.exe /c 'echo %HOMEDRIVE%%HOMEPATH%' 2>&1 | tr -d '\r') #wslupath doesn't support root movement yet
+    wHome=$(wslpath -u ${wHomeWinPath})
+
+    if [ ! -f ${wHome}/go/bin/npiperelay.exe ]; then
+
+        echo "Checking for go"
+        if ! (go version); then
+            echo "Downloading Go using wget."
+            wget -c https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+            tar -xzf go*.linux-amd64.tar.gz
+
+            export GOROOT=$(pwd)/go
+            export PATH=${GOROOT}/bin:$PATH
+
+        fi
+
+        mkdir gohome
+        export GOPATH=$(pwd)/gohome
+
+        echo "Checking for git"
+        if (git version); then
+            git_exists=1
+        else
+            git_exists=0
+
+            sudo apt-get install -yq git
+        fi
+
+        echo "Building npiperelay.exe."
+        go get -d github.com/jstarks/npiperelay
+
+        if [[ ${git_exists} -eq 0 ]]; then
+            sudo apt-get purge -yq git
+            sudo apt-get autoremove -yq
+        fi
+
+        GOOS=windows go build -o npiperelay.exe github.com/jstarks/npiperelay
+        sudo mkdir -p ${wHome}/go/bin
+        sudo cp npiperelay.exe ${wHome}/go/bin/npiperelay.exe
+    fi
+
+    sudo ln --symbolic --force ${wHome}/go/bin/npiperelay.exe /usr/local/bin/npiperelay.exe
+    sudo apt-get -y -q install socat
+
+    cat << 'EOF' >> docker-relay
+#!/bin/sh
+killall --quiet socat
+exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
+EOF
+    sudo cp docker-relay /usr/bin/docker-relay
+    sudo chmod +x /usr/bin/docker-relay
+
+    echo '%sudo   ALL=NOPASSWD: /usr/bin/docker-relay' | sudo EDITOR='tee -a' visudo --quiet --file=/etc/sudoers.d/docker-relay
+
+    cat << 'EOF' >> docker_relay.sh
+sudo docker-relay &
+EOF
+    sudo cp docker_relay.sh /etc/profile.d/docker_relay.sh
+    sudo chmod -w /usr/bin/docker-relay
+
+    sudo addgroup docker
+    sudo adduser ${USER} docker
+
+    echo "Running the relay for the first time."
+    sudo docker-relay &
+
+    sleep 1s
+
+    sudo docker version
+
+}
+
+function dockerinstall_conf_tcp {
+
+    echo "Connect docker via TCP"
+
+    cat << 'EOF' >> docker_relay.sh
+export DOCKER_HOST=tcp://0.0.0.0:2375
+EOF
+    sudo cp docker_relay.sh /etc/profile.d/docker_relay.sh
+
+    export DOCKER_HOST=tcp://0.0.0.0:2375
+    connected=$(docker version 2>&1 | grep -c "Cannot connect to the Docker daemon")
+    if [[ ${connected} != 0  ]]; then
+        whiptail --title "DOCKER" \
+        --msgbox "Please go to Docker for Windows -> Settings -> General and enable 'Expose daemon on tcp://localhost:2375 without TLS' or upgrade your Windows version and run this script again." 9 75
+    fi
+}
+
+function dockerinstall {
+if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
+    echo "Installing the bridge to Docker."
+
+    connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+    while [[ ${connected} != 0  ]]; do
+        if ! (whiptail --title "DOCKER" --yesno "Docker for Windows appears not to be running, please check it and ensure that it is running correctly. Would you like to try again?" 9 75); then
+            return
+
+        fi
+
+        connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
+
+    done
+
+    docker_version="18.06.1-ce"
+
+    createtmp
+
+    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
+    sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
+
+    sudo chmod 755 /usr/bin/docker
+    sudo chown root:root /usr/bin/docker
+
+    #Checks if the Windows 10 version supports Unix Sockets and that the tcp port without TLS is not already open
+    connected=$(env DOCKER_HOST=tcp://0.0.0.0:2375 docker version 2>&1 | grep -c "Cannot connect to the Docker daemon")
+    if [[ $(wslsys -B | cut -d ' ' -f 2) -gt 17063 && ${connected} != 0  ]]; then
+        #Connect via Unix Sockets
+        dockerinstall_build_relay
+    else
+        #Connect via TCP
+        dockerinstall_conf_tcp
+    fi
+
+    echo "Installing bash-completion"
+    sudo apt-get install -yq bash-completion
+    sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker > /etc/bash_completion.d/docker'
+
+    echo "Installing docker-compose"
+    sudo sh -c 'curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` > /usr/bin/docker-compose'
+    sudo chmod +x /usr/bin/docker-compose
+
+    sudo sh -c 'curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose'
+
+    docker-compose version
+
+    if [[ $(wslpath 'C:\\') != '/c/' ]]; then
+
+        if (whiptail --title "DOCKER" --yesno "To correctly integrate the volume mounting between docker Linux and Windows, your root mount point must be changed from /mnt/c to /c. Would you like I perform this change?" 10 75); then
+            echo "Changing the root from /mnt to /"
+
+            if [ $(grep -c "root" /etc/wsl.conf) -eq 0 ]; then
+                sudo sed -i 's$\[automount\]$\0\nroot=/$' /etc/wsl.conf
+
+            fi
+        fi
+    fi
+
+    whiptail --title "DOCKER" --msgbox "Docker bridge is ready. Please leave WLinux and open it again so all the configuration be refreshed" 10 60
+    cleantmp
+
+else
+    echo "Skipping Docker"
+
+fi
+}
+
 ### cloud tools
 
 function azurecliinstall {
@@ -716,7 +882,6 @@ fi
 }
 
 # main
-
 welcomeprompt
 continueprompt
 updatescriptprompt
