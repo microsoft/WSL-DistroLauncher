@@ -240,19 +240,28 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
-        createtmp
-        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	cleantmp
+        if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh?" 8 70) then
+            createtmp
+            whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	        cleantmp
+        else
+            echo "Skipping Oh My Zsh"
+        fi
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
-        createtmp
-	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
-        echo "NOTE: "
-	    curl -L https://get.oh-my.fish | fish
-        cleantmp
+        if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 70) then
+            createtmp
+	        whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+            echo "NOTE: "
+	        curl -L https://get.oh-my.fish | fish
+            cleantmp
+        else
+            echo "Skipping Oh My Fish"
+        fi
+        
     fi    
             
     msg="0"
