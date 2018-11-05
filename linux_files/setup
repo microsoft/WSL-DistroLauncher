@@ -484,7 +484,7 @@ if (whiptail --title "PYTHON" --yesno "Would you like to download and install Py
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 -y
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     python3 get-pip.py --user --no-warn-script-location
-    export PATH="$PATH:/home/~/.local/bin"
+    export PATH="$PATH:~/.local/bin"
     pip3 install -U pip
     cleantmp
 else
