@@ -2,7 +2,7 @@
 
 專門為Windows 10 Linux® 子系統調整的 Linux® 發行版，基於Debian®，由[Whitewater Foundry](https://whitewaterfoundry.com)出品。
 
-<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/e34f1ae1-fe0c-4fbc-afe6-3bd495fff1b9/Chinese-Traditional_get-it-from-MS_InvariantCulture_Default.png' alt='Chinese Traditional badge'/></a>
+<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/e34f1ae1-fe0c-4fbc-afe6-3bd495fff1b9/Chinese-Traditional_get-it-from-MS_InvariantCulture_Default.png' alt='Chinese Traditional badge' height=50/></a>
 
 - [English](EADME.md)
 - [簡體中文](README.zh-hans.md)
