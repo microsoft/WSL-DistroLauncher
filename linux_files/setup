@@ -475,8 +475,8 @@ if (whiptail --title "PYTHON" --yesno "Would you like to download and install Py
     echo "Installing PYTHON"
     createtmp
     sudo apt update
-    sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 python3-pip python-pip -y
-    pip install -U pip
+    sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 python3-pip python3-venv -y
+    pip3 install -U pip
     cleantmp
 else
     echo "Skipping PYTHON"
