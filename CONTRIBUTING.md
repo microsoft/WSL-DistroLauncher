@@ -10,7 +10,7 @@ Pull requests are highly encouraged.
 
 ## Grants/Bounties
 
-If you have an idea for a new feature you would like to see implemented in WLinux and can implement it yourself given the funding, we are now accepting grant/bounty proposals. Grants are currently available for $50-$250 USD based on complexity.
+If you have an idea for a new feature you would like to see implemented in WLinux and can implement it yourself given the funding, we are now accepting grant/bounty proposals. Grants are currently available for $50-$500 USD based on complexity.
 
 You are invited to submit a grant proposal including the following to hayden@whitewaterfoundry.com:
 
