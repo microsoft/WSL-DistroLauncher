@@ -1,8 +1,10 @@
 # WLinux
 
+<img src='https://raw.githubusercontent.com/WhitewaterFoundry/Screenshots/master/ezgif.com-optimize.gif' alt='Screenshots' height=380 width=700>
+
 The first Linux® distribution optimized for WSL. Based on Debian®. From open-source software startup [Whitewater Foundry](https://whitewaterfoundry.com).
 
-<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='English badge' height=50/></a>
+<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='Store badge' height=50/></a>
 
 - [日本語](README.ja.md)
 - [简体中文](README.zh-hans.md)
@@ -69,4 +71,4 @@ Purchases of WLinux in the Microsoft Store pay for a team of open source indie d
 - [Carlos Rafael Ramirez](https://github.com/crramirez)
 - [Andrew Fehr](https://github.com/ThatWeirdAndrew)
 
-
+<a href='//www.microsoft.com/store/apps/9NV1GV1PXZ6P?ocid=badge'><img src='https://assets.windowsphone.com/85864462-9c82-451e-9355-a3d5f874397a/English_get-it-from-MS_InvariantCulture_Default.png' alt='Store badge' height=50/></a>
