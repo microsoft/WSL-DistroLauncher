@@ -11,8 +11,10 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 - [繁體中文](README.zh-hant.md)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
-[![VK Follow](https://img.shields.io/badge/VK-WLinux-blue.svg)](https://vk.com/wlinux)
-[![LINE Follow](https://img.shields.io/badge/LINE-WLinux-brightgreen.svg)](https://line.me/R/ti/p/%40yck9322o)
+[![VK Follow](https://img.shields.io/badge/VK-WLinux-4c75a3.svg)](https://vk.com/wlinux)
+[![LINE Follow](https://img.shields.io/badge/LINE-WLinux-00c300.svg)](https://line.me/R/ti/p/%40yck9322o)
+[![Telegram](https://img.shields.io/badge/Telegram-WLinux-0088cc.svg)](https://t.me/wslinux)
+![WeChat Follow](https://img.shields.io/badge/WeChat-WLinuxApp-7bb32e.svg)
 
 ## Features
 
