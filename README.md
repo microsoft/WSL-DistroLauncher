@@ -12,6 +12,8 @@ The first Linux® distribution optimized for WSL. Based on Debian®. From open-s
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/espadrine.svg?label=Follow&style=social)](https://twitter.com/WLinuxApp)
 
+[![VK Follow](https://img.shields.io/badge/VK-WLinux-lightgrey.svg)](https://vk.com/wlinux)
+
 ## Features
 
 - WLinux is a Linux environment for Windows 10 built on open-source technology concieved by Microsoft Research and the Linux ecosystem curated by the Debian project.
