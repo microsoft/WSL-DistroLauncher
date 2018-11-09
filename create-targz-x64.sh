@@ -12,8 +12,8 @@ cd $TMPDIR
 sudo apt update
 sudo apt -y install curl gnupg cdebootstrap
 
-# download and install patched libdebian, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
-wget https://github.com/WhitewaterFoundry/WLinux/blob/Testing/libdebian-installer4_0.116_amd64.deb
+# download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
+wget https://github.com/WhitewaterFoundry/WLinux/raw/Testing/libdebian-installer4_0.116_amd64.deb
 sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
