@@ -19,7 +19,7 @@ To learn more about apt you could use man, try typing $ man apt \
 }
 
 function continueprompt {
-if (whiptail --title "Continue setup?" --yesno "Would you like to continue wlinux-setup?" 8 50) then
+if (whiptail --title "Continue setup?" --yesno "Would you like to continue wlinux-setup?" 8 45) then
     echo "Starting wlinux-setup."
 else
     echo "Exiting wlinux-setup"
@@ -30,7 +30,7 @@ fi
 
 function updatescriptprompt {
 
-if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 75) then
+if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and restart with the most recent version of this setup? This is recommended periodically to get new features and fixes." 10 60) then
     createtmp
     echo "Backing up old /etc/setup to /etc/setup.old"
     sudo cp /etc/setup /etc/setup.old
@@ -502,7 +502,7 @@ fi
 }
 
 function nodeinstall {
-if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 90) then
+if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 88) then
     echo "Installing NODE"
     createtmp
     sudo apt install n build-essential -y 
@@ -529,7 +529,7 @@ function goinstall {
 if (whiptail --title "GO" --yesno "Would you like to download and install the latest Go from Google?" 8 70) then
     createtmp
     echo "Downloading Go using wget."
-    wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+    wget https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
     sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
