@@ -249,6 +249,8 @@ for i in ${!options[@]}; do
         if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh?" 8 70) then
             createtmp
             whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+            mkdir "Type exit to return to wlinux-setup" 
+            cd "Type exit to return to wlinux-setup" 
 	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	        cleantmp
         else
@@ -261,7 +263,8 @@ for i in ${!options[@]}; do
         if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 70) then
             createtmp
 	        whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
-            echo "NOTE: "
+            mkdir "Type exit to return to wlinux-setup" 
+            cd "Type exit to return to wlinux-setup" 
 	        curl -L https://get.oh-my.fish | fish
             cleantmp
         else
@@ -343,9 +346,9 @@ fi
 
 function basicguiinstall {
 
-whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows.\n\nExamples:\n\nX410\nVcXsrv\nXming" 15 60
+whiptail --title "Note about GUI Apps" --msgbox "Use of GUI applications on WLinux requires an X server running on Windows 10.\n\nExamples include:\n\nX410\nVcXsrv\nXming" 15 60
 
-if (whiptail --title "X410" --yesno "Would you like to view a link to X410 on the Microsoft Store?" 8 70) then
+if (whiptail --title "X410" --yesno "Would you like to view a link to X410 (recommended) on the Microsoft Store?" 8 80) then
     echo "Running $ wslview <link>"
     wslview https://afflnk.microsoft.com/c/1291904/433017/7593?u=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fp%2Fx410%2F9nlp712zmn9q%23activetab%3Dpivot%3Aoverviewtab
 else
@@ -784,7 +787,7 @@ EOF
 
 function dockerinstall_conf_tcp {
 
-    echo "Connect docker via TCP"
+    echo "Connect to Docker via TCP"
 
     cat << 'EOF' >> docker_relay.sh
 export DOCKER_HOST=tcp://0.0.0.0:2375
@@ -858,7 +861,7 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
         fi
     fi
 
-    whiptail --title "DOCKER" --msgbox "Docker bridge is ready. Please leave WLinux and open it again so all the configuration be refreshed" 10 60
+    whiptail --title "DOCKER" --msgbox "Docker bridge is ready. Please close and re-open WLinux" 8 60
     cleantmp
 
 else
