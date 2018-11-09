@@ -629,14 +629,14 @@ fi
 
 function javainstall {
 
-if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 70) then
+if (whiptail --title "OpenJDK" --yesno "Would you like to Install OpenJDK 8?" 8 42) then
     echo "$ apt install openjdk-8-jre openjdk-8-jdk -y"
     sudo apt install openjdk-8-jre openjdk-8-jdk -y
 else
     echo "Skipping OpenJDK"
 fi
 
-if (whiptail --title "Java IDE" --yesno "Would you like to install the Eclipse IDE?" 8 75) then
+if (whiptail --title "Java IDE" --yesno "Would you like to install the Eclipse IDE?" 8 50) then
     echo "Installing Eclipse"
     echo "$ apt install eclipse -y"
     sudo apt install eclipse -y
@@ -647,7 +647,7 @@ fi
 
 function powershellinstall {
 
-if (whiptail --title "POWERSHELL" --yesno "Would you like to download and install Powershell?" 8 70) then
+if (whiptail --title "POWERSHELL" --yesno "Would you like to download and install Powershell?" 8 55) then
     echo "Installing POWERSHELL"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
@@ -873,7 +873,7 @@ fi
 ### cloud tools
 
 function azurecliinstall {
-if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure command line tools?" 8 85) then
+if (whiptail --title "AZURECLI" --yesno "Would you like to download and install optional Azure command line tools?" 8 80) then
     echo "Installing AZURECLI"
     createtmp
     curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
