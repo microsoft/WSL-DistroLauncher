@@ -88,7 +88,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "wlinux-setup" --checklist --separate-output "Hand-curated add-ons [SPACE to select, ENTER to confirm]:" 20 100 13 \
+whiptail --title "wlinux-setup" --checklist --separate-output "\nHand-curated add-ons [SPACE to select, ENTER to confirm]:" 21 98 13 \
     "LANGUAGE" "Change default language and keyboard setting in WLinux" off \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux  " off \
     "SHELLS" "Install and configure zsh, csh, and fish" off \
