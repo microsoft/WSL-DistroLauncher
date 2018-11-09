@@ -15,7 +15,7 @@ WLinux comes with a core set of packages installed. wlinux-setup allows \
 you to install curated selections for WLinux and configure optional settings. \
 Many more packages are available via the apt package management system.\n
 To learn more about apt you could use man, try typing $ man apt \
-" 15 80
+" 13 80
 }
 
 function continueprompt {
