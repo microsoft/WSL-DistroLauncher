@@ -88,7 +88,7 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons:" 20 100 12 \
+whiptail --title "WLinux GUI Setup" --checklist --separate-output "Hand-curated add-ons [SPACE to select, ENTER to confirm]:" 20 100 12 \
     "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
     "SHELLS" "Install and configure default shells from bash, zsh, csh, and fish" off \
     "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
@@ -182,7 +182,7 @@ sudo apt autoremove -y
 function editormenu {
 
 EDITORCHOICE=$(
-whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included):" 12 55 5 \
+whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included) [SPACE to select, ENTER to confirm]:" 12 55 5 \
     "NEOVIM" "Neovim" off \
     "EMACS" "Emacs" off \
     "CODE" "Visual Studio Code (requires X)" off 3>&1 1>&2 2>&3
@@ -240,19 +240,28 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
-        createtmp
-        whiptail --title "zsh" --msgbox "After zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
-	    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	cleantmp
+        if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh?" 8 70) then
+            createtmp
+            whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	        cleantmp
+        else
+            echo "Skipping Oh My Zsh"
+        fi
 	fi
 	
 	if [ ${options[i]} = "fish" ]
 	then
-        createtmp
-	whiptail --title "fish" --msgbox "After fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
-        echo "NOTE: "
-	    curl -L https://get.oh-my.fish | fish
-        cleantmp
+        if (whiptail --title "fish" --yesno "Would you like to download and install oh-my-fish?" 8 70) then
+            createtmp
+	        whiptail --title "fish" --msgbox "After oh my fish is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 10 60
+            echo "NOTE: "
+	        curl -L https://get.oh-my.fish | fish
+            cleantmp
+        else
+            echo "Skipping Oh My Fish"
+        fi
+        
     fi    
             
     msg="0"
