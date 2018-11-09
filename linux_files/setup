@@ -307,8 +307,8 @@ fi
 
 function neoviminstall {
 if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 50) then
-    echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
-    sudo apt -t testing install neovim build-essential -y
+    echo "Installing neovim and building tools from Debian: $ sudo apt install neovim build-essential"
+    sudo apt install neovim build-essential -y
 else
     echo "Skipping NEOVIM"
 fi
@@ -493,7 +493,7 @@ if (whiptail --title "PYTHON" --yesno "Would you like to download and install Py
     echo "Installing PYTHON"
     createtmp
     sudo apt update
-    sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 python3-pip python3-venv -y
+    sudo apt install build-essential python3.7 python3.7-distutils idle-python3.7 python3-pip python3-venv -y
     pip3 install -U pip
     cleantmp
 else
@@ -553,7 +553,7 @@ function rubyinstall {
 if (whiptail --title "RUBY" --yesno "Would you like to download and install Ruby using rbenv?" 8 65) then
     echo "Installing RUBY"
     echo "Installing Ruby dependencies"
-    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
+    sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev -y
     createtmp
 
     echo "Getting rbenv"
@@ -590,7 +590,7 @@ fi
 
 if (whiptail --title "RAILS" --yesno "Would you like to download and install Rails from RubyGems?" 8 65) then
     echo "Installing RAILS"
-    sudo apt-get -t testing install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
     createtmp
     nodeinstall
     gem install rails -v 5.2.0

@@ -9,7 +9,7 @@ set -e
 BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
 ARCH="amd64"
-DIST="stable"
+DIST="testing"
 cd $TMPDIR
 
 # bootstrap image
