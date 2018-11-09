@@ -502,7 +502,7 @@ fi
 }
 
 function nodeinstall {
-if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 80) then
+if (whiptail --title "NODE" --yesno "Would you like to download and install NodeJS using n and the npm package manager?" 8 90) then
     echo "Installing NODE"
     createtmp
     sudo apt install n build-essential -y 
