@@ -96,7 +96,7 @@ whiptail --title "wlinux-setup MAIN" --checklist --separate-output "Hand-curated
     "NODEJS" "Install Node.js and npm" off \
     "GO" "Install the latest Go from Google" off \
     "RUBY" "Install Ruby using rbenv and optionally install Rails" off \
-    "DOTNET" "Install .NET Core SDK from Microsoft and optionally install Nuget" off \
+    "DOTNET" "Install .NET Core SDK from Microsoft and optionally install NuGet" off \
     "JAVA" "Install the Java SDK and JRE and optionally install Eclipse IDE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
     "GUI" "Install the basic libraries needed for most GUI apps and configure GUI options" off \
