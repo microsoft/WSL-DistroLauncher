@@ -77,11 +77,13 @@ Status: Testing. ETA Late October.
 
 ## Release 1.1.25
 
-Status: Preliminary. ETA Early November.
+Status: Preliminary. Mid-November.
 
 - Docker support for Windows host.
+- Rebase to Debian testing.
+- Latest Go.
+- Refinements to wlinux-setup GUI.
 - Minor fixes and improvements.
-- Latest Debian build.
 
 ## Release 1.2
 
