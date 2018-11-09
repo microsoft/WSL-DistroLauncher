@@ -88,8 +88,9 @@ fi
 function installmenu {
 
 CHOICE=$(
-whiptail --title "wlinux-setup MAIN" --checklist --separate-output "Hand-curated add-ons [SPACE to select, ENTER to confirm]:" 20 100 13 \
-    "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux" off \
+whiptail --title "wlinux-setup" --checklist --separate-output "Hand-curated add-ons [SPACE to select, ENTER to confirm]:" 20 100 13 \
+    "LANGUAGE" "Change default language and keyboard setting in WLinux" off \
+    "EXPLORER" "Enable right-click on folders in Windows Explorer to open them in WLinux  " off \
     "SHELLS" "Install and configure zsh, csh, and fish" off \
     "EDITORS" "Install text editors neovim, emacs, or Visual Studio Code (requires X)" off \
     "PYTHONPI" "Install Python 3.7 and download and install latest PyPi" off \
@@ -99,9 +100,8 @@ whiptail --title "wlinux-setup MAIN" --checklist --separate-output "Hand-curated
     "DOTNET" "Install .NET Core SDK from Microsoft and optionally install NuGet" off \
     "JAVA" "Install the Java SDK and JRE and optionally install Eclipse IDE" off \
     "POWERSHELL" "Install PowerShell for Linux and/or Azure CLI tools" off \
-    "GUI" "Install the basic libraries needed for most GUI apps and configure GUI options" off \
-    "DOCKER" "Install a secure bridge to Docker for Windows" off \
-    "LANGUAGE" "Change default language and keyboard setting in WLinux" off 3>&1 1>&2 2>&3
+    "GUI" "Install the basics needed for most GUI apps and configure GUI options" off \
+    "DOCKER" "Install a secure bridge to Docker for Windows" off 3>&1 1>&2 2>&3
 )
 
 echo "Selected:" $CHOICE
