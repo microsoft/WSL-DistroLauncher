@@ -306,7 +306,7 @@ fi
 ### editors
 
 function neoviminstall {
-if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 70) then
+if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 50) then
     echo "Installing a recent neovim and building tools from Debian testing: $ sudo apt -t testing install neovim build-essential"
     sudo apt -t testing install neovim build-essential -y
 else
@@ -315,7 +315,7 @@ fi
 }
 
 function emacsinstall {
-if (whiptail --title "EMACS" --yesno "Would you like to download and install emacs?" 8 70) then
+if (whiptail --title "EMACS" --yesno "Would you like to download and install emacs?" 8 50) then
     echo "Installing emacs: $ sudo apt install emacs -y"
     sudo apt install emacs -y
 else
@@ -324,7 +324,7 @@ fi
 }
 
 function codeinstall {
-if (whiptail --title "CODE" --yesno "Would you like to download and install Microsoft Code?" 8 70) then
+if (whiptail --title "CODE" --yesno "Would you like to download and install Code from Microsoft?" 8 65) then
     echo "Installing CODE"
     createtmp
     echo "Downloading and unpacking Microsoft's apt repo key with curl and gpg"
