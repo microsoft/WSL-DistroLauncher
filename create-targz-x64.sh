@@ -17,7 +17,7 @@ wget https://github.com/WhitewaterFoundry/WLinux/raw/Testing/libdebian-installer
 sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
-sudo debootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
