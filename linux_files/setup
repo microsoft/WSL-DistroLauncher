@@ -803,7 +803,7 @@ EOF
 }
 
 function dockerinstall {
-if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 75); then
+if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to Docker?" 8 55); then
     echo "Installing the bridge to Docker."
 
     connected=$(docker.exe version 2>&1 | grep -c "docker daemon is not running.")
