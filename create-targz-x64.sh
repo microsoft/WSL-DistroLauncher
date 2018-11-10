@@ -1,19 +1,27 @@
 #!/bin/bash
 
-# install script dependencies
-sudo apt update
-sudo apt -y install curl gnupg cdebootstrap
-
 # create our environment
 set -e
 BUILDIR=$(pwd)
 TMPDIR=$(mktemp -d)
 ARCH="amd64"
-DIST="stable"
+DIST="testing"
 cd $TMPDIR
+
+# install script dependencies
+sudo apt update
+sudo apt -y install curl gnupg cdebootstrap
+
+# download and install patched libdebian-installer, see https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=904699
+wget https://github.com/WhitewaterFoundry/WLinux/raw/Testing/libdebian-installer4_0.116_amd64.deb
+sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
 sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
+
+# remove patched libdebian-installer4
+sudo apt remove libdebian-installer4 -y
+sudo apt --fix-broken install -y
 
 # clean apt cache
 sudo chroot $DIST apt-get clean
