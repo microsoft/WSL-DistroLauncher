@@ -70,7 +70,7 @@ function cleantmp {
 }
 
 function byemessage {
-    whiptail --title "Setup is complete." --msgbox "You may run wlinux-setup again any time by typing $ wlinux-setup\n\nYou may open a browser link to get help any time by typing: $ wlinux-help" 10 100
+    whiptail --title "Setup is complete." --msgbox "You may run wlinux-setup again any time by typing $ wlinux-setup\n\nYou may open a browser link to get help any time by typing: $ wlinux-help" 10 80
     exit 0
 }
 
