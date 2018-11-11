@@ -7,7 +7,7 @@
 
 # Trademarks
 
-- WLinux is a trademark of Whitewater Foundry, Ltd. Co.
+- WLinux is a trademark of Whitewater Foundry, Ltd. Co. You may use the WLinux trademark in any lawful manner in compliance with your local trademark laws.
 
 - Debian® is a registered trademark of Software in the Public Interest, Inc. and is used in compliance with the [Debian Trademark Policy](https://www.debian.org/trademark).
 
