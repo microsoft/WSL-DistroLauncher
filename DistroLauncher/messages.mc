@@ -64,7 +64,7 @@ Error: 0x%1!x! %2
 
 MessageId=1009 SymbolicName=MSG_ENTER_USERNAME
 Language=English
-Enter new Linux username: %0
+Enter new UNIX username: %0
 .
 
 MessageId=1010 SymbolicName=MSG_CREATE_USER_PROMPT
