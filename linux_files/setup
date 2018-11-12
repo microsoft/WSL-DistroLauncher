@@ -188,7 +188,7 @@ sudo apt autoremove -y
 function editormenu {
 
 EDITORCHOICE=$(
-whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included) [SPACE to select, ENTER to confirm]:" 12 55 5 \
+whiptail --title "Editor Menu" --checklist --separate-output "Custom editors (nano and vi included)\n[SPACE to select, ENTER to confirm]:" 12 55 3 \
     "NEOVIM" "Neovim" off \
     "EMACS" "Emacs" off \
     "CODE" "Visual Studio Code (requires X)" off 3>&1 1>&2 2>&3
