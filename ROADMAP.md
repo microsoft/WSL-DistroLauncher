@@ -24,10 +24,6 @@ Status: Released on Store
 - Minor bug fixes for python 3.7.
 - Documentation translations.
 
-## Release 1.1.18-1.1.19.
-
-*Status: Reserved for bug fixes, if needed.*
-
 ## Release 1.1.20
 
 Status: Released on Store.
@@ -67,37 +63,30 @@ Status: Released.
 - Minor fixes and improvements, particularly to Go.
 - Latest Debian build.
 
-## Release 1.1.24
-
-Status: Testing. ETA Late October.
-
-- Java development environment.
-- Minor fixes and improvements.
-- Latest Debian build.
-
 ## Release 1.1.25
 
-Status: Preliminary. Mid-November.
+Status: Testing. Late November.
 
-- Docker support for Windows host.
+- Secure Docker bridge to Windows host.
 - Rebase to Debian testing.
-- Latest Go.
+- Latest Go from Google.
 - Refinements to wlinux-setup GUI.
 - Minor fixes and improvements.
 
-## Release 1.2
+## Release 1.1.26
 
-Status: Tentantive
+Status: Early December.
 
-- arm64 support
+- Optimized build of bash.
+- Minor fixes and improvements.
 
-## Release 1.5
+## Release 1.1.27
 
-Status: Preliminary
+Status: Mid December.
 
-- Switch to WLinux's own repos to provide wslu and wlinux-setup.
-- Package wlinux-setup in .deb in repo and use apt to update instead of GitHub.
+- ARM64 support
+- Minor fixes and improvements.
 
-See https://github.com/WhitewaterFoundry/WLinux/pulls for features under active developmment.
+See https://github.com/WhitewaterFoundry/WLinux/pulls for features under testing/active developmment.
 
 See https://github.com/WhitewaterFoundry/WLinux/issues to suggest new features.
