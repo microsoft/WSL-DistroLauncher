@@ -19,8 +19,7 @@ sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 # bootstrap image
 sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
-# remove patched libdebian-installer4
-sudo apt remove libdebian-installer4 -y
+# remove patched cdebootstrap and libdebian-installer4
 sudo apt --fix-broken install -y
 
 # clean apt cache
