@@ -783,7 +783,7 @@ EOF
     sudo adduser ${USER} docker
 
     echo "Running the relay for the first time."
-    sudo docker-relay &
+    sudo docker-relay
 
     sleep 1s
 
