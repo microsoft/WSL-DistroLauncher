@@ -3,7 +3,7 @@
 RESPONSE=""
 CURDUR=""
 TMPDIR=""
-VERSION="1.1.23a"
+VERSION="1.1.25a"
 
 # functions
 
@@ -37,9 +37,6 @@ if (whiptail --title "Upgrade setup?" --yesno "Would you like to download and re
     echo "Getting fresh setup from GitHub"
     wget https://raw.githubusercontent.com/WhitewaterFoundry/WLinux/master/linux_files/setup
     sudo cp setup /etc/setup
-    echo "Cleaning up."
-    rm ~/.firstrun
-    clear
     echo "Running updated wlinux-setup"
     bash /etc/setup
     exit 0
