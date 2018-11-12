@@ -310,6 +310,7 @@ fi
 function neoviminstall {
 if (whiptail --title "NEOVIM" --yesno "Would you like to download and install neovim?" 8 50) then
     echo "Installing neovim and building tools from Debian: $ sudo apt install neovim build-essential"
+    updateupgrade
     sudo apt -t testing install neovim build-essential -y
 else
     echo "Skipping NEOVIM"
@@ -319,6 +320,7 @@ fi
 function emacsinstall {
 if (whiptail --title "EMACS" --yesno "Would you like to download and install emacs?" 8 50) then
     echo "Installing emacs: $ sudo apt install emacs -y"
+    updateupgrade
     sudo apt install emacs -y
 else
     echo "Skipping EMACS"
@@ -378,6 +380,7 @@ if (whiptail --title "fcitx" --yesno "Would you like to install fcitx for improv
     echo "Installing fcitx"
 
     echo "sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y"
+    updateupgrade
     sudo apt install fcitx fonts-noto-cjk fonts-noto-color-emoji dbus-x11 -y
 
    FCCHOICE=$(whiptail --title "fcitx engines" --checklist --separate-output "Select fcitx engine:" 15 65 8 \
@@ -461,7 +464,6 @@ fi
    sudo sh -c 'echo "XMODIFIERS=@im=fcitx" >> /etc/profile'
    sudo sh -c 'echo "DefaultIMModule=fcitx" >> /etc/profile'
 
-
    if (whiptail --title "fcitx-autostart" --yesno "Would you like to run fcitx-autostart now? Requires an X server to be running." 8 80) then
     echo "Starting fcitx-autostart"
     fcitx-autostart
@@ -499,7 +501,7 @@ function pythoninstall {
 if (whiptail --title "PYTHON" --yesno "Would you like to download and install Python 3.7, IDLE, and the pip package manager?" 8 90) then
     echo "Installing PYTHON"
     createtmp
-    sudo apt update
+    updateupgrade
     sudo apt -t testing install build-essential python3.7 python3.7-distutils idle-python3.7 python3-pip python3-venv -y
     pip3 install -U pip
     cleantmp
@@ -617,8 +619,7 @@ if (whiptail --title "DOTNET" --yesno "Would you like to download and install th
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     rm microsoft.gpg
     sudo sh -c 'echo "deb https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list' 
-    sudo apt update
-    sudo apt upgrade -y
+    updateupgrade
     sudo apt install dotnet-sdk-2.1 -y
     cleantmp
 
@@ -887,8 +888,7 @@ if (whiptail --title "AZURECLI" --yesno "Would you like to download and install 
     sudo cp microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     sudo chmod 644 /etc/apt/trusted.gpg.d/microsoft.gpg
     sudo bash -c "echo 'deb https://packages.microsoft.com/repos/azure-cli/ stretch main' >> /etc/apt/sources.list.d/azurecli.list"
-    sudo apt update 
-    sudo apt upgrade -y
+    updateupgrade
     echo "Note: azure-cli install can appear to 'stall' at 16%, it is usually not broken, just taking a long time."
     sudo apt install azure-cli -y
     cleantmp
