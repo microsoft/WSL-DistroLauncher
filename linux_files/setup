@@ -4,6 +4,7 @@ RESPONSE=""
 CURDUR=""
 TMPDIR=""
 VERSION="1.1.25a"
+GOVERSION="1.11.2"
 
 # functions
 
@@ -535,7 +536,7 @@ function goinstall {
 if (whiptail --title "GO" --yesno "Would you like to download and install the latest Go from Google?" 8 70) then
     createtmp
     echo "Downloading Go using wget."
-    wget https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz
+    wget https://dl.google.com/go/go$GOVERSION.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
     sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
@@ -726,7 +727,7 @@ function dockerinstall_build_relay {
         echo "Checking for go"
         if ! (go version); then
             echo "Downloading Go using wget."
-            wget -c https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+	    wget -c https://dl.google.com/go/go$GOVERSION.linux-amd64.tar.gz
             tar -xzf go*.linux-amd64.tar.gz
 
             export GOROOT=$(pwd)/go
