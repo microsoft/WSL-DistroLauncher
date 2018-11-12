@@ -87,23 +87,16 @@ Status: Preliminary. Mid-November.
 
 ## Release 1.2
 
+Status: Tentantive
+
+- arm64 support
+
+## Release 1.5
+
 Status: Preliminary
 
 - Switch to WLinux's own repos to provide wslu and wlinux-setup.
 - Package wlinux-setup in .deb in repo and use apt to update instead of GitHub.
-
-## Release 1.5
-
-Status: Tentantive
-
-- arm64 support.
-
-### Features For Future Consideration
-
-- One-click LAMP stack.
-- Refine Flatpak support.
-- PulseAudio support.
-- Snap support.
 
 See https://github.com/WhitewaterFoundry/WLinux/pulls for features under active developmment.
 
