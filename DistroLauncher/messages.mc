@@ -69,7 +69,7 @@ Enter new Linux username: %0
 
 MessageId=1010 SymbolicName=MSG_CREATE_USER_PROMPT
 Language=English
-Please create a default Linux user account. The username does not need to match your Windows username.
+Please create a default UNIX user account. The username does not need to match your Windows username.
 For more information visit: https://aka.ms/wslusers
 .
 
