@@ -337,7 +337,7 @@ if (whiptail --title "CODE" --yesno "Would you like to download and install Code
     sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list' 
     updateupgrade
     echo "Installing code with dependencies: $ sudo apt install code libxss1 libasound2 -y"
-    sudo apt install code libxss1 libasound2 -y
+    sudo apt install code libxss1 libasound2 libx11-xcb-dev -y
     cleantmp
 else
     echo "Skipping CODE"
