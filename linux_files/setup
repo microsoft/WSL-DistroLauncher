@@ -252,7 +252,8 @@ for i in ${!options[@]}; do
             mkdir "Type exit to return to wlinux-setup" 
             cd "Type exit to return to wlinux-setup" 
 	        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	        cleantmp
+	        cd ..
+            cleantmp
         else
             echo "Skipping Oh My Zsh"
         fi
@@ -266,6 +267,7 @@ for i in ${!options[@]}; do
             mkdir "Type exit to return to wlinux-setup" 
             cd "Type exit to return to wlinux-setup" 
 	        curl -L https://get.oh-my.fish | fish
+            cd ..
             cleantmp
         else
             echo "Skipping Oh My Fish"
@@ -355,7 +357,7 @@ else
     echo "Skipping X410"
 fi
 
-if (whiptail --title "GUI Libraries" --yesno "Would you like to view a base set of libraries for GUI applications?" 8 75) then
+if (whiptail --title "GUI Libraries" --yesno "Would you like to install a base set of libraries for GUI applications?" 8 75) then
     echo "Installing GUILIB"
     echo "$ apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y"
     sudo apt install xclip gnome-themes-standard gtk2-engines-murrine dbus dbus-x11 -y
