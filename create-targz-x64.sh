@@ -17,7 +17,7 @@ wget https://github.com/WhitewaterFoundry/WLinux/raw/master/libdebian-installer4
 sudo dpkg -i libdebian-installer4_0.116_amd64.deb
 
 # bootstrap image
-sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
+sudo cdebootstrap -a $ARCH --include=sudo,locales,git,ssh,gnupg,apt-transport-https,wget,ca-certificates,man,less,curl $DIST $DIST http://deb.debian.org/debian
 
 # remove patched cdebootstrap and libdebian-installer4
 sudo apt --fix-broken install -y
