@@ -727,7 +727,7 @@ function dockerinstall_build_relay {
         echo "Checking for go"
         if ! (go version); then
             echo "Downloading Go using wget."
-	    wget -c https://dl.google.com/go/go$GOVERSION.linux-amd64.tar.gz
+	        wget -c https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz
             tar -xzf go*.linux-amd64.tar.gz
 
             export GOROOT=$(pwd)/go
@@ -764,9 +764,14 @@ function dockerinstall_build_relay {
     sudo apt-get -y -q install socat
 
     cat << 'EOF' >> docker-relay
-#!/bin/sh
-killall --quiet socat
-exec socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork
+#!/bin/bash
+
+connected=$(docker version 2>&1 | grep -c "daemon")
+if [[ ${connected} != 0  ]]; then
+
+    killall --quiet socat
+    exec nohup socat UNIX-LISTEN:/var/run/docker.sock,fork,group=docker,umask=007 EXEC:"npiperelay.exe -ep -s //./pipe/docker_engine",nofork  </dev/null &>/dev/null &
+fi
 EOF
     sudo cp docker-relay /usr/bin/docker-relay
     sudo chmod +x /usr/bin/docker-relay
@@ -774,7 +779,7 @@ EOF
     echo '%sudo   ALL=NOPASSWD: /usr/bin/docker-relay' | sudo EDITOR='tee -a' visudo --quiet --file=/etc/sudoers.d/docker-relay
 
     cat << 'EOF' >> docker_relay.sh
-sudo docker-relay &
+sudo docker-relay
 EOF
     sudo cp docker_relay.sh /etc/profile.d/docker_relay.sh
     sudo chmod -w /usr/bin/docker-relay
