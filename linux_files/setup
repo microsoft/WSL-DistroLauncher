@@ -5,6 +5,7 @@ CURDUR=""
 TMPDIR=""
 VERSION="1.1.25a"
 GOVERSION="1.11.2"
+DOCKERVERSION="18.06.1-ce"
 
 # functions
 
@@ -536,7 +537,7 @@ function goinstall {
 if (whiptail --title "GO" --yesno "Would you like to download and install the latest Go from Google?" 8 70) then
     createtmp
     echo "Downloading Go using wget."
-    wget https://dl.google.com/go/go$GOVERSION.linux-amd64.tar.gz
+    wget https://dl.google.com/go/go${GOVERSION}.linux-amd64.tar.gz
     echo "Unpacking tar binaries to /usr/local/go."
     sudo tar -C /usr/local -xzf go*.linux-amd64.tar.gz
     echo "Creating ~/go/ for your projects."
@@ -828,12 +829,12 @@ if (whiptail --title "DOCKER" --yesno "Would you like to install the bridge to D
 
     done
 
-    docker_version="18.06.1-ce"
+    
 
     createtmp
 
-    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${docker_version}.tgz
-    sudo tar -xzvf docker-${docker_version}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
+    wget -c https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz
+    sudo tar -xzvf docker-${DOCKERVERSION}.tgz --overwrite --directory /usr/bin/ --strip-components 1 docker/docker
 
     sudo chmod 755 /usr/bin/docker
     sudo chown root:root /usr/bin/docker
