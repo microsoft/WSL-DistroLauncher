@@ -245,6 +245,9 @@ for i in ${!options[@]}; do
 	
 	if [ ${options[i]} = "zsh" ]
 	then
+      
+        sudo ln -s /etc/profile /etc/zprofile
+      
         if (whiptail --title "zsh" --yesno "Would you like to download and install oh-my-zsh?" 8 55) then
             createtmp
             whiptail --title "zsh" --msgbox "After oh my zsh is installed and launched, type 'exit' and ENTER to return to wlinux-setup" 8 95
