@@ -165,15 +165,6 @@ You'll also need to change a few small things in your project to prepare your di
 
 2. You will either need to run `build rel` from the command line to generate the Release version of your appx or use Visual Studio directly to upload your package to the store. You can do this by right-clicking on "DistroLauncher-Appx (Universal Windows)" in the solution explorer and clicking on "Store... Create App Packages..." and following the wizard.
 
-3. How to publish ARM64 appx:
-	1. In Visual Studio Project > Store > Create App Packages
-	2. Select No for "Do you want to build packages to upload to the Window Store?" and click Next.
-	3. Ensure only the ARM64 Architecture is selected with "Release (ARM64)" as the Solution Configuration and click Next.
-	4. Launch "Developer Command Prompt for VS 2017" and navigate to the root of your solution.
-	5. Run "PowerShell.exe .\createARM64Package.ps1".  You will need to update the appxPath and pfxFile variables at the top of the PowerShell script.
-	6. In Visual Studio Project > Store > Upload App Packages
-	7. Sign in with your developer.microsoft.com account and select the appx file that was created in step v.
-
 Also, make sure to check out the [Notes for uploading to the Store](https://github.com/Microsoft/WSL-DistroLauncher/wiki/Notes-for-uploading-to-the-Store) page on our wiki for more information.
 
 # Issues & Contact
