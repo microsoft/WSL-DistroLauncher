@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="File">
+      <UniqueIdentifier>{dbc7b08b-f164-4903-927b-7644c8f8511e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="File\x64">
+      <UniqueIdentifier>{0a7b4df7-d70e-49d5-892f-351cc951b614}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -60,6 +66,14 @@
     <Image Include=".\images\icon.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\File\x64\install.sh">
+      <Filter>File\x64</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\File\x64\install.tar.gz">
+      <Filter>File\x64</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="messages.mc" />

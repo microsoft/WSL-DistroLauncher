@@ -4,6 +4,7 @@
 //
 
 #include "stdafx.h"
+#include "resource.h"
 
 // Commandline arguments: 
 #define ARG_CONFIG              L"config"
@@ -20,21 +21,67 @@ WslApiLoader g_wslApi(DistributionInfo::Name);
 static HRESULT InstallDistribution(bool createUser);
 static HRESULT SetDefaultUser(std::wstring_view userName);
 
+//bool GetInstallScript(LPSTR *lppstr)
+//{
+//	auto result = false;
+//	WCHAR exePath[MAX_PATH];
+//	Helpers::GetExePath(exePath, MAX_PATH);
+//	std::wstring filePath = L"install.sh";
+//	filePath = exePath + filePath;
+//	const auto hFile = CreateFile2(filePath.c_str(), GENERIC_READ, FILE_SHARE_READ, OPEN_EXISTING, nullptr);
+//	if (hFile == INVALID_HANDLE_VALUE) return result;
+//	const auto fileSize = GetFileSize(hFile, nullptr);
+//	if (fileSize != INVALID_FILE_SIZE) if (fileSize == 0) SetLastError(ERROR_FILE_INVALID); else
+//	{
+//		DWORD bytesRead;
+//		*lppstr = static_cast<LPSTR>(malloc(static_cast<size_t>(fileSize) + sizeof CHAR));
+//		if (*lppstr)
+//		{
+//			result = ReadFile(hFile, *lppstr, fileSize, &bytesRead, nullptr);
+//			(*lppstr)[fileSize / sizeof CHAR] = '\0';
+//			if (!result)
+//			{
+//				free(*lppstr);
+//				*lppstr = nullptr;
+//			}
+//		}
+//		else SetLastError(ERROR_OUTOFMEMORY);
+//	}
+//	CloseHandle(hFile);
+//	return result;
+//
+//}
+
 HRESULT InstallDistribution(bool createUser)
 {
-    // Register the distribution.
     Helpers::PrintMessage(MSG_STATUS_INSTALLING);
-    HRESULT hr = g_wslApi.WslRegisterDistribution();
-    if (FAILED(hr)) {
-        return hr;
-    }
+
+	//Read install.sh file.
+	/*LPSTR lpInstallScriptStr;
+	if (!GetInstallScript(&lpInstallScriptStr)) return HRESULT_FROM_WIN32(GetLastError());*/
+
+	// Register the distribution.
+    auto hr = g_wslApi.WslRegisterDistribution();
+	if (FAILED(hr)) {
+		return hr;
+	}
 
     // Delete /etc/resolv.conf to allow WSL to generate a version based on Windows networking information.
     DWORD exitCode;
     hr = g_wslApi.WslLaunchInteractive(L"/bin/rm /etc/resolv.conf", true, &exitCode);
-    if (FAILED(hr)) {
-        return hr;
-    }
+	if (FAILED(hr)) {
+		return hr;
+	}
+
+	// Install and config Arch Linux.
+	//hr = Helpers::RunScript(&g_wslApi, lpInstallScriptStr, &exitCode);
+	hr = Helpers::RunScript(&g_wslApi, L"install.sh", &exitCode);
+	if (FAILED(hr)) {
+		return hr;
+	}
+	if (exitCode != 0) {
+		return E_FAIL;
+	}
 
     // Create a user account.
     if (createUser) {
@@ -59,12 +106,12 @@ HRESULT SetDefaultUser(std::wstring_view userName)
 {
     // Query the UID of the given user name and configure the distribution
     // to use this UID as the default.
-    ULONG uid = DistributionInfo::QueryUid(userName);
+    const auto uid = DistributionInfo::QueryUid(userName);
     if (uid == UID_INVALID) {
         return E_INVALIDARG;
     }
 
-    HRESULT hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    const auto hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
     if (FAILED(hr)) {
         return hr;
     }
@@ -79,8 +126,8 @@ int wmain(int argc, wchar_t const *argv[])
 
     // Initialize a vector of arguments.
     std::vector<std::wstring_view> arguments;
-    for (int index = 1; index < argc; index += 1) {
-        arguments.push_back(argv[index]);
+    for (auto index = 1; index < argc; index += 1) {
+        arguments.emplace_back(argv[index]);
     }
 
     // Ensure that the Windows Subsystem for Linux optional component is installed.
@@ -95,12 +142,12 @@ int wmain(int argc, wchar_t const *argv[])
     }
 
     // Install the distribution if it is not already.
-    bool installOnly = ((arguments.size() > 0) && (arguments[0] == ARG_INSTALL));
-    HRESULT hr = S_OK;
+	const auto installOnly = !arguments.empty() && arguments[0] == ARG_INSTALL;
+	auto hr = S_OK;
     if (!g_wslApi.WslIsDistributionRegistered()) {
 
         // If the "--root" option is specified, do not create a user account.
-        bool useRoot = ((installOnly) && (arguments.size() > 1) && (arguments[1] == ARG_INSTALL_ROOT));
+        const auto useRoot = installOnly && arguments.size() > 1 && arguments[1] == ARG_INSTALL_ROOT;
         hr = InstallDistribution(!useRoot);
         if (FAILED(hr)) {
             if (hr == HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)) {

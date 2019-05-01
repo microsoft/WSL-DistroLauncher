@@ -7,15 +7,15 @@
 #include "WslApiLoader.h"
 
 WslApiLoader::WslApiLoader(const std::wstring& distributionName) :
-    _distributionName(distributionName)
+    _distributionName(distributionName), _isDistributionRegistered(nullptr), _registerDistribution(nullptr), _configureDistribution(nullptr), _launchInteractive(nullptr), _launch(nullptr)
 {
     _wslApiDll = LoadLibraryEx(L"wslapi.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
     if (_wslApiDll != nullptr) {
-        _isDistributionRegistered = (WSL_IS_DISTRIBUTION_REGISTERED)GetProcAddress(_wslApiDll, "WslIsDistributionRegistered");
-        _registerDistribution = (WSL_REGISTER_DISTRIBUTION)GetProcAddress(_wslApiDll, "WslRegisterDistribution");
-        _configureDistribution = (WSL_CONFIGURE_DISTRIBUTION)GetProcAddress(_wslApiDll, "WslConfigureDistribution");
-        _launchInteractive = (WSL_LAUNCH_INTERACTIVE)GetProcAddress(_wslApiDll, "WslLaunchInteractive");
-        _launch = (WSL_LAUNCH)GetProcAddress(_wslApiDll, "WslLaunch");
+        _isDistributionRegistered = reinterpret_cast<WSL_IS_DISTRIBUTION_REGISTERED>(GetProcAddress(_wslApiDll, "WslIsDistributionRegistered"));
+        _registerDistribution = reinterpret_cast<WSL_REGISTER_DISTRIBUTION>(GetProcAddress(_wslApiDll, "WslRegisterDistribution"));
+        _configureDistribution = reinterpret_cast<WSL_CONFIGURE_DISTRIBUTION>(GetProcAddress(_wslApiDll, "WslConfigureDistribution"));
+        _launchInteractive = reinterpret_cast<WSL_LAUNCH_INTERACTIVE>(GetProcAddress(_wslApiDll, "WslLaunchInteractive"));
+        _launch = reinterpret_cast<WSL_LAUNCH>(GetProcAddress(_wslApiDll, "WslLaunch"));
     }
 }
 
@@ -26,7 +26,7 @@ WslApiLoader::~WslApiLoader()
     }
 }
 
-BOOL WslApiLoader::WslIsOptionalComponentInstalled()
+BOOL WslApiLoader::WslIsOptionalComponentInstalled() const
 {
     return ((_wslApiDll != nullptr) && 
             (_isDistributionRegistered != nullptr) &&
@@ -36,14 +36,18 @@ BOOL WslApiLoader::WslIsOptionalComponentInstalled()
             (_launch != nullptr));
 }
 
-BOOL WslApiLoader::WslIsDistributionRegistered()
+BOOL WslApiLoader::WslIsDistributionRegistered() const
 {
     return _isDistributionRegistered(_distributionName.c_str());
 }
 
-HRESULT WslApiLoader::WslRegisterDistribution()
+HRESULT WslApiLoader::WslRegisterDistribution() const
 {
-    HRESULT hr = _registerDistribution(_distributionName.c_str(), L"install.tar.gz");
+	WCHAR exePath[MAX_PATH];
+	if (Helpers::GetExePath(exePath, MAX_PATH) == 0) return HRESULT_FROM_WIN32(GetLastError());
+	std::wstring fileName = L"install.tar.gz";
+	fileName = exePath + fileName;
+	const auto hr = _registerDistribution(_distributionName.c_str(), fileName.c_str());
     if (FAILED(hr)) {
         Helpers::PrintMessage(MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
     }
@@ -51,9 +55,9 @@ HRESULT WslApiLoader::WslRegisterDistribution()
     return hr;
 }
 
-HRESULT WslApiLoader::WslConfigureDistribution(ULONG defaultUID, WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
+HRESULT WslApiLoader::WslConfigureDistribution(ULONG defaultUID, WSL_DISTRIBUTION_FLAGS wslDistributionFlags) const
 {
-    HRESULT hr = _configureDistribution(_distributionName.c_str(), defaultUID, wslDistributionFlags);
+	const auto hr = _configureDistribution(_distributionName.c_str(), defaultUID, wslDistributionFlags);
     if (FAILED(hr)) {
         Helpers::PrintMessage(MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
     }
@@ -61,9 +65,9 @@ HRESULT WslApiLoader::WslConfigureDistribution(ULONG defaultUID, WSL_DISTRIBUTIO
     return hr;
 }
 
-HRESULT WslApiLoader::WslLaunchInteractive(PCWSTR command, BOOL useCurrentWorkingDirectory, DWORD *exitCode)
+HRESULT WslApiLoader::WslLaunchInteractive(PCWSTR command, BOOL useCurrentWorkingDirectory, DWORD *exitCode) const
 {
-    HRESULT hr = _launchInteractive(_distributionName.c_str(), command, useCurrentWorkingDirectory, exitCode);
+	const auto hr = _launchInteractive(_distributionName.c_str(), command, useCurrentWorkingDirectory, exitCode);
     if (FAILED(hr)) {
         Helpers::PrintMessage(MSG_WSL_LAUNCH_INTERACTIVE_FAILED, command, hr);
     }
@@ -71,9 +75,9 @@ HRESULT WslApiLoader::WslLaunchInteractive(PCWSTR command, BOOL useCurrentWorkin
     return hr;
 }
 
-HRESULT WslApiLoader::WslLaunch(PCWSTR command, BOOL useCurrentWorkingDirectory, HANDLE stdIn, HANDLE stdOut, HANDLE stdErr, HANDLE *process)
+HRESULT WslApiLoader::WslLaunch(PCWSTR command, BOOL useCurrentWorkingDirectory, HANDLE stdIn, HANDLE stdOut, HANDLE stdErr, HANDLE *process) const
 {
-    HRESULT hr = _launch(_distributionName.c_str(), command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process);
+	const auto hr = _launch(_distributionName.c_str(), command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process);
     if (FAILED(hr)) {
         Helpers::PrintMessage(MSG_WSL_LAUNCH_FAILED, command, hr);
     }

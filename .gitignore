@@ -292,7 +292,5 @@ __pycache__/
 DistroLauncher/MSG*.bin
 DistroLauncher/messages.rc
 DistroLauncher/messages.h
-*.lib
-*.dll
-*.exe
+!File/x64
 *.tar.gz

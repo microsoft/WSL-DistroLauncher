@@ -13,4 +13,7 @@ namespace Helpers
     void PrintErrorMessage(HRESULT hr);
     HRESULT PrintMessage(DWORD messageId, ...);
     void PromptForInput();
+	DWORD GetExePath(LPWSTR lpstr, DWORD nSize);
+	HRESULT RunScript(const WslApiLoader* lpWslApi, LPWSTR lpScriptPath, DWORD* exitCode);
+	/*HRESULT RunScript(const WslApiLoader* lpWslApi, LPSTR lpstr, DWORD* exitCode);*/
 }
