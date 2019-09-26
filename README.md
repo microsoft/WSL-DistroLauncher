@@ -106,7 +106,7 @@ To help building and testing the DistroLauncher project, we've included several 
 ### Building the Project (Command line):
 To compile the project, you can simply type `build` in the root of the project to use MSBuild to build the solution. This is useful for verifying that your application compiles. It will also build an appx for you to sideload on your dev machine for testing.
 
-> Note: We recommend that you buuild your launcher from the "Developer Comamnd Prompt for Visual Studio" which can be launched from the start menu. This command-prompt sets up several path and environment variables to make building easier and smoother.
+> Note: We recommend that you build your launcher from the "Developer Command Prompt for Visual Studio" which can be launched from the start menu. This command-prompt sets up several path and environment variables to make building easier and smoother.
 
 `build.bat` assumes that MSBuild is installed at one of the following paths:
 `%ProgramFiles*%\MSBuild\14.0\bin\msbuild.exe` or
