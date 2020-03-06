@@ -121,7 +121,7 @@ int wmain(int argc, wchar_t const *argv[])
 
             // Check exitCode to see if wsl.exe returned that it could not start the Linux process
             // then prompt users for input so they can view the error message.
-            if (exitCode == UINT_MAX) {
+            if (SUCCEEDED(hr) && exitCode == UINT_MAX) {
                 Helpers::PromptForInput();
             }
 
