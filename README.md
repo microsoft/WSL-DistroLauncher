@@ -69,7 +69,7 @@ The distro launcher is comprised of two Visual Studio projects - `launcher` and 
 ``` xml
 <PropertyGroup Label="Globals">
   ...
-  <ProjectName>mydistro</ProjectName>
+  <TargetName>mydistro</TargetName>
 </PropertyGroup>
 ```
 
@@ -77,7 +77,7 @@ So, if I wanted to instead call my distro "TheBestDistroEver", I'd change this t
 ``` xml
 <PropertyGroup Label="Globals">
   ...
-  <ProjectName>TheBestDistroEver</ProjectName>
+  <TargetName>TheBestDistroEver</TargetName>
 </PropertyGroup>
 ```
 
