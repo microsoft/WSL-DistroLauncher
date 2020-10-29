@@ -5,6 +5,8 @@
 
 #include "stdafx.h"
 
+void RunProcess(LPWSTR cmdline);
+
 bool DistributionInfo::CreateUser(std::wstring_view userName)
 {
     // Create the user account.
@@ -75,4 +77,49 @@ ULONG DistributionInfo::QueryUid(std::wstring_view userName)
     }
 
     return uid;
+}
+
+void DistributionInfo::ChangeDefaultUserInWslConf(std::wstring_view userName)
+{
+    DWORD exitCode;
+    wchar_t buff[255];
+    _swprintf_p(buff, _countof(buff),
+                L"wsl.exe -d %1$s -u root -- if [ $(grep -c \"\\[user\\]\" /etc/wsl.conf) -eq \"0\" ]; then echo -e \"\\n[user]\\ndefault=%2$s\">>/etc/wsl.conf; else sed -i \"s/\\(default=\\)\\(.*\\)/\\1%2$s/\" /etc/wsl.conf ; fi",
+                Name.c_str(), std::wstring(userName).c_str());
+
+    RunProcess(buff);
+}
+
+void RunProcess(LPWSTR cmdline)
+{
+    // additional information
+    STARTUPINFOW si;
+    PROCESS_INFORMATION pi;
+
+    // set the size of the structures
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+
+    // start the program up
+    CreateProcessW
+    (
+        nullptr, // the path
+        cmdline, // Command line
+        nullptr, // Process handle not inheritable
+        nullptr, // Thread handle not inheritable
+        FALSE, // Set handle inheritance to FALSE
+        0, // Opens file in a separate console
+        nullptr, // Use parent's environment block
+        nullptr, // Use parent's starting directory 
+        &si, // Pointer to STARTUPINFO structure
+        &pi // Pointer to PROCESS_INFORMATION structure
+    );
+
+    // Wait until child process exits.
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    // Close process and thread handles. 
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 }
