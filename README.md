@@ -88,7 +88,13 @@ So, if I wanted to instead call my distro "TheBestDistroEver", I'd change this t
     1. Ensure `<desktop:ExecutionAlias Alias="mydistro.exe" />` ends in ".exe". This is the command that will be used to launch your distro from the command line and should match the executable name we picked in step 4.
     1. Make sure each of the `Executable` values matches the executable name we picked in step 4.
 
-7. Copy your tar.gz containing your distro into the root of the project and rename it to `install.tar.gz`.
+7. Create one folder into the project's root for each architecture that you want your distro to be available (x64 and ARM64). Then copy your tar.gz containing your distro for the desired architecture into the corresponding folder and rename it to `install.tar.gz`. The structure is as follows:
+
+* <project root>
+  - x64
+    - install.tar.gz
+  - ARM64
+    - install.tar.gz
 
 ## Setting up your Windows Environment
 You will need a Windows environment to test that your app installs and works as expected. To set up a Windows environment for testing you can follow the steps from the [Windows Dev Center](https://developer.microsoft.com/en-us/windows/downloads/virtual-machines).
