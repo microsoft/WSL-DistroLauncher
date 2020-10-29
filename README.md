@@ -89,8 +89,7 @@ So, if I wanted to instead call my distro "TheBestDistroEver", I'd change this t
     1. Make sure each of the `Executable` values matches the executable name we picked in step 4.
 
 7. Create one folder into the project's root for each architecture that you want your distro to be available (x64 and ARM64). Then copy your tar.gz containing your distro for the desired architecture into the corresponding folder and rename it to `install.tar.gz`. The structure is as follows:
-
-* <project root>
+* < project root >
   - x64
     - install.tar.gz
   - ARM64
