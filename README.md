@@ -51,7 +51,7 @@ The distro launcher is comprised of two Visual Studio projects - `launcher` and 
 
 ## Getting Started
 1. Generate a test certificate:
-    1. In Visual Studio, open `DistroLauncher-Appx/MyDistro.appxmanifest`
+    1. In Visual Studio, open `DistroLauncher-Appx/CentOS7.appxmanifest`
     1. Select the Packaging tab
     1. Select "Choose Certificate"
     1. Click the Configure Certificate drop down and select Create test certificate.
@@ -62,14 +62,14 @@ The distro launcher is comprised of two Visual Studio projects - `launcher` and 
 3.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the Console window.
     > Note: The icon must be named `icon.ico`.
 
-4. Pick the name you'd like to make this distro callable from the command line. For the rest of the README, I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
+4. Pick the name you'd like to make this distro callable from the command line. For the rest of the README, I'll be using `CentOS7` or `CentOS7.exe`. **This is the name of your executable** and should be unique.
 
 5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 4. By default, the lines should look like:
 
 ``` xml
 <PropertyGroup Label="Globals">
   ...
-  <TargetName>mydistro</TargetName>
+  <TargetName>CentOS7</TargetName>
 </PropertyGroup>
 ```
 
@@ -83,9 +83,9 @@ So, if I wanted to instead call my distro "TheBestDistroEver", I'd change this t
 
 > Note: **DO NOT** change the ProjectName of the `DistroLauncher/DistroLauncher.vcxproj` from the value `launcher`. Doing so will break the build, as the DistroLauncher-Appx project is looking for the output of this project as `launcher.exe`.
 
-6.  Update `MyDistro.appxmanifest`. There are several properties that are in the manifest that will need to be updated with your specific values:
+6.  Update `CentOS7.appxmanifest`. There are several properties that are in the manifest that will need to be updated with your specific values:
     1. Note the `Identity Publisher` value (by default, `"CN=DistroOwner"`). We'll need that for testing the application.
-    1. Ensure `<desktop:ExecutionAlias Alias="mydistro.exe" />` ends in ".exe". This is the command that will be used to launch your distro from the command line and should match the executable name we picked in step 4.
+    1. Ensure `<desktop:ExecutionAlias Alias="CentOS7.exe" />` ends in ".exe". This is the command that will be used to launch your distro from the command line and should match the executable name we picked in step 4.
     1. Make sure each of the `Executable` values matches the executable name we picked in step 4.
 
 7. Copy your tar.gz containing your distro into the root of the project and rename it to `install.tar.gz`.
