@@ -145,16 +145,31 @@
     <Image Include="Assets\SplashScreen.scale-400.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\BadgeLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\BadgeLogo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="MyDistro.appxmanifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\ARM64\install.tar.gz" />
     <None Include="DistroLauncher-Appx_TemporaryKey.pfx" />
     <None Include="DistroLauncher-Appx_StoreKey.pfx" />
+    <None Include="..\x64\install.tar.gz" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="$(targetname)" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="CentOS7.appxmanifest" />
   </ItemGroup>
 </Project>
