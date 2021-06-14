@@ -1,0 +1,16 @@
+name: "build"
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup MSBuild (PATH)
+      id: setup_msbuild_path
+      uses: ./
+    - name: echo MSBuild
+      run: msbuild -version
+    - name: try build
+      run:  msbuild .\DistroLauncher.sln /t:Build /m /nr:false /p:Configuration=Release /p:AppxBundle=Always /p:AppxBundlePlatforms="x64|ARM64" /p:UapAppxPackageBuildMode=SideLoadOnly
