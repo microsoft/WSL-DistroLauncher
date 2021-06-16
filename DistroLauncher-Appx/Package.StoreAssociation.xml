@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<StoreAssociation xmlns="http://schemas.microsoft.com/appx/2010/storeassociation">
+  <Publisher>CN=23596F84-C3EA-4CD8-A7DF-550DCE37BCD0</Publisher>
+  <PublisherDisplayName>Canonical Group Limited</PublisherDisplayName>
+  <DeveloperAccountType>AAD</DeveloperAccountType>
+  <GeneratePackageHash>http://www.w3.org/2001/04/xmlenc#sha256</GeneratePackageHash>
+  <ProductReservedInfo>
+    <MainPackageIdentityName>CanonicalGroupLimited.{{.WslID}}</MainPackageIdentityName>
+  </ProductReservedInfo>
+</StoreAssociation>
