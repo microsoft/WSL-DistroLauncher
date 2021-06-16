@@ -17,7 +17,7 @@ bool DistributionInfo::CreateUser(std::wstring_view userName)
     }
 
     // Add the user account to any relevant groups.
-    commandLine = L"/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev ";
+    commandLine = L"/usr/sbin/usermod -aG adm,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev ";
     commandLine += userName;
     hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
     if ((FAILED(hr)) || (exitCode != 0)) {
@@ -30,6 +30,70 @@ bool DistributionInfo::CreateUser(std::wstring_view userName)
     }
 
     return true;
+}
+
+ULONG DistributionInfo::OOBE()
+{
+	ULONG uid = UID_INVALID;
+
+	// calling the oobe experience
+	DWORD exitCode;
+	std::wstring commandLine = L"/usr/bin/ubuntu-wsl-oobe";
+	HRESULT hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
+	if ((FAILED(hr)) || (exitCode != 0)) {
+		return uid;
+	}
+
+	hr = g_wslApi.WslLaunchInteractive(L"/usr/bin/clear", true, &exitCode);
+	if (FAILED(hr)) {
+		return uid;
+	}
+
+	// getting username from ouput
+	// Create a pipe to read the output of the launched process.
+	HANDLE readPipe;
+	HANDLE writePipe;
+	SECURITY_ATTRIBUTES sa{ sizeof(sa), nullptr, true };
+	if (CreatePipe(&readPipe, &writePipe, &sa, 0)) {
+		// Query the UID of the supplied username.
+		std::wstring command = L"cat /var/lib/ubuntu-wsl/assigned_account";
+		int returnValue = 0;
+		HANDLE child;
+		HRESULT hr = g_wslApi.WslLaunch(command.c_str(), true, GetStdHandle(STD_INPUT_HANDLE), writePipe, GetStdHandle(STD_ERROR_HANDLE), &child);
+		if (SUCCEEDED(hr)) {
+			// Wait for the child to exit and ensure process exited successfully.
+			WaitForSingleObject(child, INFINITE);
+			DWORD exitCode;
+			if ((GetExitCodeProcess(child, &exitCode) == false) || (exitCode != 0)) {
+				hr = E_INVALIDARG;
+			}
+
+			CloseHandle(child);
+			if (SUCCEEDED(hr)) {
+				char buffer[64];
+				DWORD bytesRead;
+
+				// Read the output of the command from the pipe and query UID
+				if (ReadFile(readPipe, buffer, (sizeof(buffer) - 1), &bytesRead, nullptr)) {
+					buffer[bytesRead] = ANSI_NULL;
+					try {
+						const size_t bfrSize = strlen(buffer) + 1;
+						wchar_t* wbuffer = new wchar_t[bfrSize];
+						size_t outSize;
+						mbstowcs_s(&outSize, wbuffer, bfrSize, buffer, bfrSize - 1);
+						std::wstring_view uname_bfr{ wbuffer, bfrSize };
+						uid = QueryUid(uname_bfr);
+					}
+					catch (...) {}
+				}
+			}
+		}
+
+		CloseHandle(readPipe);
+		CloseHandle(writePipe);
+	}
+
+	return uid;
 }
 
 ULONG DistributionInfo::QueryUid(std::wstring_view userName)
