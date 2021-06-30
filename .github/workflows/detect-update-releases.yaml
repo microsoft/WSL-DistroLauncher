@@ -1,0 +1,60 @@
+name: Update and create asset releases
+on:
+  push:
+    branches:
+      - '**' # Ignore tag push, but take any branch
+    paths:
+      - 'meta/images/*'
+      - 'DistroLauncher/DistributionInfo.h'
+      - 'DistroLauncher-Appx/*'
+      - '.github/workflows/detect-update-releases.yaml'
+      - 'build/get-all-releases/*'
+      - 'build/update-releases/*'
+  schedule:
+    - cron: '42 0 * * 6'
+
+env:
+  goversion: '1.16'
+
+jobs:
+  update-releases:
+    name: Update and create metadata and assets for releases
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:devel
+    steps:
+      - name: Install git and dependencies
+        run: |
+          export DEBIAN_FRONTEND=noninteractive
+          apt update
+          apt install -y python3-launchpadlib libmagickwand-dev git
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.goversion }}
+      - name: Fetch current available releases from launchpad
+        run: |
+          build/get-all-releases/lp-distro-info > /tmp/all-releases.csv
+          echo "Releases fetched from Launchpad"
+          cat  /tmp/all-releases.csv
+      - name: Update current metadata and asset for all releases
+        run: |
+          cd build/update-releases
+          go run main.go /tmp/all-releases.csv
+      - name: Add any changes to git
+        run: |
+          git add .
+      - name: Get destination branch for branch name
+        id: get-branch-name
+        shell: bash
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: Refreshes releases and assets
+          title: Refresh releases and assets
+          labels: automated pr
+          body: "[Auto-generated pull request](https://github.com/ubuntu/adsys/actions/workflows/detect-update-releases.yaml) by GitHub Action"
+          branch: auto-update-releases-${{ steps.get-branch-name.outputs.branch }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          delete-branch: true
