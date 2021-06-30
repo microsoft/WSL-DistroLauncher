@@ -1,0 +1,133 @@
+#!/usr/bin/python3
+
+"""
+#
+# This script returns a list of Ubuntu releases matching filters passed in argument
+#
+"""
+
+# Copyright: 2021, Canonical Ltd.
+
+# License: GPL-3
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License.
+#  .
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY;without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  .
+#  You should have received a copy of the GNU General Public License
+#  along with this program. If not, see <https://www.gnu.org/licenses/>.
+#  .
+#  On Debian systems, the complete text of the GNU General
+#  Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+import argparse
+import logging
+import sys
+from launchpadlib.launchpad import Launchpad
+from datetime import datetime
+
+DISTRIBUTION = "Ubuntu"
+
+
+def set_logging(debugmode=False):
+    """Initialize logging"""
+    logging.basicConfig(
+        level=logging.DEBUG if debugmode else logging.INFO,
+        format="%(asctime)s %(levelname)s %(message)s")
+    logging.debug("Debug mode enabled")
+
+
+def lpinit():
+    """Initialize the connection to LP"""
+    return Launchpad.login_anonymously('lpdistroinfo', 'production', version='devel')
+
+
+def releases(lpconn, args):
+    """returns the list of releases matching the filters in args"""
+    ubuntu = lpconn.distributions[DISTRIBUTION.lower()]
+
+    for serie in ubuntu.series:
+        date_created = serie.date_created.strftime("%Y-%m-%d")
+        date_released = ""
+        if serie.datereleased:
+            date_released = serie.datereleased.strftime("%Y-%m-%d")
+
+        milestone_id = "0"
+        milestone_date = ""
+        lts = ((int(serie.version.split('.')[0]) % 2 == 0) and serie.version.endswith('.04'))
+        description = "%s %s" % (DISTRIBUTION, serie.version)
+        if lts:
+            for milestone in serie.active_milestones:
+                if milestone.date_targeted and milestone.date_targeted > datetime.now():
+                    continue
+                m = milestone.name.split('-')[1]
+                if m != "updates":
+                    milestone_id = m.split('.')[2]
+                    description += ".%s" % milestone_id
+                    milestone_date = milestone.date_targeted.strftime("%Y-%m-%d")
+                    break
+
+            description += " LTS"
+
+        if not args.all:
+            if args.active and not serie.active:
+                continue
+            if args.supported and not serie.supported:
+                continue
+            if args.devel and not (serie.active and not serie.supported):
+                continue
+
+        if args.lts and not lts:
+            continue
+
+        yield (
+            serie.version,
+            milestone_id,
+            serie.name,
+            description,
+            serie.status,
+            str(serie.active),
+            str(serie.supported),
+            str(lts),
+            date_created,
+            date_released,
+            milestone_date)
+
+
+def main():
+    """Main routine"""
+    args = _parse_arguments()
+    set_logging(args.debug)
+    logging.debug("arguments: %s", args)
+
+    lpconn = lpinit()
+    for i in releases(lpconn, args):
+        print("\t".join(i))
+    return 0
+
+
+def _parse_arguments():
+    """Parse command-line args, returning an argparse dict."""
+
+    parser = argparse.ArgumentParser(description="Returns a list of releases")
+    parser.add_argument("-d", "--debug", action="store_true", default=False,
+                        help="enable debug mode")
+    parser.add_argument("-A", "--all", action="store_true", default=False,
+                        help="list all the releases")
+    parser.add_argument("-a", "--active", action="store_true", default=True,
+                        help="list all the active releases")
+    parser.add_argument("-s", "--supported", action="store_true", default=False,
+                        help="list all the supported releases")
+    parser.add_argument("-D", "--devel", action="store_true", default=False,
+                        help="list the development release only")
+    parser.add_argument("-l", "--lts", action="store_true", default=False,
+                        help="list the LTS releases")
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    sys.exit(main())
