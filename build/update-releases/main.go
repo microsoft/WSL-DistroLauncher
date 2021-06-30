@@ -312,8 +312,13 @@ func generateAssetsForRelease(r wslReleaseInfo, wslPath, metaPath, rootPath stri
 		// Reuse existing templates
 		mw, exists := mwTemplates[templateName]
 		if !exists {
+			pw := imagick.NewPixelWand()
+			pw.SetColor("none")
 			mw = imagick.NewMagickWand()
 			defer mw.Destroy()
+			if err := mw.SetBackgroundColor(pw); err != nil {
+				return err
+			}
 			if err := mw.ReadImageBlob(templateBuf.Bytes()); err != nil {
 				return err
 			}
@@ -368,7 +373,7 @@ func generateAssetsForRelease(r wslReleaseInfo, wslPath, metaPath, rootPath stri
 	}
 
 	_, err = imagick.ConvertImageCommand([]string{
-		"convert", src, "-resize", "256x256", "-define",
+		"convert", "-background", "none", src, "-resize", "256x256", "-define",
 		"icon:auto-resize=16,32,48,256",
 		dest,
 	})
