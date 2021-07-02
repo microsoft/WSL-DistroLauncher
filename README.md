@@ -62,6 +62,8 @@ The distro launcher is comprised of two Visual Studio projects - `launcher` and 
 3.  Add an icon (.ico) and logo (.png) to the `/images` directory. The logo will be used in the Start Menu and the taskbar for your launcher, and the icon will appear on the Console window.
     > Note: The icon must be named `icon.ico`.
 
+   Also update the files under `DistroLauncher-Appx/Assets` for the app. Visual Studio can help you manage [App icons and logos](https://docs.microsoft.com/en-us/windows/apps/design/style/app-icons-and-logos).
+
 4. Pick the name you'd like to make this distro callable from the command line. For the rest of the README, I'll be using `mydistro` or `mydistro.exe`. **This is the name of your executable** and should be unique.
 
 5. Make sure to change the name of the project in the `DistroLauncher-Appx/DistroLauncher-Appx.vcxproj` file to the name of your executable we picked in step 4. By default, the lines should look like:
