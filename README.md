@@ -3,11 +3,6 @@
 This is the C++ reference implementation for a Windows Subsystem for Linux (WSL) distribution installer/launcher application. Every distro package must include a launcher app, which is responsible for completing installation & registration of your distro with WSL, and for launching new distro instances atop WSL.
 
 Once you've built your distro launcher, packaged it along with the required art assets, manifest, and distro.tar.gz, and digitally signed the package, you will be able to sideload your distro on your own machine(s).
-  
-## Important! 
-Before publishing your distro to the Windows Store, you must first reach-out to and get approval from the WSL team: wslpartners@microsoft.com. 
-
-Without testing and approval from the WSL team, distros submitted to the store will be rejected. This process is required in order to ensure the quality and integrity of the WSL distro ecosystem, and to safeguard our users.
 
 ## Goals
 The goal of this project is to enable:
