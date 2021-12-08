@@ -161,7 +161,6 @@ int wmain(int argc, wchar_t const *argv[])
 
         } else if (hr == HRESULT_FROM_WIN32(HCS_E_HYPERV_NOT_INSTALLED)) {
             Helpers::PrintMessage(MSG_ENABLE_VIRTUALIZATION);
-            wprintf(L"Error result");
 
         } else {
             Helpers::PrintErrorMessage(hr);
