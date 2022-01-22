@@ -64,17 +64,29 @@ HRESULT SetDefaultUser(std::wstring_view userName)
         return E_INVALIDARG;
     }
 
-    HRESULT hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
-    if (FAILED(hr)) {
+    // Set the default user as root, so ChangeDefaultUserInWslConf chan make the change
+    HRESULT hr = g_wslApi.WslConfigureDistribution(0, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    if (FAILED(hr))
+    {
         return hr;
     }
 
-    DistributionInfo::ChangeDefaultUserInWslConf(userName);
+    hr = DistributionInfo::ChangeDefaultUserInWslConf(userName);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
+
+    hr = g_wslApi.WslConfigureDistribution(uid, WSL_DISTRIBUTION_FLAGS_DEFAULT);
+    if (FAILED(hr))
+    {
+        return hr;
+    }
 
     return hr;
 }
 
-int wmain(int argc, wchar_t const *argv[])
+int wmain(int argc, const wchar_t* argv[])
 {
     // Update the title bar of the console window.
     SetConsoleTitleW(DistributionInfo::WindowTitle.c_str());

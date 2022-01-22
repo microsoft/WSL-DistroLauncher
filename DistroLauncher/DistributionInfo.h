@@ -25,5 +25,5 @@ namespace DistributionInfo
     ULONG QueryUid(std::wstring_view userName);
 
     // Changes the default user in /etc/wsl.conf
-    void ChangeDefaultUserInWslConf(std::wstring_view userName);
+    HRESULT ChangeDefaultUserInWslConf(std::wstring_view userName);
 }
