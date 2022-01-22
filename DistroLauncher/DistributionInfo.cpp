@@ -5,8 +5,6 @@
 
 #include "stdafx.h"
 
-void RunProcess(LPWSTR cmdline);
-
 bool DistributionInfo::CreateUser(std::wstring_view userName)
 {
     // Create the user account.
