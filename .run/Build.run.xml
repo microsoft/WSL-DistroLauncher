@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Build" type="WasmPackCommandRunConfiguration" factoryName="wasm-pack" editBeforeRun="true" singleton="false" nameIsGenerated="true">
+    <option name="command" value="build" />
+    <option name="command" value="build" />
+    <method v="2">
+      <option name="WASM_PACK.BUILD_TASK_PROVIDER" enabled="true" />
+    </method>
+  </configuration>
+</component>
