@@ -76,3 +76,22 @@ ULONG DistributionInfo::QueryUid(std::wstring_view userName)
 
     return uid;
 }
+
+HRESULT DistributionInfo::ChangeDefaultUserInWslConf(const std::wstring_view userName)
+{
+    DWORD exitCode;
+    HRESULT hr;
+
+    wchar_t commandLine[255];
+    _swprintf_p(commandLine, _countof(commandLine),
+                L"if [ $(grep -c \"\\[user\\]\" /etc/wsl.conf) -eq \"0\" ]; then echo -e \"\\n[user]\\ndefault=%1$s\">>/etc/wsl.conf; else sed -i \"s/\\(default=\\)\\(.*\\)/\\1%1$s/\" /etc/wsl.conf ; fi",
+                std::wstring(userName).c_str());
+
+    hr = g_wslApi.WslLaunchInteractive(commandLine, true, &exitCode);
+    if (FAILED(hr) || exitCode != 0)
+    {
+        return hr;
+    }
+
+    return 0;
+}
