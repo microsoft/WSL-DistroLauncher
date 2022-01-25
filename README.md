@@ -138,11 +138,10 @@ Once complete, you should see a Console window with your distro running inside i
 If you are a distro vendor and want to publish  your distro to the Windows store, you will need to complete some pre-requisite steps to ensure the quality and integrity of the WSL distro ecosystem, and to safeguard our users:
 
 #### Publishing Pre-Requisites
-1. Reach out to the WSL team to introduce your distro, yourself, and your team
-1. Agree with the WSL team on a testing and publishing plan
-1. Complete any required paperwork
 1. Sign up for an "Company" Windows Developer Account https://developer.microsoft.com/en-us/store/register. 
     > Note: This can take a week or more since you'll be required to confirm your organization's identity with an independent verification service via email and/or telephone.
+1. Follow the guides to publish your distro as a UWP app: https://docs.microsoft.com/en-us/windows/uwp/publish/
+1. [Optional] Reach out to the WSL team at wslpartners@microsoft.com to introduce us to your distro!
 
 #### Publishing Code changes
 You'll also need to change a few small things in your project to prepare your distro for publishing to the Windows store
