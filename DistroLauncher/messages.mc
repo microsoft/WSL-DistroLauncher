@@ -78,12 +78,6 @@ Language=English
 Press any key to continue...
 .
 
-MessageId=1012 SymbolicName=MSG_MISSING_OPTIONAL_COMPONENT
-Language=English
-The Windows Subsystem for Linux optional component is not enabled. Please enable it and try again.
-See https://aka.ms/wslinstall for details.
-.
-
 MessageId=1013 SymbolicName=MSG_INSTALL_ALREADY_EXISTS
 Language=English
 The distribution installation has become corrupted.
