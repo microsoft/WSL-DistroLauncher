@@ -13,10 +13,10 @@ namespace DistributionInfo
     //
     // WARNING: This value must not change between versions of your app,
     // otherwise users upgrading from older versions will see launch failures.
-    const std::wstring Name = L"MyDistribution";
+    extern const std::wstring Name;
 
     // The title bar for the console window while the distribution is installing.
-    const std::wstring WindowTitle = L"My Distribution";
+    extern const std::wstring WindowTitle;
 
     // Create and configure a user account.
     bool CreateUser(std::wstring_view userName);
