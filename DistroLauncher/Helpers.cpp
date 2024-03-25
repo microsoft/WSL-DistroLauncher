@@ -20,7 +20,7 @@ std::wstring Helpers::GetUserInput(DWORD promptMsg, DWORD maxCharacters)
         input = inputBuffer.get();
     }
 
-    // Throw away any additional chracters that did not fit in the buffer.
+    // Throw away any additional characters that did not fit in the buffer.
     wchar_t wch;
     do {
         wch = getwchar();
