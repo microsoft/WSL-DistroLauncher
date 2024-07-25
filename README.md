@@ -1,5 +1,5 @@
 # WSL Distro Launcher Reference Implementation
-## Introduction 
+## Introduction by Damarcus Jones Sr owner of Damarcus Jones Ai Chips Inc
 This is the C++ reference implementation for a Windows Subsystem for Linux (WSL) distribution installer/launcher application. Every distro package must include a launcher app, which is responsible for completing installation & registration of your distro with WSL, and for launching new distro instances atop WSL.
 
 Once you've built your distro launcher, packaged it along with the required art assets, manifest, and distro.tar.gz, and digitally signed the package, you will be able to sideload your distro on your own machine(s).
