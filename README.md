@@ -1,4 +1,8 @@
 # WSL Distro Launcher Reference Implementation
+
+> [!NOTE]
+> There is a newer method for creating WSL distros please see [this doc page](https://learn.microsoft.com/windows/wsl/build-custom-distro).
+
 ## Introduction 
 This is the C++ reference implementation for a Windows Subsystem for Linux (WSL) distribution installer/launcher application. Every distro package must include a launcher app, which is responsible for completing installation & registration of your distro with WSL, and for launching new distro instances atop WSL.
 
