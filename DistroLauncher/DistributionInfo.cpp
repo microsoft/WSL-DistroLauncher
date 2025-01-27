@@ -4,6 +4,17 @@
 //
 
 #include "stdafx.h"
+#include "resource.h"
+
+static std::wstring_view LoadStringFromResource(UINT resId, std::wstring_view defaultStr)
+{
+    wchar_t* res;
+    int len = LoadStringW(GetModuleHandle(nullptr), resId, reinterpret_cast<LPWSTR>(&res), 0);
+    return len ? std::wstring_view(res, len) : defaultStr;
+}
+
+const std::wstring DistributionInfo::Name(LoadStringFromResource(IDS_DISTRO_NAME, L"MyDistribution"));
+const std::wstring DistributionInfo::WindowTitle(LoadStringFromResource(IDS_WINDOW_CAPTION, L"My Distribution"));
 
 bool DistributionInfo::CreateUser(std::wstring_view userName)
 {

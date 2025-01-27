@@ -3,6 +3,8 @@
 // Used by DistroInstaller.rc
 //
 #define IDI_ICON1                       101
+#define IDS_DISTRO_NAME                 150
+#define IDS_WINDOW_CAPTION              1024
 
 // Next default values for new objects
 // 
