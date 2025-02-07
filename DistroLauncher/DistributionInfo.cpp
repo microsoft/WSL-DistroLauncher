@@ -9,9 +9,18 @@ bool DistributionInfo::CreateUser(std::wstring_view userName)
 {
     // Create the user account.
     DWORD exitCode;
-    std::wstring commandLine = L"/usr/sbin/adduser --quiet --gecos '' ";
+    std::wstring commandLine = L"useradd -m -s $SHELL ";
     commandLine += userName;
+    commandLine = L"/bin/sh -c \"" + commandLine + L'"';
     HRESULT hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
+    if ((FAILED(hr)) || (exitCode != 0)) {
+        return false;
+    }
+
+    // Input password.
+    commandLine = L"/usr/bin/passwd ";
+    commandLine += userName;
+    hr = g_wslApi.WslLaunchInteractive(commandLine.c_str(), true, &exitCode);
     if ((FAILED(hr)) || (exitCode != 0)) {
         return false;
     }
