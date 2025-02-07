@@ -29,7 +29,7 @@ Usage:
         Launches the user's default shell in the user's home directory.
 
     install [--root]
-        Install the distribuiton and do not launch the shell when complete.
+        Install the distribution and do not launch the shell when complete.
           --root
               Do not create a user account and leave the default user set to root.
 
@@ -70,7 +70,7 @@ Enter new UNIX username: %0
 MessageId=1010 SymbolicName=MSG_CREATE_USER_PROMPT
 Language=English
 Please create a default UNIX user account. The username does not need to match your Windows username.
-For more information visit: https://aka.ms/wslusers
+For more information, visit: https://aka.ms/wslusers.
 .
 
 MessageId=1011 SymbolicName=MSG_PRESS_A_KEY
@@ -87,5 +87,5 @@ Please select Reset from App Settings or uninstall and reinstall the app.
 MessageId=1014 SymbolicName=MSG_ENABLE_VIRTUALIZATION
 Language=English
 Please enable the Virtual Machine Platform Windows feature and ensure virtualization is enabled in the BIOS.
-For information please visit https://aka.ms/enablevirtualization
+For information, please visit https://aka.ms/enablevirtualization.
 .
